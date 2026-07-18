@@ -1,0 +1,15 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Lint After Spec Task Completion",
+      "trigger": "PostTaskExec",
+      "description": "Spec 任务完成后自动运行 Ruff 检查确保交付质量",
+      "action": {
+        "type": "command",
+        "command": "ruff check --config pyproject.toml src/",
+        "timeout": 30
+      }
+    }
+  ]
+}

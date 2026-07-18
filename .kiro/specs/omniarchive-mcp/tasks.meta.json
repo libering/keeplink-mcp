@@ -1,0 +1,559 @@
+{
+  "pbtResults": {
+    "3.2 撰寫 URL Validator 的 property test": {
+      "status": "passed",
+      "lastRunTimestamp": 1784282740489
+    },
+    "4.2 撰寫 Error Classifier 的 property test": {
+      "status": "passed",
+      "lastRunTimestamp": 1784283246344
+    },
+    "6.2 撰寫 Worker backoff 計算的 property test": {
+      "status": "passed",
+      "lastRunTimestamp": 1784294900243
+    },
+    "7.4 撰寫 FastAPI 路由整合測試": {
+      "status": "passed",
+      "lastRunTimestamp": 1784297410155
+    },
+    "11.2 建立 `test/test_repository.py`": {
+      "status": "passed",
+      "lastRunTimestamp": 1784300656825
+    }
+  },
+  "executionHistory": {
+    "1.1 在 `ArchiveTask` model 中新增 `next_retry_at` 欄位": [
+      {
+        "executionId": "c6989f17-0425-4416-b891-d0f8fdbc44cc",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784264805702
+      },
+      {
+        "executionId": "c6989f17-0425-4416-b891-d0f8fdbc44cc",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784264840108
+      },
+      {
+        "executionId": "52ff9a4e-0357-4a8e-96a4-4a94fac5a753",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784265061454
+      },
+      {
+        "executionId": "52ff9a4e-0357-4a8e-96a4-4a94fac5a753",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784265096300
+      },
+      {
+        "executionId": "52ff9a4e-0357-4a8e-96a4-4a94fac5a753",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784280740513
+      }
+    ],
+    "1.2 在 `TaskRepository` 中新增 `find_recent_task` 去重查詢方法": [
+      {
+        "executionId": "c6989f17-0425-4416-b891-d0f8fdbc44cc",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784264811344
+      },
+      {
+        "executionId": "52ff9a4e-0357-4a8e-96a4-4a94fac5a753",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784265061516
+      },
+      {
+        "executionId": "52ff9a4e-0357-4a8e-96a4-4a94fac5a753",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784280822779
+      }
+    ],
+    "1.3 更新 `fetch_pending_tasks` 加入 `next_retry_at` 過濾條件": [
+      {
+        "executionId": "c6989f17-0425-4416-b891-d0f8fdbc44cc",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784264811497
+      },
+      {
+        "executionId": "52ff9a4e-0357-4a8e-96a4-4a94fac5a753",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784265061573
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784281661097
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784281810694
+      }
+    ],
+    "1.4 更新 `schedule_retry` 方法加入 `next_retry_at` 參數": [
+      {
+        "executionId": "c6989f17-0425-4416-b891-d0f8fdbc44cc",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784264811589
+      },
+      {
+        "executionId": "52ff9a4e-0357-4a8e-96a4-4a94fac5a753",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784265061636
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784281817979
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784281911746
+      }
+    ],
+    "2.1 在 `Config` dataclass 中新增 `worker_concurrency` 欄位": [
+      {
+        "executionId": "c6989f17-0425-4416-b891-d0f8fdbc44cc",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784264811690
+      },
+      {
+        "executionId": "52ff9a4e-0357-4a8e-96a4-4a94fac5a753",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784265061705
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784281935236
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784282078686
+      }
+    ],
+    "3.1 建立 `src/omniarchive_mcp/mcp_server/url_validator.py`": [
+      {
+        "executionId": "c6989f17-0425-4416-b891-d0f8fdbc44cc",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784264811771
+      },
+      {
+        "executionId": "52ff9a4e-0357-4a8e-96a4-4a94fac5a753",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784265067402
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784282094673
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784282302964
+      }
+    ],
+    "4.1 建立 `src/omniarchive_mcp/worker/error_classifier.py`": [
+      {
+        "executionId": "c6989f17-0425-4416-b891-d0f8fdbc44cc",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784264811859
+      },
+      {
+        "executionId": "52ff9a4e-0357-4a8e-96a4-4a94fac5a753",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784265067458
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784282782686
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784283001003
+      }
+    ],
+    "5. Checkpoint": [
+      {
+        "executionId": "c6989f17-0425-4416-b891-d0f8fdbc44cc",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784264811962
+      },
+      {
+        "executionId": "52ff9a4e-0357-4a8e-96a4-4a94fac5a753",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784265067523
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784283302714
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784283507300
+      }
+    ],
+    "6.1 建立 `src/omniarchive_mcp/worker/archiver.py`": [
+      {
+        "executionId": "c6989f17-0425-4416-b891-d0f8fdbc44cc",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784264812040
+      },
+      {
+        "executionId": "52ff9a4e-0357-4a8e-96a4-4a94fac5a753",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784265067597
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784283515991
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784294407957
+      }
+    ],
+    "7.1 建立 `src/omniarchive_mcp/api/schemas.py`": [
+      {
+        "executionId": "c6989f17-0425-4416-b891-d0f8fdbc44cc",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784264812131
+      },
+      {
+        "executionId": "52ff9a4e-0357-4a8e-96a4-4a94fac5a753",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784265067669
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784295658247
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784295885865
+      }
+    ],
+    "7.2 建立 `src/omniarchive_mcp/api/routes.py`": [
+      {
+        "executionId": "c6989f17-0425-4416-b891-d0f8fdbc44cc",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784264812208
+      },
+      {
+        "executionId": "52ff9a4e-0357-4a8e-96a4-4a94fac5a753",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784265067723
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784295905012
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784296324904
+      }
+    ],
+    "7.3 建立 `src/omniarchive_mcp/api/app.py`": [
+      {
+        "executionId": "c6989f17-0425-4416-b891-d0f8fdbc44cc",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784264812322
+      },
+      {
+        "executionId": "52ff9a4e-0357-4a8e-96a4-4a94fac5a753",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784265067781
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784296342639
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784296590646
+      }
+    ],
+    "8. Checkpoint": [
+      {
+        "executionId": "c6989f17-0425-4416-b891-d0f8fdbc44cc",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784264812424
+      },
+      {
+        "executionId": "52ff9a4e-0357-4a8e-96a4-4a94fac5a753",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784265067848
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784297574224
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784297960826
+      }
+    ],
+    "9.1 建立 `src/omniarchive_mcp/mcp_server/server.py`": [
+      {
+        "executionId": "c6989f17-0425-4416-b891-d0f8fdbc44cc",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784264812529
+      },
+      {
+        "executionId": "52ff9a4e-0357-4a8e-96a4-4a94fac5a753",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784265067912
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784297979325
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784298964749
+      }
+    ],
+    "9.2 建立 `src/omniarchive_mcp/mcp_server/main.py`": [
+      {
+        "executionId": "c6989f17-0425-4416-b891-d0f8fdbc44cc",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784264812618
+      },
+      {
+        "executionId": "52ff9a4e-0357-4a8e-96a4-4a94fac5a753",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784265068060
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784298981900
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784299341068
+      }
+    ],
+    "10.1 建立 `src/omniarchive_mcp/main.py`": [
+      {
+        "executionId": "c6989f17-0425-4416-b891-d0f8fdbc44cc",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784264812774
+      },
+      {
+        "executionId": "52ff9a4e-0357-4a8e-96a4-4a94fac5a753",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784265068137
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784299657521
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784300111377
+      }
+    ],
+    "12. Final Checkpoint": [
+      {
+        "executionId": "c6989f17-0425-4416-b891-d0f8fdbc44cc",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784264812872
+      },
+      {
+        "executionId": "52ff9a4e-0357-4a8e-96a4-4a94fac5a753",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784265068190
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784300703261
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784300859426
+      }
+    ],
+    "1. 更新 DB Model 與 Repository": [
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784281911814
+      }
+    ],
+    "2. 更新 Config": [
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784282078739
+      }
+    ],
+    "3.2 撰寫 URL Validator 的 property test": [
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784282320109
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784282773135
+      }
+    ],
+    "3. 實作 URL Validator": [
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784282773191
+      }
+    ],
+    "4.2 撰寫 Error Classifier 的 property test": [
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784283010318
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784283293977
+      }
+    ],
+    "4. 實作 Error Classifier": [
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784283294052
+      }
+    ],
+    "6.2 撰寫 Worker backoff 計算的 property test": [
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784294423728
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784294929073
+      }
+    ],
+    "6.3 撰寫 Worker 整合測試": [
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784294942197
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784295623533
+      }
+    ],
+    "6. 實作 Background Worker": [
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784295623925
+      }
+    ],
+    "7.4 撰寫 FastAPI 路由整合測試": [
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784296607475
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784297556146
+      }
+    ],
+    "7. 實作 FastAPI API 層": [
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784297556493
+      }
+    ],
+    "9.3 撰寫 MCP Server 整合測試": [
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784299351001
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784299647360
+      }
+    ],
+    "9. 實作 MCP Server": [
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784299647453
+      }
+    ],
+    "10. 實作主進程入口點": [
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784300111515
+      }
+    ],
+    "11.1 建立 `test/conftest.py`": [
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784300142191
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784300152252
+      }
+    ],
+    "11.2 建立 `test/test_repository.py`": [
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784300161969
+      },
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784300692275
+      }
+    ],
+    "11. 撰寫 Repository 測試與 conftest": [
+      {
+        "executionId": "251e99fa-58d1-4134-9538-9701fda71c73",
+        "chatSessionId": "sess_f67090d3-84fb-42a3-94c0-59d9e3e0884e",
+        "timestamp": 1784300692348
+      }
+    ]
+  }
+}

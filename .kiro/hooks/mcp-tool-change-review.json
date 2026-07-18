@@ -1,0 +1,15 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "MCP Tool Definition Change Review",
+      "trigger": "PostFileSave",
+      "description": "修改 MCP tool 定义文件时提醒检查 schema 兼容性",
+      "matcher": "mcp_server",
+      "action": {
+        "type": "agent",
+        "prompt": "MCP Server 层文件已修改。请检查：1) Tool 的参数 schema 是否与项目文档/注释一致；2) 是否引入了 breaking change（参数改名、移除、类型变更）；3) 返回值结构是否保持向后兼容。如有不一致请立即提醒用户。"
+      }
+    }
+  ]
+}

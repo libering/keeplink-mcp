@@ -1,0 +1,15 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "DB Model Migration Reminder",
+      "trigger": "PostFileSave",
+      "description": "修改数据库模型后提醒考虑 SQLite 迁移策略",
+      "matcher": "models\\.py$",
+      "action": {
+        "type": "agent",
+        "prompt": "ORM 模型文件已修改。提醒：1) SQLite 不支持完整的 ALTER TABLE，新增列需要考虑默认值策略；2) 如果修改了现有列类型或约束，可能需要重建表；3) 请确认是否需要编写数据迁移脚本或在 session.py 中处理 schema 初始化逻辑。"
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "New Module Structure Guide",
+      "trigger": "PostFileCreate",
+      "description": "在 src 目录下创建新文件时提醒遵循项目模块结构规范",
+      "matcher": "src[/\\\\]",
+      "action": {
+        "type": "agent",
+        "prompt": "新文件已在 src/ 下创建。请确保：1) 如果是新子包，必须包含 __init__.py 并遵循现有导出模式；2) 文件开头需有模块级 docstring 说明职责；3) 遵循现有命名规范（小写下划线）；4) 新模块应保持单一职责，不超过 500 行。"
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Config Security Audit",
+      "trigger": "PreToolUse",
+      "description": "修改配置相关文件时审计是否有硬编码密钥或不安全默认值",
+      "matcher": "fs_write|str_replace",
+      "action": {
+        "type": "agent",
+        "prompt": "即将修改文件。如果目标是 config.py 或包含配置/密钥的文件，请检查：1) 不得硬编码任何密钥或凭据，必须通过环境变量读取；2) 默认值不能包含真实的 API key；3) 敏感配置项应有注释说明安全要求。如果不涉及配置文件则正常继续。"
+      }
+    }
+  ]
+}

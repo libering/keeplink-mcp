@@ -1,0 +1,45 @@
+{
+  "name": "omniarchive-mcp",
+  "description": "Non-blocking web page archiving for AI Agents via the Internet Archive.",
+  "version": "1.0.0",
+  "author": "OmniArchive Contributors",
+  "license": "MIT",
+  "repository": "https://github.com/omniarchive/omniarchive-mcp",
+  "install": "pip install omniarchive-mcp",
+  "runtime": "python",
+  "transport": "stdio",
+  "command": "omniarchive-mcp-server",
+  "tools": [
+    {
+      "name": "archive_url",
+      "description": "Submit a URL for archiving to the Internet Archive. Returns immediately with a task_id.",
+      "parameters": {
+        "url": {
+          "type": "string",
+          "required": true,
+          "description": "The URL to archive (http/https only)"
+        }
+      }
+    },
+    {
+      "name": "get_archive_status",
+      "description": "Check the status of an archive task by task_id or URL.",
+      "parameters": {
+        "task_id": {
+          "type": "string",
+          "required": false,
+          "description": "Task ID returned by archive_url"
+        },
+        "url": {
+          "type": "string",
+          "required": false,
+          "description": "URL to look up the most recent task for"
+        }
+      }
+    }
+  ],
+  "prerequisites": {
+    "note": "The FastAPI backend service must be running: python -m omniarchive_mcp.main"
+  },
+  "tags": ["internet-archive", "wayback-machine", "archiving", "async", "queue"]
+}

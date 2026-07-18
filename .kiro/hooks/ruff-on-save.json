@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Ruff Check on Python Save",
+      "trigger": "PostFileSave",
+      "description": "保存 Python 文件后自动运行 Ruff 检查，确保代码风格一致",
+      "matcher": "\\.py$",
+      "action": {
+        "type": "command",
+        "command": "ruff check --config pyproject.toml src/",
+        "timeout": 30
+      }
+    }
+  ]
+}
