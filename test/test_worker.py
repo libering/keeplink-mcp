@@ -1,6 +1,6 @@
 """Integration tests for BackgroundWorker complete flow.
 
-# Feature: omniarchive-mcp
+# Feature: keeplink-mcp
 
 Tests cover:
 1. Success flow: mock SPN2 returns archive_url → task transitions pending → processing → success
@@ -21,10 +21,10 @@ from unittest.mock import AsyncMock, patch
 import httpx
 from sqlalchemy.orm import sessionmaker
 
-from omniarchive_mcp.config import Config
-from omniarchive_mcp.db.models import ArchiveTask, TaskStatus
-from omniarchive_mcp.db.repository import TaskRepository
-from omniarchive_mcp.worker.archiver import BackgroundWorker
+from keeplink_mcp.config import Config
+from keeplink_mcp.db.models import ArchiveTask, TaskStatus
+from keeplink_mcp.db.repository import TaskRepository
+from keeplink_mcp.worker.archiver import BackgroundWorker
 
 # ---------------------------------------------------------------------------
 # Helpers

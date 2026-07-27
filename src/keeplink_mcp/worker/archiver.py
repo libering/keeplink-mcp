@@ -16,17 +16,17 @@ from typing import TYPE_CHECKING
 
 import waybackpy
 
-from omniarchive_mcp.worker.error_classifier import ErrorCategory, classify_error
+from keeplink_mcp.worker.error_classifier import ErrorCategory, classify_error
 
 if TYPE_CHECKING:
     from sqlalchemy.orm import sessionmaker
 
-    from omniarchive_mcp.config import Config
-    from omniarchive_mcp.db.models import ArchiveTask
+    from keeplink_mcp.config import Config
+    from keeplink_mcp.db.models import ArchiveTask
 
 
 # Default user-agent for Wayback Machine SPN2 API requests.
-_USER_AGENT = "OmniArchive-MCP/1.0 (https://github.com/omniarchive-mcp)"
+_USER_AGENT = "KeepLink-MCP/1.0 (https://github.com/keeplink/keeplink-mcp)"
 
 
 class BackgroundWorker:
@@ -82,7 +82,7 @@ class BackgroundWorker:
 
     async def _poll_and_process(self) -> None:
         """Single poll cycle: fetch pending tasks and process them concurrently."""
-        from omniarchive_mcp.db.repository import TaskRepository
+        from keeplink_mcp.db.repository import TaskRepository
 
         async with self._session_factory() as session:
             repo = TaskRepository(session)
@@ -108,7 +108,7 @@ class BackgroundWorker:
         Flow: mark_processing → call SPN2 → success/retry/fail based on result.
         All exceptions are caught to guarantee the worker never crashes.
         """
-        from omniarchive_mcp.db.repository import TaskRepository
+        from keeplink_mcp.db.repository import TaskRepository
 
         async with self._session_factory() as session:
             repo = TaskRepository(session)
@@ -139,7 +139,7 @@ class BackgroundWorker:
 
     async def _handle_success(self, task: ArchiveTask, archive_url: str) -> None:
         """Mark task as successfully archived."""
-        from omniarchive_mcp.db.repository import TaskRepository
+        from keeplink_mcp.db.repository import TaskRepository
 
         async with self._session_factory() as session:
             repo = TaskRepository(session)
@@ -161,7 +161,7 @@ class BackgroundWorker:
         Retry logic: if the error is retryable AND retry_count < max_retry_count,
         schedule a retry with exponential backoff. Otherwise, mark permanently failed.
         """
-        from omniarchive_mcp.db.repository import TaskRepository
+        from keeplink_mcp.db.repository import TaskRepository
 
         # Extract HTTP status code from httpx-based exceptions if available.
         status_code = _extract_status_code(exc)

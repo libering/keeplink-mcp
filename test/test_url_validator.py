@@ -1,4 +1,4 @@
-# Feature: omniarchive-mcp
+# Feature: keeplink-mcp
 """URL Validator property tests and unit tests.
 
 Uses hypothesis for property-based testing to verify universal correctness
@@ -10,7 +10,7 @@ import pytest
 from hypothesis import given, settings
 from hypothesis import strategies as st
 
-from omniarchive_mcp.mcp_server.url_validator import ValidationError, validate_url
+from keeplink_mcp.mcp_server.url_validator import ValidationError, validate_url
 
 # ---------------------------------------------------------------------------
 # Strategies — smart generators that constrain to realistic input spaces

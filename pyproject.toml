@@ -1,10 +1,10 @@
 [project]
-name = "omniarchive-mcp"
+name = "keeplink-mcp"
 version = "1.0.0"
 description = "Async MCP middleware for archiving web pages to the Internet Archive without blocking AI reasoning loops."
 requires-python = ">=3.10"
 license = { text = "MIT" }
-authors = [{ name = "OmniArchive Contributors" }]
+authors = [{ name = "KeepLink Contributors" }]
 keywords = ["mcp", "internet-archive", "wayback-machine", "ai-agent", "async"]
 readme = "README.md"
 classifiers = [
@@ -43,14 +43,14 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/omniarchive/omniarchive-mcp"
-Repository = "https://github.com/omniarchive/omniarchive-mcp"
-Issues = "https://github.com/omniarchive/omniarchive-mcp/issues"
-Documentation = "https://github.com/omniarchive/omniarchive-mcp#readme"
+Homepage = "https://github.com/keeplink/keeplink-mcp"
+Repository = "https://github.com/keeplink/keeplink-mcp"
+Issues = "https://github.com/keeplink/keeplink-mcp/issues"
+Documentation = "https://github.com/keeplink/keeplink-mcp#readme"
 
 [project.scripts]
-omniarchive = "omniarchive_mcp.main:main"
-omniarchive-mcp-server = "omniarchive_mcp.mcp_server.main:main"
+keeplink = "keeplink_mcp.main:main"
+keeplink-mcp-server = "keeplink_mcp.mcp_server.main:main"
 
 [build-system]
 requires = ["hatchling"]
@@ -68,4 +68,4 @@ target-version = "py310"
 select = ["E", "F", "I", "N", "W", "UP"]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/omniarchive_mcp"]
+packages = ["src/keeplink_mcp"]

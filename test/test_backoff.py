@@ -1,4 +1,4 @@
-# Feature: omniarchive-mcp
+# Feature: keeplink-mcp
 """Property-based and unit tests for BackgroundWorker exponential backoff calculation.
 
 Validates: Requirements 7.2
@@ -13,8 +13,8 @@ from unittest.mock import MagicMock
 from hypothesis import given, settings
 from hypothesis import strategies as st
 
-from omniarchive_mcp.config import Config
-from omniarchive_mcp.worker.archiver import BackgroundWorker
+from keeplink_mcp.config import Config
+from keeplink_mcp.worker.archiver import BackgroundWorker
 
 
 def _make_worker(base_backoff_sec: float = 60.0) -> BackgroundWorker:

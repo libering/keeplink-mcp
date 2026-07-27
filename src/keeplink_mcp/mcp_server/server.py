@@ -13,8 +13,8 @@ import httpx
 from mcp.server import Server
 from mcp.types import TextContent, Tool
 
-from omniarchive_mcp.config import Config
-from omniarchive_mcp.mcp_server.url_validator import ValidationError, validate_url
+from keeplink_mcp.config import Config
+from keeplink_mcp.mcp_server.url_validator import ValidationError, validate_url
 
 logger = logging.getLogger(__name__)
 
@@ -33,7 +33,7 @@ def create_mcp_server(config: Config) -> Server:
     Returns:
         Configured MCP Server instance ready to be connected to a transport.
     """
-    server = Server("omniarchive-mcp")
+    server = Server("keeplink-mcp")
     base_url = _build_base_url(config)
 
     @server.list_tools()

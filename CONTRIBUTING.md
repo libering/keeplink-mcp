@@ -13,7 +13,7 @@ This project has some non-negotiable design decisions. Please don't send PRs tha
 
 ```bash
 git clone <this repo>
-cd omniarchive-mcp
+cd KeepLink-MCP
 python -m venv .venv
 .venv\Scripts\activate   # Windows
 source .venv/bin/activate # Unix

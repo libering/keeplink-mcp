@@ -6,7 +6,7 @@ from sqlalchemy import event
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 
-from omniarchive_mcp.db.models import Base
+from keeplink_mcp.db.models import Base
 
 
 def _enable_wal(dbapi_conn, connection_record) -> None:  # noqa: N802

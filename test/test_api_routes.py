@@ -1,6 +1,6 @@
 """Integration tests for FastAPI route handlers.
 
-# Feature: omniarchive-mcp
+# Feature: keeplink-mcp
 
 Tests cover:
 - POST /api/archive: normal creation, dedup hit, failed retry, URL validation
@@ -15,8 +15,8 @@ from httpx import ASGITransport, AsyncClient
 from hypothesis import HealthCheck, given, settings
 from hypothesis import strategies as st
 
-from omniarchive_mcp.api.app import create_app
-from omniarchive_mcp.db.models import ArchiveTask, TaskStatus
+from keeplink_mcp.api.app import create_app
+from keeplink_mcp.db.models import ArchiveTask, TaskStatus
 
 
 @pytest.fixture

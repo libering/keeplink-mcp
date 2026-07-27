@@ -1,6 +1,6 @@
 """Integration tests for MCP Server tool handlers.
 
-# Feature: omniarchive-mcp
+# Feature: keeplink-mcp
 
 Tests the _handle_archive_url and _handle_get_archive_status handlers
 by mocking the internal FastAPI HTTP calls with respx.
@@ -11,7 +11,7 @@ import json
 import httpx
 import respx
 
-from omniarchive_mcp.mcp_server.server import (
+from keeplink_mcp.mcp_server.server import (
     _handle_archive_url,
     _handle_get_archive_status,
 )

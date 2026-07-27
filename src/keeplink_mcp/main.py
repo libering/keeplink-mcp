@@ -17,10 +17,10 @@ from contextlib import asynccontextmanager
 import uvicorn
 from fastapi import FastAPI
 
-from omniarchive_mcp.config import load_config
-from omniarchive_mcp.db.session import build_engine, build_session_factory, init_db
-from omniarchive_mcp.logging_setup import setup_logging
-from omniarchive_mcp.worker.archiver import BackgroundWorker
+from keeplink_mcp.config import load_config
+from keeplink_mcp.db.session import build_engine, build_session_factory, init_db
+from keeplink_mcp.logging_setup import setup_logging
+from keeplink_mcp.worker.archiver import BackgroundWorker
 
 
 def main() -> None:
@@ -48,7 +48,7 @@ def main() -> None:
     app = _build_app_with_lifespan(session_factory, worker, logger)
 
     logger.info(
-        "OmniArchive MCP Service starting on %s:%d, db=%s",
+        "KeepLink MCP Service starting on %s:%d, db=%s",
         config.api_host,
         config.api_port,
         config.db_path,
@@ -80,7 +80,7 @@ def _build_app_with_lifespan(
     logger: logging.Logger,
 ) -> FastAPI:
     """Create the FastAPI app with a lifespan that manages the background worker."""
-    from omniarchive_mcp.api.app import create_app
+    from keeplink_mcp.api.app import create_app
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):

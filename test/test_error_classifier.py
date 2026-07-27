@@ -1,4 +1,4 @@
-# Feature: omniarchive-mcp
+# Feature: keeplink-mcp
 """Property-based and unit tests for the Error Classifier module.
 
 Validates: Requirements 8.1, 8.2, 8.3, 8.4, 8.5
@@ -11,7 +11,7 @@ import pytest
 from hypothesis import given, settings
 from hypothesis import strategies as st
 
-from omniarchive_mcp.worker.error_classifier import (
+from keeplink_mcp.worker.error_classifier import (
     ErrorCategory,
     classify_error,
 )
@@ -56,7 +56,6 @@ class TestProperty3ErrorClassificationCompleteness:
     @settings(max_examples=100)
     def test_retryable_exceptions_always_retryable(self, exc_type: type[Exception]) -> None:
         """Any retryable exception type is classified as RETRYABLE."""
-        # Construct a minimal exception instance.
         exc = exc_type("simulated failure")
         result = classify_error(exception=exc)
         assert result == ErrorCategory.RETRYABLE

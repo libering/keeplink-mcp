@@ -1,14 +1,14 @@
 {
-  "name": "omniarchive-mcp",
+  "name": "keeplink-mcp",
   "description": "Non-blocking web page archiving for AI Agents via the Internet Archive.",
   "version": "1.0.0",
-  "author": "OmniArchive Contributors",
+  "author": "KeepLink Contributors",
   "license": "MIT",
-  "repository": "https://github.com/omniarchive/omniarchive-mcp",
-  "install": "pip install omniarchive-mcp",
+  "repository": "https://github.com/keeplink/keeplink-mcp",
+  "install": "pip install keeplink-mcp",
   "runtime": "python",
   "transport": "stdio",
-  "command": "omniarchive-mcp-server",
+  "command": "keeplink-mcp-server",
   "tools": [
     {
       "name": "archive_url",
@@ -39,7 +39,7 @@
     }
   ],
   "prerequisites": {
-    "note": "The FastAPI backend service must be running: python -m omniarchive_mcp.main"
+    "note": "The FastAPI backend service must be running: python -m keeplink_mcp.main"
   },
   "tags": ["internet-archive", "wayback-machine", "archiving", "async", "queue"]
 }

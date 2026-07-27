@@ -1,4 +1,4 @@
-# OmniArchive-MCP 項目交接手冊
+# KeepLink-MCP 項目交接手冊
 
 > 最後更新：2026-07-18 | 版本：v1.0.0
 
@@ -8,7 +8,7 @@
 
 ### 一句話定位
 
-OmniArchive-MCP 是一個本地非同步中介軟體，讓 AI Agent 能在不阻塞推理迴圈的情況下將網頁存檔至 Internet Archive。
+KeepLink-MCP 是一個本地非同步中介軟體，讓 AI Agent 能在不阻塞推理迴圈的情況下將網頁存檔至 Internet Archive。
 
 ### 核心問題
 
@@ -99,7 +99,7 @@ AI 代理在深度研究過程中需要保全網頁證據，但 Internet Archive
 ## 4. 模組地圖
 
 ```
-src/omniarchive_mcp/
+src/KeepLink_mcp/
 ├── __init__.py              # 版本號定義
 ├── config.py                # 組態管理：環境變數讀取 + 預設值
 ├── logging_setup.py         # 結構化日誌：stdout + file 雙輸出
@@ -146,10 +146,10 @@ Background Worker (polling loop):
 
 ```bash
 # 主服務（FastAPI + Worker）
-python -m omniarchive_mcp.main
+python -m KeepLink_mcp.main
 
 # MCP Server（由 AI Client 自動管理，通常不需手動啟動）
-python -m omniarchive_mcp.mcp_server.main
+python -m KeepLink_mcp.mcp_server.main
 ```
 
 ### 停止服務
@@ -161,17 +161,17 @@ python -m omniarchive_mcp.mcp_server.main
 
 | 變數 | 預設值 | 說明 |
 |------|--------|------|
-| OMNIARCHIVE_API_HOST | 127.0.0.1 | 綁定地址 |
-| OMNIARCHIVE_API_PORT | 19210 | 綁定端口 |
-| OMNIARCHIVE_DB_PATH | ./data/task.db | SQLite 路徑 |
-| OMNIARCHIVE_MAX_RETRIES | 5 | 最大重試次數 |
-| OMNIARCHIVE_BASE_BACKOFF | 60.0 | 基礎退避秒數 |
-| OMNIARCHIVE_WORKER_CONCURRENCY | 1 | 每輪處理任務數 |
-| OMNIARCHIVE_POLL_INTERVAL | 5.0 | 輪詢間隔秒數 |
-| OMNIARCHIVE_IA_ACCESS_KEY | — | IA S3 Access Key |
-| OMNIARCHIVE_IA_SECRET_KEY | — | IA S3 Secret Key |
-| OMNIARCHIVE_LOG_LEVEL | INFO | 日誌等級 |
-| OMNIARCHIVE_LOG_FILE | ./data/archiver.log | 日誌文件路徑 |
+| KeepLink_API_HOST | 127.0.0.1 | 綁定地址 |
+| KeepLink_API_PORT | 19210 | 綁定端口 |
+| KeepLink_DB_PATH | ./data/task.db | SQLite 路徑 |
+| KeepLink_MAX_RETRIES | 5 | 最大重試次數 |
+| KeepLink_BASE_BACKOFF | 60.0 | 基礎退避秒數 |
+| KeepLink_WORKER_CONCURRENCY | 1 | 每輪處理任務數 |
+| KeepLink_POLL_INTERVAL | 5.0 | 輪詢間隔秒數 |
+| KeepLink_IA_ACCESS_KEY | — | IA S3 Access Key |
+| KeepLink_IA_SECRET_KEY | — | IA S3 Secret Key |
+| KeepLink_LOG_LEVEL | INFO | 日誌等級 |
+| KeepLink_LOG_FILE | ./data/archiver.log | 日誌文件路徑 |
 
 ### 日誌查看
 
@@ -221,7 +221,7 @@ for row in conn.execute(\"SELECT task_id, url, error_message FROM archive_tasks 
 
 ```bash
 git clone <repo>
-cd omniarchive-mcp
+cd KeepLink-MCP
 python -m venv .venv
 .venv\Scripts\activate  # Windows
 pip install -e ".[dev]"

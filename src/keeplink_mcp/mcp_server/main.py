@@ -10,9 +10,9 @@ import asyncio
 
 from mcp.server.stdio import stdio_server
 
-from omniarchive_mcp.config import load_config
-from omniarchive_mcp.logging_setup import setup_logging
-from omniarchive_mcp.mcp_server.server import create_mcp_server
+from keeplink_mcp.config import load_config
+from keeplink_mcp.logging_setup import setup_logging
+from keeplink_mcp.mcp_server.server import create_mcp_server
 
 
 async def _run() -> None:

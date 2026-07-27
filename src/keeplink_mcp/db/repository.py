@@ -9,7 +9,7 @@ from datetime import datetime, timedelta, timezone
 from sqlalchemy import or_, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from omniarchive_mcp.db.models import ArchiveTask, TaskStatus
+from keeplink_mcp.db.models import ArchiveTask, TaskStatus
 
 
 class TaskRepository:

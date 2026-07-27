@@ -15,14 +15,14 @@ from fastapi import APIRouter, Depends, Query, Response
 from fastapi.responses import JSONResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from omniarchive_mcp.api.schemas import (
+from keeplink_mcp.api.schemas import (
     ArchiveRequest,
     ArchiveResponse,
     ErrorResponse,
     TaskStatusResponse,
 )
-from omniarchive_mcp.db.repository import TaskRepository
-from omniarchive_mcp.mcp_server.url_validator import ValidationError, validate_url
+from keeplink_mcp.db.repository import TaskRepository
+from keeplink_mcp.mcp_server.url_validator import ValidationError, validate_url
 
 router = APIRouter(prefix="/api")
 

@@ -1,4 +1,4 @@
-"""FastAPI application factory for OmniArchive MCP internal API.
+"""FastAPI application factory for KeepLink MCP internal API.
 
 Provides a factory function that assembles the FastAPI application with
 all dependencies injected. The app is designed for localhost-only access
@@ -10,7 +10,7 @@ Corresponds to Requirement 10.6.
 from fastapi import FastAPI
 from sqlalchemy.ext.asyncio import async_sessionmaker
 
-from omniarchive_mcp.api.routes import router, set_session_factory
+from keeplink_mcp.api.routes import router, set_session_factory
 
 
 def create_app(session_factory: async_sessionmaker) -> FastAPI:
@@ -28,7 +28,7 @@ def create_app(session_factory: async_sessionmaker) -> FastAPI:
     Returns:
         A fully configured FastAPI application ready to be served.
     """
-    app = FastAPI(title="OmniArchive MCP", version="1.0.0")
+    app = FastAPI(title="KeepLink MCP", version="1.0.0")
 
     # Inject DB session factory into the route module's dependency system
     set_session_factory(session_factory)

@@ -1,6 +1,6 @@
 """Unit tests and property-based tests for TaskRepository.
 
-# Feature: omniarchive-mcp
+# Feature: keeplink-mcp
 
 Tests cover:
 1. create_task — defaults (status=pending, retry_count=0, next_retry_at=None, 32-char hex task_id)
@@ -30,8 +30,8 @@ from hypothesis import HealthCheck, given, settings
 from hypothesis import strategies as st
 from sqlalchemy.orm import sessionmaker
 
-from omniarchive_mcp.db.models import TaskStatus
-from omniarchive_mcp.db.repository import TaskRepository
+from keeplink_mcp.db.models import TaskStatus
+from keeplink_mcp.db.repository import TaskRepository
 
 # ---------------------------------------------------------------------------
 # Unit Tests: create_task

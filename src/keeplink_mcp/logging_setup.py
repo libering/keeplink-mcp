@@ -15,7 +15,7 @@ def setup_logging(level: str = "INFO", log_file: Path | None = None) -> logging.
     Returns:
         Configured root logger instance.
     """
-    logger = logging.getLogger("omniarchive")
+    logger = logging.getLogger("keeplink")
     logger.setLevel(getattr(logging, level.upper(), logging.INFO))
 
     formatter = logging.Formatter(

@@ -1,6 +1,6 @@
-"""Shared test fixtures for OmniArchive MCP integration tests.
+"""Shared test fixtures for KeepLink MCP integration tests.
 
-# Feature: omniarchive-mcp
+# Feature: keeplink-mcp
 
 Provides:
 - In-memory SQLite async engine
@@ -12,7 +12,7 @@ import pytest
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 
-from omniarchive_mcp.db.models import Base
+from keeplink_mcp.db.models import Base
 
 
 @pytest.fixture

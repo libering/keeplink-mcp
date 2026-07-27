@@ -1,4 +1,4 @@
-# OmniArchive-MCP
+# KeepLink-MCP
 
 A local daemon that lets AI agents archive web pages to the Wayback Machine in the background, so they don't block on Internet Archive's slow/rate-limited API.
 
@@ -54,15 +54,15 @@ Two processes: the MCP server talks stdio with your AI client, and forwards requ
 You need Python 3.10+.
 
 ```bash
-git clone https://github.com/your-org/omniarchive-mcp.git
-cd omniarchive-mcp
+git clone https://github.com/keeplink/keeplink-mcp.git
+cd keeplink-mcp
 pip install -e ".[dev]"
 ```
 
 Start the backend service:
 
 ```bash
-python -m omniarchive_mcp.main
+python -m keeplink_mcp.main
 ```
 
 Runs on `127.0.0.1:19210` by default.
@@ -104,9 +104,9 @@ You need both: the backend service running, AND the MCP server configured in you
 ```json
 {
   "mcpServers": {
-    "omniarchive": {
+    "keeplink": {
       "command": "python",
-      "args": ["-m", "omniarchive_mcp.mcp_server.main"]
+      "args": ["-m", "keeplink_mcp.mcp_server.main"]
     }
   }
 }
@@ -116,9 +116,9 @@ You need both: the backend service running, AND the MCP server configured in you
 ```json
 {
   "mcpServers": {
-    "omniarchive": {
+    "keeplink": {
       "command": "python",
-      "args": ["-m", "omniarchive_mcp.mcp_server.main"]
+      "args": ["-m", "keeplink_mcp.mcp_server.main"]
     }
   }
 }
@@ -128,33 +128,33 @@ You need both: the backend service running, AND the MCP server configured in you
 ```json
 {
   "mcpServers": {
-    "omniarchive": {
+    "keeplink": {
       "command": "python",
-      "args": ["-m", "omniarchive_mcp.mcp_server.main"]
+      "args": ["-m", "keeplink_mcp.mcp_server.main"]
     }
   }
 }
 ```
 
-Don't forget to start the backend first: `python -m omniarchive_mcp.main`
+Don't forget to start the backend first: `python -m keeplink_mcp.main`
 
 ## Configuration
 
-Everything's controlled via env vars (prefix `OMNIARCHIVE_`):
+Everything's controlled via env vars (prefix `KeepLink_`):
 
 | Variable | Default | What it does |
 |----------|---------|--------------|
-| `OMNIARCHIVE_API_HOST` | `127.0.0.1` | Bind address |
-| `OMNIARCHIVE_API_PORT` | `19210` | Port |
-| `OMNIARCHIVE_DB_PATH` | `./data/task.db` | Where the SQLite file lives |
-| `OMNIARCHIVE_MAX_RETRIES` | `5` | How many times to retry a failed archive |
-| `OMNIARCHIVE_BASE_BACKOFF` | `60.0` | Base retry delay in seconds (doubles each time) |
-| `OMNIARCHIVE_WORKER_CONCURRENCY` | `1` | How many tasks to process per poll cycle |
-| `OMNIARCHIVE_POLL_INTERVAL` | `5.0` | Seconds between queue polls |
-| `OMNIARCHIVE_IA_ACCESS_KEY` | — | Your IA S3 key (optional, for higher rate limits) |
-| `OMNIARCHIVE_IA_SECRET_KEY` | — | Your IA S3 secret |
-| `OMNIARCHIVE_LOG_LEVEL` | `INFO` | Log verbosity |
-| `OMNIARCHIVE_LOG_FILE` | `./data/archiver.log` | Log file location |
+| `KeepLink_API_HOST` | `127.0.0.1` | Bind address |
+| `KeepLink_API_PORT` | `19210` | Port |
+| `KeepLink_DB_PATH` | `./data/task.db` | Where the SQLite file lives |
+| `KeepLink_MAX_RETRIES` | `5` | How many times to retry a failed archive |
+| `KeepLink_BASE_BACKOFF` | `60.0` | Base retry delay in seconds (doubles each time) |
+| `KeepLink_WORKER_CONCURRENCY` | `1` | How many tasks to process per poll cycle |
+| `KeepLink_POLL_INTERVAL` | `5.0` | Seconds between queue polls |
+| `KeepLink_IA_ACCESS_KEY` | — | Your IA S3 key (optional, for higher rate limits) |
+| `KeepLink_IA_SECRET_KEY` | — | Your IA S3 secret |
+| `KeepLink_LOG_LEVEL` | `INFO` | Log verbosity |
+| `KeepLink_LOG_FILE` | `./data/archiver.log` | Log file location |
 
 ## How it works under the hood
 
