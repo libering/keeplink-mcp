@@ -10,6 +10,8 @@ from enum import Enum
 
 import httpx
 
+import waybackpy.exceptions as wb_exc
+
 
 class ErrorCategory(str, Enum):
     """Classification of archive errors for retry strategy."""
@@ -30,7 +32,10 @@ _RETRYABLE_EXCEPTION_TYPES: tuple[type[Exception], ...] = (
     httpx.ConnectError,
     ConnectionError,
     TimeoutError,
+    wb_exc.TooManyRequestsError,
+    wb_exc.WaybackError,
 )
+
 
 
 def classify_error(
