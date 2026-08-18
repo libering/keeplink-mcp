@@ -1,10 +1,10 @@
 {
   "name": "keeplink-mcp",
-  "description": "Non-blocking web page archiving for AI Agents via the Internet Archive.",
-  "version": "1.0.0",
+  "description": "Non-blocking web page archiving for AI Agents via the Internet Archive. Submit URLs to preserve web evidence during research — archiving happens asynchronously so your reasoning loop is never blocked.",
+  "version": "1.1.0",
   "author": "KeepLink Contributors",
   "license": "MIT",
-  "repository": "https://github.com/keeplink/keeplink-mcp",
+  "repository": "https://github.com/libering/keeplink-mcp",
   "install": "pip install keeplink-mcp",
   "runtime": "python",
   "transport": "stdio",
@@ -12,34 +12,31 @@
   "tools": [
     {
       "name": "archive_url",
-      "description": "Submit a URL for archiving to the Internet Archive. Returns immediately with a task_id.",
+      "description": "Submit a URL for archiving to the Internet Archive. Returns immediately (<50ms) with a task_id. The actual archiving happens asynchronously. Use to preserve web page evidence during research. Duplicate submissions within 24h are deduplicated.",
       "parameters": {
         "url": {
           "type": "string",
           "required": true,
-          "description": "The URL to archive (http/https only)"
+          "description": "The URL to archive (http/https only). Validated and normalized before submission."
         }
       }
     },
     {
       "name": "get_archive_status",
-      "description": "Check the status of an archive task by task_id or URL.",
+      "description": "Check the status of an archive task. Status values: PENDING (queued), PROCESSING (archiving now), SUCCESS (result_url has the Wayback Machine link), FAILED (retries exhausted). When SUCCESS, use result_url as a permanent citation.",
       "parameters": {
         "task_id": {
           "type": "string",
           "required": false,
-          "description": "Task ID returned by archive_url"
+          "description": "Task ID from archive_url for precise lookup"
         },
         "url": {
           "type": "string",
           "required": false,
-          "description": "URL to look up the most recent task for"
+          "description": "URL to find the most recent task for"
         }
       }
     }
   ],
-  "prerequisites": {
-    "note": "The FastAPI backend service must be running: python -m keeplink_mcp.main"
-  },
-  "tags": ["internet-archive", "wayback-machine", "archiving", "async", "queue"]
+  "tags": ["internet-archive", "wayback-machine", "archiving", "async", "queue", "research", "evidence"]
 }

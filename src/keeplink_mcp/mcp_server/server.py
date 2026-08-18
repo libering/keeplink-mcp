@@ -44,14 +44,24 @@ def create_mcp_server(config: Config) -> Server:
                 name="archive_url",
                 description=(
                     "Submit a URL for archiving to the Internet Archive. "
-                    "Returns a task_id for tracking the archive operation."
+                    "Returns immediately with a task_id (non-blocking, <50ms). "
+                    "The actual archiving happens asynchronously in the background. "
+                    "Use this to preserve web page evidence during research — "
+                    "pages may change or disappear, so archive early and often. "
+                    "Duplicate submissions within 24 hours are deduplicated automatically. "
+                    "Response fields: task_id (tracking ID), status (always 'pending' "
+                    "for new submissions), url (submitted URL), is_deduplicated (true "
+                    "if an existing task was reused)."
                 ),
                 inputSchema={
                     "type": "object",
                     "properties": {
                         "url": {
                             "type": "string",
-                            "description": "The URL to archive (must be http or https).",
+                            "description": (
+                                "The URL to archive (must be http or https). "
+                                "The URL is validated and normalized before submission."
+                            ),
                         },
                     },
                     "required": ["url"],
@@ -61,18 +71,30 @@ def create_mcp_server(config: Config) -> Server:
                 name="get_archive_status",
                 description=(
                     "Check the status of an archive task. "
-                    "Provide either a task_id or a url (at least one required)."
+                    "Provide either a task_id or a url (at least one required). "
+                    "Status values: 'PENDING' (queued, waiting to be processed), "
+                    "'PROCESSING' (worker is archiving now), "
+                    "'SUCCESS' (archived — result_url contains the Wayback Machine link), "
+                    "'FAILED' (permanent failure after retries exhausted). "
+                    "When status is SUCCESS, use result_url as a permanent citation link. "
+                    "If status is PENDING/PROCESSING, check again after a few seconds."
                 ),
                 inputSchema={
                     "type": "object",
                     "properties": {
                         "task_id": {
                             "type": "string",
-                            "description": "The task ID returned by archive_url.",
+                            "description": (
+                                "The task ID returned by archive_url. "
+                                "Use this for precise lookup of a specific submission."
+                            ),
                         },
                         "url": {
                             "type": "string",
-                            "description": "The URL to look up the most recent task for.",
+                            "description": (
+                                "The URL to look up the most recent task for. "
+                                "Returns the latest task regardless of status."
+                            ),
                         },
                     },
                 },
