@@ -17,6 +17,7 @@ from typing import TYPE_CHECKING
 import waybackpy
 
 from keeplink_mcp.worker.error_classifier import ErrorCategory, classify_error
+from keeplink_mcp.worker.rate_limiter import RateLimitConfig, TokenBucketLimiter
 
 if TYPE_CHECKING:
     from sqlalchemy.orm import sessionmaker
@@ -53,6 +54,16 @@ class BackgroundWorker:
         self._session_factory = session_factory
         self._logger = logger
         self._running = False
+        # Track active tasks for graceful shutdown (Requirements 5.2, 5.3, 5.4)
+        self._active_tasks: set[asyncio.Task] = set()
+
+        # Rate limiter configuration (Requirement 1.1, 1.5)
+        self._rate_limit_config = RateLimitConfig(
+            max_tokens=config.rate_limit_tokens,
+            interval_sec=config.rate_limit_interval_sec,
+            wait_timeout_sec=config.rate_limit_wait_timeout_sec,
+        )
+        self._limiter = TokenBucketLimiter(self._rate_limit_config)
 
     async def start(self) -> None:
         """Start the polling loop. Runs until stop() sets _running to False."""
@@ -72,13 +83,61 @@ class BackgroundWorker:
 
         self._logger.info("Background worker stopped", extra={"action": "worker_stop"})
 
-    async def stop(self) -> None:
-        """Gracefully stop the worker after the current processing cycle completes."""
+    async def stop(self, timeout: float = 30.0) -> None:
+        """Gracefully stop the worker.
+
+        1. Stop accepting new tasks (_running = False)
+        2. Wait for in-progress tasks to complete (up to timeout)
+        3. Cancel any tasks exceeding timeout with a warning log.
+
+        Args:
+            timeout: Maximum seconds to wait for active tasks to complete.
+                     Each task receives its own independent timeout window.
+                     (Requirements 5.1, 5.2, 5.3, 5.4, 5.5)
+        """
         self._logger.info(
-            "Background worker stop requested",
-            extra={"action": "worker_stop_request"},
+            "Shutdown initiated, waiting for active tasks",
+            extra={"action": "shutdown_initiated", "active_tasks": len(self._active_tasks)},
         )
         self._running = False
+
+        if not self._active_tasks:
+            self._logger.info(
+                "Shutdown complete, no active tasks",
+                extra={"action": "shutdown_complete"},
+            )
+            return
+
+        # Wait for active tasks with timeout
+        try:
+            await asyncio.wait_for(
+                asyncio.gather(*self._active_tasks, return_exceptions=True),
+                timeout=timeout,
+            )
+            self._logger.info(
+                "Shutdown complete, all tasks finished gracefully",
+                extra={"action": "shutdown_complete"},
+            )
+        except asyncio.TimeoutError:
+            # Cancel tasks that exceeded timeout
+            cancelled_count = 0
+            for task in self._active_tasks:
+                if not task.done():
+                    task.cancel()
+                    cancelled_count += 1
+                    # Log WARNING for each cancelled task (Requirement 5.3)
+                    self._logger.warning(
+                        "Task cancelled after timeout",
+                        extra={
+                            "action": "task_cancelled",
+                            "task_id": str(task.get_name()),
+                        },
+                    )
+
+            self._logger.info(
+                "Shutdown complete, cancelled tasks",
+                extra={"action": "shutdown_complete", "cancelled_count": cancelled_count},
+            )
 
     async def _poll_and_process(self) -> None:
         """Single poll cycle: fetch pending tasks and process them concurrently."""
@@ -97,15 +156,24 @@ class BackgroundWorker:
         )
 
         # Process tasks concurrently; each gets its own DB session.
-        await asyncio.gather(
-            *(self._process_task(task) for task in tasks),
-            return_exceptions=True,
-        )
+        # Track active tasks for graceful shutdown (Requirements 5.2, 5.3, 5.4)
+        task_coroutines = [self._process_task(task) for task in tasks]
+
+        async def _run_batch():
+            await asyncio.gather(*task_coroutines, return_exceptions=True)
+
+        batch_task = asyncio.create_task(_run_batch())
+        self._active_tasks.add(batch_task)
+
+        try:
+            await batch_task
+        finally:
+            self._active_tasks.discard(batch_task)
 
     async def _process_task(self, task: ArchiveTask) -> None:
         """Process a single archive task through the SPN2 API.
 
-        Flow: mark_processing → call SPN2 → success/retry/fail based on result.
+        Flow: mark_processing → rate limit check → call SPN2 → success/retry/fail based on result.
         All exceptions are caught to guarantee the worker never crashes.
         """
         from keeplink_mcp.db.repository import TaskRepository
@@ -114,11 +182,57 @@ class BackgroundWorker:
             repo = TaskRepository(session)
             await repo.mark_processing(task.task_id)
 
+        # Rate limit check before SPN2 API call (Requirements 1.1, 1.2)
+        if not self._rate_limit_config.is_disabled:
+            acquired = await self._limiter.acquire(
+                timeout=self._rate_limit_config.wait_timeout_sec
+            )
+            if not acquired:
+                # Timeout exceeded - skip this round, leave as processing for next poll
+                # The task will be picked up again in the next poll cycle
+                self._logger.warning(
+                    "Rate limit wait timeout exceeded, task will be retried",
+                    extra={
+                        "action": "rate_limit_timeout",
+                        "task_id": task.task_id,
+                        "url": task.url,
+                    },
+                )
+                # Reset task to pending so it can be retried (Requirement 1.3)
+                await self._handle_rate_limited(task)
+                return
+
         try:
             archive_url = await self._call_spn2(task.url)
             await self._handle_success(task, archive_url)
         except Exception as exc:
             await self._handle_error(task, exc)
+
+    async def _handle_rate_limited(self, task: ArchiveTask) -> None:
+        """Handle a task that was rate-limited and timed out.
+
+        Resets the task to pending status so it can be retried in the next poll cycle.
+        (Requirement 1.3: timeout → pending with retry scheduling)
+        """
+        from keeplink_mcp.db.repository import TaskRepository
+
+        async with self._session_factory() as session:
+            repo = TaskRepository(session)
+            # Reset to pending so the task will be picked up again
+            await repo.schedule_retry(
+                task.task_id,
+                "Rate limit wait timeout exceeded",
+                datetime.now(timezone.utc),  # Immediate retry
+            )
+
+        self._logger.info(
+            "Task reset to pending after rate limit timeout",
+            extra={
+                "action": "rate_limit_reset",
+                "task_id": task.task_id,
+                "url": task.url,
+            },
+        )
 
     async def _call_spn2(self, url: str) -> str:
         """Call the Wayback Machine SPN2 API to save a URL.

@@ -1,0 +1,636 @@
+{
+  "pbtResults": {
+    "1.4 Write property test for TokenBucketLimiter": {
+      "status": "passed",
+      "lastRunTimestamp": 1787189947197
+    },
+    "2.4 Write property test for stuck task recovery": {
+      "status": "passed",
+      "lastRunTimestamp": 1787190652900
+    },
+    "5.4 Write property test for health stats": {
+      "status": "passed",
+      "lastRunTimestamp": 1787206855194
+    },
+    "6.4 Write property tests for batch status": {
+      "status": "passed",
+      "lastRunTimestamp": 1787207242660
+    }
+  },
+  "executionHistory": {
+    "1.1 Create `src/keeplink_mcp/worker/rate_limiter.py` with TokenBucketLimiter": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188590122
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188641033
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188887964
+      }
+    ],
+    "1.2 Add rate limit config fields to `src/keeplink_mcp/config.py`": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188590208
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188641911
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188888942
+      }
+    ],
+    "1.3 Integrate rate limiter into `src/keeplink_mcp/worker/archiver.py`": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188590339
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188904857
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787189375271
+      }
+    ],
+    "1.4 Write property test for TokenBucketLimiter": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188590426
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787189399895
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787190026205
+      }
+    ],
+    "1.5 Write unit tests for rate limiter": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188590542
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787190040621
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787190790206
+      }
+    ],
+    "2.1 Add `recover_processing_tasks()` method to `src/keeplink_mcp/db/repository.py`": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188590621
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188642835
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188889806
+      }
+    ],
+    "2.2 Create `src/keeplink_mcp/worker/recovery.py` with `recover_stuck_tasks()`": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188590710
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188904091
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787189386110
+      }
+    ],
+    "2.3 Integrate stuck task recovery into `src/keeplink_mcp/main.py` lifespan startup": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188590819
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787189401183
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787190025656
+      }
+    ],
+    "2.4 Write property test for stuck task recovery": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188590917
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787190041308
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787190791598
+      }
+    ],
+    "3.1 Enhance `BackgroundWorker.stop()` in `src/keeplink_mcp/worker/archiver.py`": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188591008
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787189404480
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787190024924
+      }
+    ],
+    "3.2 Update `src/keeplink_mcp/main.py` lifespan shutdown to use graceful stop": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188591097
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787190822534
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787193451786
+      }
+    ],
+    "3.3 Write unit tests for graceful shutdown": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188591172
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787190826639
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787193452494
+      }
+    ],
+    "4. Checkpoint — Batch 1 complete": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188591269
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787210107849
+      }
+    ],
+    "5.1 Add `get_queue_stats()` method to `src/keeplink_mcp/db/repository.py`": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188591343
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188902047
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787189376293
+      }
+    ],
+    "5.2 Create `src/keeplink_mcp/api/health.py` with health router": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188591429
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787189402821
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787190023890
+      }
+    ],
+    "5.3 Register health router in `src/keeplink_mcp/api/app.py`": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188591538
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787190824254
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787193453413
+      }
+    ],
+    "5.4 Write property test for health stats": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188591627
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787193487079
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787207323932
+      }
+    ],
+    "5.5 Write unit tests for health endpoint": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188591752
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787193488713
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787207323209
+      }
+    ],
+    "6.1 Add batch query methods to `src/keeplink_mcp/db/repository.py`": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188591848
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188903097
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787189386870
+      }
+    ],
+    "6.2 Create `src/keeplink_mcp/api/batch_routes.py` with batch status router": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188591935
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787190039935
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787190806877
+      }
+    ],
+    "6.3 Register batch router in `src/keeplink_mcp/api/app.py`": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188592037
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787190825205
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787193455741
+      }
+    ],
+    "6.4 Write property tests for batch status": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188592147
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787193487858
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787207325930
+      }
+    ],
+    "6.5 Write unit tests for batch endpoint": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188592231
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787193489458
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787207325256
+      }
+    ],
+    "7.1 Add log rotation config fields to `src/keeplink_mcp/config.py`": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188592318
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188643653
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188892499
+      }
+    ],
+    "7.2 Modify `src/keeplink_mcp/logging_setup.py` to use RotatingFileHandler": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188592408
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787189399190
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787190023235
+      }
+    ],
+    "7.3 Write unit test for log rotation setup": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188592497
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787190823293
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787193458235
+      }
+    ],
+    "8. Checkpoint — Batch 2 complete": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188592602
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787210107220
+      }
+    ],
+    "9.1 Create `Dockerfile` with multi-stage build": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188592701
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787207367349
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787209232129
+      }
+    ],
+    "9.2 Create `docker-compose.yml`": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188592797
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787207368079
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787209223491
+      }
+    ],
+    "10.1 Update version strings to \"1.2.0\"": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188592933
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787207368928
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787209245906
+      }
+    ],
+    "10.2 Write assertion test for version consistency": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188593019
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787209275173
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787209667929
+      }
+    ],
+    "11.1 Update `README.md` with v1.2 changes": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188593164
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787209274186
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787209667270
+      }
+    ],
+    "12. Final Checkpoint — All batches complete": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787188593266
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787209811263
+      },
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787210046165
+      }
+    ],
+    "1. Batch 1 — Reliability: Rate Limiter": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787190790276
+      }
+    ],
+    "2. Batch 1 — Reliability: Stuck Task Recovery": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787190791748
+      }
+    ],
+    "3. Batch 1 — Reliability: Graceful Shutdown": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787193452589
+      }
+    ],
+    "7. Batch 2 — UX: Log Rotation": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787193458318
+      }
+    ],
+    "5. Batch 2 — UX: Health Check Endpoint": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787207324081
+      }
+    ],
+    "6. Batch 2 — UX: Batch Status Query": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787207326012
+      }
+    ],
+    "9. Batch 3 — DevOps: Docker Containerization": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787209232255
+      }
+    ],
+    "11. Batch 3 — DevOps: README Update": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787209667459
+      }
+    ],
+    "10. Batch 3 — DevOps: Version Alignment": [
+      {
+        "executionId": "2cedfc84-b7c2-4ae3-be4f-498db95fca32",
+        "chatSessionId": "sess_10489ad5-33e7-40c7-bc61-3547f26a1392",
+        "timestamp": 1787209668114
+      }
+    ]
+  }
+}

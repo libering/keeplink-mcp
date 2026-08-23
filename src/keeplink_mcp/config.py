@@ -44,6 +44,20 @@ class Config:
             os.getenv("KEEPLINK_LOG_FILE", "./data/archiver.log")
         )
     )
+    # Log rotation — prevents unbounded disk usage
+    log_max_bytes: int = int(
+        os.getenv("KEEPLINK_LOG_MAX_BYTES", str(10 * 1024 * 1024))
+    )
+    log_backup_count: int = int(os.getenv("KEEPLINK_LOG_BACKUP_COUNT", "5"))
+
+    # Rate limiting — controls outbound SPN2 API call frequency
+    rate_limit_tokens: int = int(os.getenv("KEEPLINK_RATE_LIMIT_TOKENS", "15"))
+    rate_limit_interval_sec: float = float(
+        os.getenv("KEEPLINK_RATE_LIMIT_INTERVAL_SEC", "60.0")
+    )
+    rate_limit_wait_timeout_sec: float = float(
+        os.getenv("KEEPLINK_RATE_LIMIT_TIMEOUT", "30.0")
+    )
 
 
 def load_config() -> Config:

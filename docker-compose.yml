@@ -1,0 +1,37 @@
+# KeepLink MCP Docker Compose Configuration
+# Supports all KEEPLINK_ prefixed environment variables
+
+services:
+  keeplink:
+    build: .
+    ports:
+      - "${KEEPLINK_API_PORT:-19210}:19210"
+    volumes:
+      - keeplink-data:/app/data
+    environment:
+      # Core paths (container-internal)
+      - KEEPLINK_DB_PATH=/app/data/task.db
+      - KEEPLINK_LOG_FILE=/app/data/archiver.log
+      - KEEPLINK_API_HOST=0.0.0.0
+      # API configuration
+      - KEEPLINK_API_PORT=${KEEPLINK_API_PORT:-19210}
+      # Database configuration
+      - KEEPLINK_DB_POOL_SIZE=${KEEPLINK_DB_POOL_SIZE:-5}
+      - KEEPLINK_DB_TIMEOUT_SEC=${KEEPLINK_DB_TIMEOUT_SEC:-30.0}
+      # Worker configuration
+      - KEEPLINK_WORKER_POLL_INTERVAL_SEC=${KEEPLINK_WORKER_POLL_INTERVAL_SEC:-5.0}
+      - KEEPLINK_MAX_RETRIES=${KEEPLINK_MAX_RETRIES:-3}
+      # Rate limiting
+      - KEEPLINK_RATE_LIMIT_TOKENS=${KEEPLINK_RATE_LIMIT_TOKENS:-15}
+      - KEEPLINK_RATE_LIMIT_INTERVAL_SEC=${KEEPLINK_RATE_LIMIT_INTERVAL_SEC:-60.0}
+      - KEEPLINK_RATE_LIMIT_TIMEOUT=${KEEPLINK_RATE_LIMIT_TIMEOUT:-30.0}
+      # Log rotation
+      - KEEPLINK_LOG_MAX_BYTES=${KEEPLINK_LOG_MAX_BYTES:-10485760}
+      - KEEPLINK_LOG_BACKUP_COUNT=${KEEPLINK_LOG_BACKUP_COUNT:-5}
+      - KEEPLINK_LOG_LEVEL=${KEEPLINK_LOG_LEVEL:-INFO}
+      # Recovery
+      - KEEPLINK_RECOVERY_TIMEOUT_SEC=${KEEPLINK_RECOVERY_TIMEOUT_SEC:-30.0}
+    restart: unless-stopped
+
+volumes:
+  keeplink-data:

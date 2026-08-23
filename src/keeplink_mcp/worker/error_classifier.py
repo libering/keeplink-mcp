@@ -9,7 +9,6 @@ from __future__ import annotations
 from enum import Enum
 
 import httpx
-
 import waybackpy.exceptions as wb_exc
 
 

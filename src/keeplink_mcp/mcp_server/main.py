@@ -67,7 +67,12 @@ async def _run() -> None:
     4. Terminate backend on exit
     """
     config = load_config()
-    setup_logging(level=config.log_level, log_file=config.log_file)
+    setup_logging(
+        level=config.log_level,
+        log_file=config.log_file,
+        max_bytes=config.log_max_bytes,
+        backup_count=config.log_backup_count,
+    )
 
     backend_proc = _start_backend(config)
 

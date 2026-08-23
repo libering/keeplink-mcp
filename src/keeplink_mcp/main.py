@@ -21,12 +21,18 @@ from keeplink_mcp.config import load_config
 from keeplink_mcp.db.session import build_engine, build_session_factory, init_db
 from keeplink_mcp.logging_setup import setup_logging
 from keeplink_mcp.worker.archiver import BackgroundWorker
+from keeplink_mcp.worker.recovery import recover_stuck_tasks
 
 
 def main() -> None:
     """Application entry point: configure, build app, and run via uvicorn."""
     config = load_config()
-    logger = setup_logging(config.log_level, config.log_file)
+    logger = setup_logging(
+        config.log_level,
+        config.log_file,
+        config.log_max_bytes,
+        config.log_backup_count,
+    )
 
     # Phase 1: Initialize DB schema using a temporary engine + event loop.
     # asyncio.run() creates and destroys its own event loop, so the engine
@@ -84,11 +90,16 @@ def _build_app_with_lifespan(
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
-        # Startup: launch the background worker as an asyncio task.
+        # Startup: recover stuck tasks BEFORE worker starts (Requirement 4.4)
+        recovered = await recover_stuck_tasks(session_factory, logger)
+        if recovered > 0:
+            logger.info("Recovered %d stuck tasks", recovered)
+
+        # Launch the background worker as an asyncio task.
         worker_task = asyncio.create_task(worker.start())
         yield
-        # Shutdown: stop worker gracefully, then cancel the task.
-        await worker.stop()
+        # Shutdown: stop worker gracefully with 30s timeout, then cancel the task.
+        await worker.stop(timeout=30.0)
         worker_task.cancel()
         try:
             await worker_task
