@@ -274,7 +274,7 @@ Everything's controlled via env vars (prefix `KEEPLINK_`):
 
 | Variable | Default | What it does |
 |----------|---------|--------------|
-| `KEEPLINK_RATE_LIMIT_TOKENS` | `15` | Max tokens in bucket (burst capacity). Set to `0` to disable rate limiting. |
+| `KEEPLINK_RATE_LIMIT_TOKENS` | `7` | Max tokens in bucket (burst capacity). Set to `0` to disable rate limiting. |
 | `KEEPLINK_RATE_LIMIT_INTERVAL_SEC` | `60.0` | Seconds between token refills |
 | `KEEPLINK_RATE_LIMIT_TIMEOUT` | `30.0` | Max seconds to wait for a token before retrying later |
 
