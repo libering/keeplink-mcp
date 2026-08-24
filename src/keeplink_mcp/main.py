@@ -107,7 +107,7 @@ def _build_app_with_lifespan(
             pass
         logger.info("Shutdown complete")
 
-    app = create_app(session_factory)
+    app = create_app(session_factory, worker_running_getter=lambda: worker._running)
     app.router.lifespan_context = lifespan
     return app
 
