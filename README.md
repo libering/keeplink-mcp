@@ -262,7 +262,7 @@ Everything's controlled via env vars (prefix `KEEPLINK_`):
 | `KEEPLINK_API_PORT` | `19210` | Port |
 | `KEEPLINK_DB_PATH` | `./data/task.db` | Where the SQLite file lives |
 | `KEEPLINK_MAX_RETRIES` | `5` | How many times to retry a failed archive |
-| `KEEPLINK_BASE_BACKOFF` | `60.0` | Base retry delay in seconds (doubles each time) |
+| `KEEPLINK_BASE_BACKOFF` | `300.0` | Base retry delay in seconds (doubles each time, 5min aligns with IA cooldown) |
 | `KEEPLINK_WORKER_CONCURRENCY` | `1` | How many tasks to process per poll cycle |
 | `KEEPLINK_POLL_INTERVAL` | `5.0` | Seconds between queue polls |
 | `KEEPLINK_IA_ACCESS_KEY` | — | Your IA S3 key (optional, for higher rate limits) |

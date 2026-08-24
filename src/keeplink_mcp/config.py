@@ -27,7 +27,7 @@ class Config:
         os.getenv("KEEPLINK_WORKER_CONCURRENCY", "1")
     )
     max_retry_count: int = int(os.getenv("KEEPLINK_MAX_RETRIES", "5"))
-    base_backoff_sec: float = float(os.getenv("KEEPLINK_BASE_BACKOFF", "60.0"))
+    base_backoff_sec: float = float(os.getenv("KEEPLINK_BASE_BACKOFF", "300.0"))
 
     # FastAPI internal API
     api_host: str = os.getenv("KEEPLINK_API_HOST", "127.0.0.1")

@@ -200,7 +200,7 @@ docker compose up -d
 | KeepLink_API_PORT | 19210 | 綁定端口 |
 | KeepLink_DB_PATH | ./data/task.db | SQLite 路徑 |
 | KeepLink_MAX_RETRIES | 5 | 最大重試次數 |
-| KeepLink_BASE_BACKOFF | 60.0 | 基礎退避秒數 |
+| KeepLink_BASE_BACKOFF | 300.0 | 基礎退避秒數 |
 | KeepLink_WORKER_CONCURRENCY | 1 | 每輪處理任務數 |
 | KeepLink_POLL_INTERVAL | 5.0 | 輪詢間隔秒數 |
 | KeepLink_IA_ACCESS_KEY | — | IA S3 Access Key |
