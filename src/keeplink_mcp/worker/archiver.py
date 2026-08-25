@@ -249,6 +249,9 @@ class BackgroundWorker:
         loop = asyncio.get_running_loop()
         save_api = waybackpy.WaybackMachineSaveAPI(url, _USER_AGENT)
         result = await loop.run_in_executor(None, partial(save_api.save))
+        # waybackpy 3.x may return a string directly or an object with archive_url
+        if isinstance(result, str):
+            return result
         return result.archive_url
 
     async def _handle_success(self, task: ArchiveTask, archive_url: str) -> None:
