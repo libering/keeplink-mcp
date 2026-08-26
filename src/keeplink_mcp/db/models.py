@@ -1,5 +1,7 @@
 """SQLAlchemy ORM models for the archive task queue."""
 
+from __future__ import annotations
+
 import enum
 from datetime import datetime, timezone
 from uuid import uuid4

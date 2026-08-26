@@ -4,6 +4,8 @@ Single Responsibility: encapsulates all DB queries so other layers
 never import sqlalchemy directly.
 """
 
+from __future__ import annotations
+
 from datetime import datetime, timedelta, timezone
 
 from sqlalchemy import func, or_, select, update

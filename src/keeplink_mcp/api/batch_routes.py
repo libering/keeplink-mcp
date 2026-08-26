@@ -6,6 +6,8 @@ tasks by their IDs or URLs in a single request, reducing round-trip overhead.
 Corresponds to Requirements 7.1, 7.2, 7.3, 7.4, 7.5, 7.6, 7.7, 7.8, 7.9.
 """
 
+from __future__ import annotations
+
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Query

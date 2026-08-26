@@ -7,6 +7,8 @@ of archive task data.
 Corresponds to Requirements 1.2 (archive_url response) and 2.1 (status response).
 """
 
+from __future__ import annotations
+
 from datetime import datetime
 
 from pydantic import BaseModel
