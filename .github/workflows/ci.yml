@@ -18,7 +18,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
-        run: pip install -e ".[dev]" pip-audit
+        run: |
+          pip install --upgrade setuptools>=83.0.0
+          pip install -e ".[dev]" pip-audit
       - name: Lint
         run: ruff check src/ test/
       - name: Test
