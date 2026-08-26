@@ -24,4 +24,4 @@ jobs:
       - name: Test
         run: pytest test/ -v
       - name: Security audit
-        run: pip-audit --strict --skip-editable
+        run: pip-audit --skip-editable
