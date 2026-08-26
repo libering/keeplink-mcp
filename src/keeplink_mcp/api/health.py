@@ -147,6 +147,13 @@ async def health_check(response: Response) -> HealthResponse:
     )
 
 
+async def _execute_db_check() -> None:
+    """Execute a simple DB query to verify connectivity."""
+    async with _session_factory() as session:
+        result = await session.execute(text("SELECT 1"))
+        result.scalar()
+
+
 async def _check_database_connectivity() -> tuple[bool, str | None]:
     """Check database connectivity by executing SELECT 1 with a 5-second timeout.
 
@@ -157,13 +164,7 @@ async def _check_database_connectivity() -> tuple[bool, str | None]:
         return False, "Database session factory not initialized"
 
     try:
-        async with asyncio.timeout(5.0):
-            async with _session_factory() as session:
-                # Execute a simple query to verify DB connectivity
-                # The query must take at least 1ms to ensure real database interaction
-                result = await session.execute(text("SELECT 1"))
-                result.scalar()  # Consume the result
-
+        await asyncio.wait_for(_execute_db_check(), timeout=5.0)
         return True, None
 
     except asyncio.TimeoutError:
