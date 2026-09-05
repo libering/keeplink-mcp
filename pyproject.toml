@@ -1,6 +1,6 @@
 [project]
 name = "keeplink-mcp"
-version = "1.1.0"
+version = "1.1.1"
 description = "Async MCP middleware for archiving web pages to the Internet Archive without blocking AI reasoning loops."
 requires-python = ">=3.10"
 license = { text = "MIT" }

@@ -1,6 +1,6 @@
 # KeepLink-MCP 項目交接手冊
 
-> 最後更新：2026-08-21 | 版本：v1.1.0
+> 最後更新：2026-08-21 | 版本：v1.1.1
 
 ---
 
@@ -99,7 +99,7 @@ AI 代理在深度研究過程中需要保全網頁證據，但 Internet Archive
 - 符合 12-Factor App 的可觀察性原則
 - 為未來 Kubernetes 部署的 liveness/readiness probe 做準備
 
-**取捨**：v1.1.0 僅檢查基本可達性與 DB 連線，不做深度依賴檢查。
+**取捨**：v1.1.1 僅檢查基本可達性與 DB 連線，不做深度依賴檢查。
 
 ---
 
@@ -251,7 +251,7 @@ for row in conn.execute(\"SELECT task_id, url, error_message FROM archive_tasks 
 | `winerror 10048` | 端口被佔用 | `netstat -ano \| findstr :19210` 找到並殺進程 |
 | Worker 持續 "Archive failed" | IA API 拒絕 / 網路問題 | 檢查 IA_ACCESS_KEY 是否設定；確認能訪問 web.archive.org |
 | MCP Server EOF error | 直接在終端跑 MCP Server | MCP Server 需由 AI Client (Kiro/Cursor) 管理，不能裸跑 |
-| 任務卡在 processing | 進程異常退出後殘留 | v1.1.0 起已自動恢復：啟動時 `recovery.py` 會將 stuck 任務重設為 pending，無需手動介入 |
+| 任務卡在 processing | 進程異常退出後殘留 | v1.1.1 起已自動恢復：啟動時 `recovery.py` 會將 stuck 任務重設為 pending，無需手動介入 |
 
 ---
 
@@ -314,7 +314,7 @@ ruff check src/ test/ --fix  # 自動修復
 - 無批量匯入功能
 - Windows 上端口綁定可能需要手動配置
 
-### v1.1.0 已完成
+### v1.1.1 已完成
 
 - ✅ `/status` 批量查詢
 - ✅ Docker compose
@@ -366,7 +366,7 @@ GitHub Release (tag v1.x.x)
 
 ---
 
-## 10. v1.1.0 Release Notes
+## 10. v1.1.1 Release Notes
 
 ### 新增功能
 

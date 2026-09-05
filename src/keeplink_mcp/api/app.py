@@ -42,7 +42,7 @@ def create_app(
     Returns:
         A fully configured FastAPI application ready to be served.
     """
-    app = FastAPI(title="KeepLink MCP", version="1.1.0")
+    app = FastAPI(title="KeepLink MCP", version="1.1.1")
 
     # Inject DB session factory into the route module's dependency system
     set_session_factory(session_factory)
