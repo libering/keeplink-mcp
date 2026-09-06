@@ -101,6 +101,29 @@ AI 代理在深度研究過程中需要保全網頁證據，但 Internet Archive
 
 **取捨**：v1.1.1 僅檢查基本可達性與 DB 連線，不做深度依賴檢查。
 
+### ADR-008：否決的擴張方向（Rejected Directions）
+
+**決策**：明確否決以下三個擴張方向，KeepLink 維持「AI 研究時的網頁存檔中介軟體」的核心定位，不擴張為通用存檔平台或整站爬取工具。
+
+**背景**：在 v1.1.1 發佈後，曾探索三個擴張方向並各自建立過 spec。經評估後全部否決並刪除對應 spec 目錄。此 ADR 記錄否決理由，避免未來重蹈覆轍。
+
+**否決方向一：通用存檔服務（`keeplink-v2-universal-archiver`）**
+- 構想：擴張為「本地優先的通用網頁存檔服務」，MCP 僅是眾多 ingestion 介面之一（另含 CLI、Browser Extension、RSS/Sitemap monitor、批量匯入），並支援多後端（Internet Archive、Archive.today、ArchiveBox）。
+- 否決理由：與 **ArchiveBox** 正面衝突。ArchiveBox 已完整實作多格式、多後端、Web UI、CLI、Browser Extension、API，且社群成熟。KeepLink 橫向擴張只會進入紅海，喪失差異化。
+
+**否決方向二：整站存檔編排（`site-archive-orchestration`）**
+- 構想：新增 `discover_urls`（爬 sitemap/RSS 找 URL）、`archive_batch`、`get_batch_progress` 三個 MCP 工具，讓外部 AI 能編排「存檔整個網站」。
+- 否決理由：
+  1. **與 ArchiveTeam / grab-site / Browsertrix / AutoWebArchiver 重疊** — 整站爬取與 sitemap/RSS 發現已有成熟方案。
+  2. **偽需求** — 想不出高頻的真實用戶會對 AI 說「幫我存整個網站」。相較之下「AI 研究時保全引用來源」有明確場景。
+  3. `discover_urls` 的發現能力，外部 AI client（Claude/Kiro）本身用 web fetch 就能做，不需 KeepLink 承擔。
+
+**否決方向三：內建 LLM 的存檔 agent**
+- 構想：讓 KeepLink 自己用 LLM 判斷哪些頁面值得存、自動決策存檔策略。
+- 否決理由：存檔是確定性任務（驗證 → 排隊 → SPN2 → 重試），無模糊決策空間。塞入 LLM 帶來成本、延遲、不確定性，且違背「本地優先、零外部依賴、LLM-free」的核心哲學。這是反模式。
+
+**確認的正確方向**：回到核心定位 X — 深耕「AI-native 的存檔體驗」。KeepLink 保持零 LLM 依賴，僅提供確定性工具；智慧（理解意圖、過濾）留在外部 AI client。下一步聚焦 `archive_and_cite`（存檔 + 回傳結構化 citation），解決「AI 產出的引用連結會失效」這個無人佔據的痛點。
+
 ---
 
 ## 3. 術語表 (Ubiquitous Language)
