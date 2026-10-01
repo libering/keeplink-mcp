@@ -1,0 +1,465 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1. 能力 B — 建立 check_version.py 介面骨架（interface first）": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786471347
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786487891
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786684834
+      }
+    ],
+    "2.1 實作 Manual 來源擷取函式 `extract_init_version` 與 `extract_readme_version`": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786471544
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786696871
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786961348
+      }
+    ],
+    "2.2 實作 `extract_handoverbook_version`（handoverbook 當前標記專屬規則）": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786471656
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786968845
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790787194688
+      }
+    ],
+    "2.3 實作 Derived 來源擷取函式 `extract_pyproject_version` 與 `extract_app_version`": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786471774
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790787195387
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790787379057
+      }
+    ],
+    "2.4 為擷取層寫 unit / edge case 測試": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786471880
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790787387397
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790787572399
+      }
+    ],
+    "2.5 為 Property 4 寫 property test（handoverbook 防污染）": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786472029
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790787387916
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790787573488
+      }
+    ],
+    "3.1 實作 `SOURCE_SPECS` 與 `collect_sources`": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786472165
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790787388210
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790787574585
+      }
+    ],
+    "3.2 為 Property 3 寫 property test（true fail-fast 停止點）": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786472292
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790787582487
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790787801656
+      }
+    ],
+    "4.1 實作 `is_semver` 與 `check_consistency`": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786472404
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790787583470
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790787802492
+      }
+    ],
+    "4.2 為 Property 1 寫 property test（一致性判定與不一致報告）": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786472509
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790787981833
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790788260001
+      }
+    ],
+    "4.3 為 Property 2 寫 property test（Semver 格式違規偵測）": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786472627
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790787812648
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790787974645
+      }
+    ],
+    "5.1 實作 `render_report`": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786472747
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790787813519
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790787973815
+      }
+    ],
+    "5.2 實作 `run_check` 與 `main`（CLI 進入點 + Windows UTF-8 對策）": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786472862
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790787983036
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790788261243
+      }
+    ],
+    "5.3 為 Property 5 寫 property test（Version_Report 編碼 round-trip）": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786473023
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790788268966
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790789696999
+      }
+    ],
+    "5.4 為 CLI 契約寫 example 測試（子行程呼叫）": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786473135
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790788270306
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790789698608
+      }
+    ],
+    "6. Checkpoint — 確認能力 B 腳本可獨立運作": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786473239
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790790272908
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790790343379
+      }
+    ],
+    "7. 能力 A — pyproject.toml 改 hatchling 動態版本": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786473348
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786488845
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786686161
+      }
+    ],
+    "8. 能力 A — app.py 引用權威版本": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786473455
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786489410
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786687021
+      }
+    ],
+    "9. 能力 A — 結構檢查與推導驗證 example 測試": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786473563
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786697838
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786962384
+      }
+    ],
+    "10.1 重構 test/test_version_consistency.py 為 import 腳本函式": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786473672
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790789707862
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790790053579
+      }
+    ],
+    "10.2 補齊真實來源一致性與來源清單組成 example 測試": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786473796
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790790061185
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790790259017
+      }
+    ],
+    "11. 能力 B — pre-commit hook（薄殼、跨平台、受版控）": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786473911
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790788271946
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790789699939
+      }
+    ],
+    "12. 能力 B — CI 呼叫同一支檢查腳本": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786474024
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790788272370
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790789700845
+      }
+    ],
+    "13. Smoke 測試（基礎設施存在性）": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786474135
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790790061993
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790790256176
+      }
+    ],
+    "14. Final checkpoint — lint 與測試收尾": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790786474239
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790790352442
+      },
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790790563337
+      }
+    ],
+    "2. 能力 B — 擷取層（extraction，純函式 + fail-fast）": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790787573610
+      }
+    ],
+    "3. 能力 B — 蒐集層（collect，true fail-fast）": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790787801831
+      }
+    ],
+    "4. 能力 B — 判定層（checking，純函式無 I/O）": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790788260178
+      }
+    ],
+    "5. 能力 B — 報告層 + CLI（對外契約 + 編碼）": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790789698859
+      }
+    ],
+    "10. 既有測試遷移（待決點 3：改為 import check_version.py）": [
+      {
+        "executionId": "ff5e3042-8aa7-45f2-bc60-d09d756687f6",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1790790259215
+      }
+    ]
+  }
+}
