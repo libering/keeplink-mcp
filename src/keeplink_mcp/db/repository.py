@@ -6,12 +6,24 @@ never import sqlalchemy directly.
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 
 from sqlalchemy import func, or_, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from keeplink_mcp.db.models import ArchiveTask, TaskStatus
+
+
+@dataclass(frozen=True)
+class RetryRejected:
+    """Returned when the task exists but is NOT in 'failed' status.
+
+    Carries current_status so the endpoint can report which status blocked
+    the transition (Req 2.6) without a second DB read.
+    """
+
+    current_status: TaskStatus
 
 
 class TaskRepository:
@@ -223,6 +235,58 @@ class TaskRepository:
         result = await self._session.execute(stmt)
         await self._session.commit()
         return result.rowcount
+
+    async def retry_task(
+        self, task_id: str
+    ) -> ArchiveTask | RetryRejected | None:
+        """Re-queue a permanently failed task by resetting it to a clean pending state.
+
+        State-transition invariant: ONLY 'failed' -> 'pending' is permitted. No
+        other status is ever modified (Req 2.6).
+
+        Behavior:
+        - Task not found                -> return None (endpoint -> 404, Req 2.7).
+        - Task exists but status != failed -> return RetryRejected(current_status)
+          WITHOUT modifying any field (endpoint -> 409, Req 2.6, 2.9).
+        - Task status == failed         -> set status=pending, retry_count=0,
+          next_retry_at=NULL, error_message=NULL; return the refreshed ArchiveTask
+          (Req 2.3, 2.4). The cleared next_retry_at lets fetch_pending_tasks pick
+          it up on the next poll (Req 2.5).
+
+        Performs a status-guarded UPDATE (WHERE task_id=... AND status='failed')
+        so the failed->pending transition is atomic and cannot race a concurrent
+        Worker transition.
+        """
+        # Status-guarded UPDATE: the WHERE clause makes the failed->pending
+        # transition atomic. If the task is not 'failed' (or does not exist),
+        # rowcount is 0 and no field is touched (Req 2.6 no-mutation guarantee).
+        stmt = (
+            update(ArchiveTask)
+            .where(
+                ArchiveTask.task_id == task_id,
+                ArchiveTask.status == TaskStatus.FAILED,
+            )
+            .values(
+                status=TaskStatus.PENDING,
+                retry_count=0,
+                next_retry_at=None,
+                error_message=None,
+                updated_at=datetime.now(timezone.utc),
+            )
+        )
+        result = await self._session.execute(stmt)
+        await self._session.commit()
+
+        if result.rowcount == 1:
+            # Transition succeeded; re-read to return the refreshed task.
+            return await self.get_task(task_id)
+
+        # rowcount == 0: either the task does not exist, or it exists but was
+        # not 'failed'. One get_task discriminates the two cases.
+        task = await self.get_task(task_id)
+        if task is None:
+            return None
+        return RetryRejected(current_status=task.status)
 
     async def _update_status(self, task_id: str, status: TaskStatus) -> None:
         """Generic status update helper."""

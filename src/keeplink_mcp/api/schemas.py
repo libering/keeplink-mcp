@@ -13,6 +13,8 @@ from datetime import datetime
 
 from pydantic import BaseModel
 
+from keeplink_mcp.citation.builder import CitationFormat
+
 
 class ArchiveRequest(BaseModel):
     """Request body for POST /api/archive."""
@@ -48,3 +50,41 @@ class ErrorResponse(BaseModel):
     """Standard error response body."""
 
     detail: str
+
+
+class RetryRequest(BaseModel):
+    """Request body for POST /api/retry."""
+
+    task_id: str
+
+
+class RetryResponse(BaseModel):
+    """Response for POST /api/retry — the re-queued task's identity + new status."""
+
+    task_id: str
+    status: str  # always "pending" on success
+
+
+class CiteRequest(BaseModel):
+    """Request body for POST /api/cite."""
+
+    url: str
+    title: str | None = None  # whitespace-only is normalized to None at the endpoint
+    # Optional; validated against CitationFormat so an invalid value -> 422.
+    # Only affects `formatted`; defaults to markdown for backward compatibility.
+    format: CitationFormat = CitationFormat.MARKDOWN
+
+
+class CitationResponse(BaseModel):
+    """Response for POST /api/cite — a structured, paste-ready citation.
+
+    original_url, task_id, and formatted are always non-null. When archiving
+    is still pending, archived_url and archived_at are both null.
+    """
+
+    title: str | None = None
+    original_url: str
+    archived_url: str | None = None
+    archived_at: datetime | None = None
+    task_id: str
+    formatted: str
