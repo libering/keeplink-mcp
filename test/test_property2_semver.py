@@ -115,12 +115,10 @@ def test_invalid_semver_source_is_flagged(data: st.DataObject) -> None:
     for i in range(total):
         version = bad_version if i == bad_index else authoritative
         sources.append(
-            _CHECK_VERSION.VersionSource(
-                name=f"source_{i}", version=version, is_derived=(i % 2 == 0)
-            )
+            _CHECK_VERSION.VersionSource(name=f"source_{i}", version=version)
         )
 
-    result = _CHECK_VERSION.check_consistency(authoritative, sources)
+    result = _CHECK_VERSION.check_consistency(authoritative, sources, [])
 
     # (1) 有格式違規來源時，整體判定不通過（Req 4.5）。
     assert result.ok is False, (

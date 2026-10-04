@@ -55,6 +55,14 @@
    - `check_version_consistency` → 腳本的 `check_consistency`；既有 Property 1 test 改為 import 腳本函式，保留 ≥100 迭代設定。
 4. 既有 `_TARGET_VERSION = "1.2.0"` 的 example/golden 測試保留（drift 大聲失敗），但其 handoverbook 檢查改用腳本的 `extract_handoverbook_version`。
 
+## 設計修正紀錄（剃除 Derived 執行值擷取）
+
+1. **根因**：CI 於 Python 3.10 + 乾淨環境失敗。原因是 Derived 來源的「執行值擷取」引入了 `tomllib`（3.11+ 才進標準庫、3.10 無此模組）與 import 整個 app（連帶 import SQLAlchemy asyncio，需 `greenlet`）。
+2. **剃除**：依奧卡姆剃刀，剃除 `pyproject.toml` 與 FastAPI app metadata 兩個 Derived_Version_Source 的「執行值擷取」。能力 A 已使此二者由權威 `__version__` 結構性推導，正常不會漂移，無需在閘門執行期再擷取其值比對。
+3. **改法**：能力 A 接線正確性改以新增的 `check_structure` 純文字結構檢查（required / forbidden regex）於 commit 當下驗證，不執行 app、不解析 toml，滿足「最小環境可跑」。
+4. **對外契約不變**：CLI exit code 語義、Version_Report 格式、fail-fast、Windows UTF-8 一律維持；納管比對來源由 5 個縮為 3 個 Manual（`src/keeplink_mcp/__init__.py`、`README.md`、`docs/handoverbook.md`）。
+5. **取代關係**：本紀錄取代原 Overview 與待決點 3 中關於 Derived_Version_Source「執行值推導驗證」的描述；**requirements 編號不動**，詳見獨立 spec `version-gate-minimal-env-fix`。
+
 ## Architecture
 
 ### 版本流向（能力 A 完成後）

@@ -113,9 +113,7 @@ def test_collect_sources_stops_at_first_failure(data: st.DataObject) -> None:
     spies: list[_SpyExtractor] = [
         _SpyExtractor(f"1.0.{i}", should_fail=(i == fail_index)) for i in range(total)
     ]
-    synthetic_specs = [
-        (f"source_{i}", i % 2 == 0, spies[i]) for i in range(total)
-    ]
+    synthetic_specs = [(f"source_{i}", spies[i]) for i in range(total)]
 
     original_specs = _CHECK_VERSION.SOURCE_SPECS
     _CHECK_VERSION.SOURCE_SPECS = synthetic_specs

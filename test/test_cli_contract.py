@@ -14,14 +14,15 @@
         對應 Requirements 8.2（不一致 → 非零）、8.3（emission：確保有輸出）。
 
 不一致情境所採用的做法與理由（見 test_cli_inconsistent 之 docstring）：
-    check_version.py 的 REPO_ROOT 由「其自身檔案位置」上溯兩層推導，且
-    `extract_app_version` 以模組名 import `keeplink_mcp`（非路徑式），故單純把腳本
+    check_version.py 的 REPO_ROOT 由「其自身檔案位置」上溯兩層推導，故單純把腳本
     複製到臨時 repo 並不能可靠製造「自足且僅某來源不一致」的情境。為維持「真正的
     子行程呼叫」又不變動真實 repo 檔案，Test 2 以子行程執行一段內嵌 Python：依
     路徑載入 check_version.py，將其集中維護的 SOURCE_SPECS 換成指向 tmp_path 內
-    臨時檔的 file-based 擷取函式（其中一個刻意版本不符），再呼叫其真正的 CLI 進入
-    點 main()。如此仍是「以子行程呼叫檢查腳本」，且完整行經 CLI 層（UTF-8 重設、
-    Version_Report 寫 stderr、以 exit code 收斂），忠實驗證不一致契約。
+    臨時檔的 file-based 擷取函式（2-tuple `(顯示名, 擷取函式)`，其中一個刻意版本
+    不符），並把 STRUCTURE_SPECS 換成空清單以隔離一致性路徑（結構檢查不干擾不一致
+    判定），再呼叫其真正的 CLI 進入點 main()。如此仍是「以子行程呼叫檢查腳本」，
+    且完整行經 CLI 層（UTF-8 重設、Version_Report 寫 stderr、以 exit code 收斂），
+    忠實驗證不一致契約。
 
 安全設計：
     - 一律以 sys.executable 作為直譯器（不寫死 "python"），路徑以 pathlib 組出，
@@ -87,8 +88,9 @@ def test_cli_no_args_consistent_exits_zero() -> None:
 # ---------------------------------------------------------------------------
 
 # 以子行程執行的內嵌 Python：依路徑載入 check_version.py，換掉其 SOURCE_SPECS 為
-# 指向臨時檔的 file-based 擷取函式（其中 README.md 刻意版本不符），再呼叫真正的
-# CLI 進入點 main()。占位符 __TMP__ 於執行前以實際 tmp_path 的 posix 路徑填入。
+# 指向臨時檔的 2-tuple file-based 擷取函式（其中 README.md 刻意版本不符），並把
+# STRUCTURE_SPECS 換成空清單以隔離一致性路徑，再呼叫真正的 CLI 進入點 main()。
+# 占位符 __TMP__ 於執行前以實際 tmp_path 的 posix 路徑填入。
 _INCONSISTENT_DRIVER = r'''
 import importlib.util
 import re
@@ -114,18 +116,21 @@ def _read_semver(path, pattern):
 
 
 # 權威來源 __init__.py 為 1.2.0；README.md 刻意設為 9.9.9 製造不一致。
+# SOURCE_SPECS 為 2-tuple (顯示名, 擷取函式)——與修正後腳本的解包契約一致。
 module.SOURCE_SPECS = [
     (
         "src/keeplink_mcp/__init__.py",
-        False,
         lambda root: _read_semver(TMP / "init.py", r'__version__\s*=\s*"(\d+\.\d+\.\d+)"'),
     ),
     (
         "README.md",
-        False,
         lambda root: _read_semver(TMP / "README.md", r"Version:\s*(\d+\.\d+\.\d+)"),
     ),
 ]
+
+# 清空 STRUCTURE_SPECS 以隔離一致性路徑：讓本測試只檢驗「版本不一致 → 非零 exit
+# code + 報告列出來源」的 CLI 契約，不受能力 A 結構檢查對臨時 repo 的影響。
+module.STRUCTURE_SPECS = []
 
 # 呼叫真正的 CLI 進入點：完整行經 UTF-8 重設、報告寫 stderr、sys.exit(exit_code)。
 module.main()
@@ -140,8 +145,8 @@ def test_cli_inconsistent_exits_nonzero_and_emits_report(tmp_path: Path) -> None
     不符），再呼叫其真正的 CLI 進入點 main()。此舉仍是「以子行程呼叫檢查腳本」，
     並完整行經 CLI 層（Req 8.3 的 stderr emission、以 exit code 收斂），同時完全
     不觸及真實 repo 檔案。之所以不直接把腳本複製到臨時 repo：腳本的 REPO_ROOT 由
-    自身檔案位置推導、且 extract_app_version 以模組名 import keeplink_mcp（非路徑
-    式），複製法難以構成「自足且僅某來源不一致」的乾淨情境。
+    自身檔案位置推導，複製法難以構成「自足且僅某來源不一致」的乾淨情境。另把
+    STRUCTURE_SPECS 換成空清單以隔離一致性路徑，確保本測試只驗證版本不一致契約。
 
     Validates: Requirements 8.2, 8.3
     """

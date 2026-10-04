@@ -2,24 +2,24 @@
 
 # Feature: version-consistency-gate
 
-Per 待決點 3 (design.md), the extraction / consistency logic now lives in
+Per 待決點 3 (design.md), the extraction / consistency logic lives in
 ``scripts/check_version.py`` (single source of truth). This test module imports
 those functions instead of re-implementing them (Req 9.6, DRY):
 
-Migration map (design.md 待決點 3):
-    get_pyproject_version     -> removed; pyproject is a Derived_Version_Source
-                                 now, verified via ``extract_pyproject_version``
-                                 (hatchling 推導 == authoritative).
-    get_app_version           -> removed; app.py no longer hardcodes a literal,
-                                 verified via ``extract_app_version`` (import
-                                 __version__).
+Migration map (design.md 待決點 3, 修正後 version-gate-minimal-env-fix):
+    get_pyproject_version     -> removed; pyproject 不再擷取執行值。其 Derived
+                                 接線（dynamic = ["version"]）改由 ``check_structure``
+                                 以純文字結構檢查驗證。
+    get_app_version           -> removed; app.py 不再擷取執行值。其 Derived 接線
+                                 （version=__version__）改由 ``check_structure`` 驗證。
     get_init_version          -> merged into ``extract_init_version``.
     get_readme_version        -> merged into ``extract_readme_version``.
     (new)                     -> ``extract_handoverbook_version`` coverage added.
     check_version_consistency -> the script's ``check_consistency``.
 
-The Property 1 property test drives the SCRIPT's ``check_consistency`` (no
-duplicated logic) with >=100 hypothesis iterations.
+修正後納管來源皆為 3 個 Manual（init / README / handoverbook）；Derived
+執行值擷取已剃除，Derived 接線由 ``check_structure`` 驗證。Property 1 property
+test 直接驅動 SCRIPT 的 ``check_consistency``（不重複實作邏輯），>=100 迭代。
 
 Validates: Requirements 9.1, 9.6
 """
@@ -33,10 +33,8 @@ from scripts.check_version import (
     VersionSource,
     check_consistency,
     collect_sources,
-    extract_app_version,
     extract_handoverbook_version,
     extract_init_version,
-    extract_pyproject_version,
     extract_readme_version,
     is_semver,
     render_report,
@@ -53,39 +51,12 @@ class TestVersionConsistency:
         """
         for name, version in (
             ("__init__.py", extract_init_version(REPO_ROOT)),
-            ("pyproject.toml", extract_pyproject_version(REPO_ROOT)),
-            ("app.py", extract_app_version(REPO_ROOT)),
             ("README.md", extract_readme_version(REPO_ROOT)),
             ("handoverbook.md", extract_handoverbook_version(REPO_ROOT)),
         ):
             assert is_semver(version), (
                 f"{name} version '{version}' is not valid semver (X.Y.Z)"
             )
-
-    def test_pyproject_derived_matches_init(self) -> None:
-        """pyproject hatchling-derived version SHALL match Authoritative_Version.
-
-        pyproject is a Derived_Version_Source (能力 A); its value is verified
-        against __version__ via ``extract_pyproject_version``.
-
-        Validates: Requirement 2.3
-        """
-        derived = extract_pyproject_version(REPO_ROOT)
-        assert derived == __version__, (
-            f"pyproject derived version '{derived}' != __version__ '{__version__}'"
-        )
-
-    def test_app_metadata_matches_init(self) -> None:
-        """FastAPI app metadata version SHALL match Authoritative_Version.
-
-        app.py imports __version__ (能力 A); verified via ``extract_app_version``.
-
-        Validates: Requirement 3.3
-        """
-        app_version = extract_app_version(REPO_ROOT)
-        assert app_version == __version__, (
-            f"app metadata version '{app_version}' != __version__ '{__version__}'"
-        )
 
     def test_all_real_sources_consistent(self) -> None:
         """All managed real sources SHALL equal Authoritative_Version.
@@ -100,7 +71,7 @@ class TestVersionConsistency:
             f"Source extraction failed (fail-fast): {extraction_error}"
         )
 
-        result = check_consistency(__version__, sources)
+        result = check_consistency(__version__, sources, [])
         assert result.ok, f"Version inconsistency detected:\n{render_report(result)}"
 
 
@@ -143,13 +114,17 @@ class TestVersionExamples:
 # consistent case (all sources equal) and the mismatch case against the SAME
 # script-provided check_consistency logic used on the real sources (Req 9.6).
 _SEMVER_STRATEGY = st.from_regex(r"\d{1,3}\.\d{1,3}\.\d{1,3}", fullmatch=True)
-_SOURCE_NAMES = ["pyproject.toml", "__init__.py", "app.py", "README.md"]
+_SOURCE_NAMES = [
+    "src/keeplink_mcp/__init__.py",
+    "README.md",
+    "docs/handoverbook.md",
+]
 
 
 def _make_sources(mapping: dict[str, str]) -> list[VersionSource]:
     """Build a VersionSource list from a {name: version} mapping (test helper)."""
     return [
-        VersionSource(name=name, version=version, is_derived=False)
+        VersionSource(name=name, version=version)
         for name, version in mapping.items()
     ]
 
@@ -158,7 +133,7 @@ class TestVersionConsistencyProperty:
     """Property 1: 一致性判定與不一致報告 (version-consistency-gate)."""
 
     # Feature: version-consistency-gate, Property 1: 一致性判定與不一致報告
-    # The four real Version_Sources are re-read on every example and, driven
+    # The three real Version_Sources are re-read on every example and, driven
     # through the script's check_consistency, must be consistent (ok=True).
     @settings(max_examples=100)
     @given(_seed=st.integers())
@@ -171,7 +146,7 @@ class TestVersionConsistencyProperty:
         assert extraction_error is None, (
             f"Source extraction failed (fail-fast): {extraction_error}"
         )
-        result = check_consistency(__version__, sources)
+        result = check_consistency(__version__, sources, [])
         assert result.ok, f"Version inconsistency detected:\n{render_report(result)}"
 
     # Feature: version-consistency-gate, Property 1: 一致性判定與不一致報告
@@ -193,7 +168,9 @@ class TestVersionConsistencyProperty:
         """
         # Consistent set: every source shares one semver version -> ok True.
         consistent = {name: version for name in _SOURCE_NAMES}
-        consistent_result = check_consistency(version, _make_sources(consistent))
+        consistent_result = check_consistency(
+            version, _make_sources(consistent), []
+        )
         assert consistent_result.ok, (
             f"Expected ok=True for all-equal sources, got:\n"
             f"{render_report(consistent_result)}"
@@ -206,7 +183,7 @@ class TestVersionConsistencyProperty:
         # Introduce one mismatch -> ok False; report lists the full mapping.
         inconsistent = dict(consistent)
         inconsistent[_SOURCE_NAMES[mismatch_index]] = differing_version
-        result = check_consistency(version, _make_sources(inconsistent))
+        result = check_consistency(version, _make_sources(inconsistent), [])
 
         assert not result.ok, (
             f"Expected ok=False after introducing a mismatch, got:\n"

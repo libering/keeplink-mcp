@@ -1,6 +1,6 @@
 """Property test for Property 1 — 一致性判定與不一致報告.
 
-對應 spec version-consistency-gate 任務 4.2。
+對應 spec version-gate-minimal-env-fix 任務 4.2。
 
 Property 1: 一致性判定與不一致報告
     對任意權威版本字串與一組納管來源版本：當每個來源版本皆等於權威版本且皆為
@@ -98,13 +98,11 @@ def test_all_sources_equal_authoritative_is_ok(data: st.DataObject) -> None:
     total = data.draw(st.integers(min_value=1, max_value=8), label="total_sources")
 
     sources = [
-        _CHECK_VERSION.VersionSource(
-            name=f"source_{i}", version=version, is_derived=(i % 2 == 0)
-        )
+        _CHECK_VERSION.VersionSource(name=f"source_{i}", version=version)
         for i in range(total)
     ]
 
-    result = _CHECK_VERSION.check_consistency(version, sources)
+    result = _CHECK_VERSION.check_consistency(version, sources, [])
 
     # 全部相等且皆合法 semver → 判定通過，且不相符 / 格式違規清單皆為空（Req 4.3）。
     assert result.ok is True, (
@@ -151,12 +149,10 @@ def test_one_diverging_source_fails_and_report_lists_all(
     for i in range(total):
         src_version = diverging if i == bad_index else version
         sources.append(
-            _CHECK_VERSION.VersionSource(
-                name=f"source_{i}", version=src_version, is_derived=(i % 2 == 0)
-            )
+            _CHECK_VERSION.VersionSource(name=f"source_{i}", version=src_version)
         )
 
-    result = _CHECK_VERSION.check_consistency(version, sources)
+    result = _CHECK_VERSION.check_consistency(version, sources, [])
 
     # (1) 有來源不等於權威版本 → 整體判定不通過（Req 4.4）。
     assert result.ok is False, (

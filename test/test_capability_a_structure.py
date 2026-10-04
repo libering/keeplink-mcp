@@ -7,13 +7,14 @@
    - `pyproject.toml` 含 ``dynamic = ["version"]``、無靜態 ``version = "..."`` 行、
      ``[tool.hatch.version].path`` 指向權威 `__init__.py`、wheel 打包設定保留。
    - `app.py` ``import __version__`` 且不寫死版本字面量。
-2. **推導驗證（derivation）**：斷言
-   ``extract_pyproject_version() == extract_app_version() == __version__``
-   （Derived 來源的推導值 == 權威值）。此類依賴 check_version.py 擷取層
-   （任務 2.3 實作），若尚未實作會 raise NotImplementedError —— 屬預期，
-   由最終 checkpoint（任務 14）跑完整套件時通過。
+2. **接線驗證（wiring）**：呼叫 `check_structure(repo_root)` 斷言其對真實 repo
+   回傳空 list，代表能力 A 的 pyproject/app 接線未被改回寫死（結構檢查層接線
+   正確）。本修正剃除了 Derived 來源的執行值擷取（移除
+   ``extract_pyproject_version`` / ``extract_app_version``），改以純文字結構
+   檢查於 commit 當下守住能力 A，故此處由原本的 derivation-equality 斷言改述
+   為呼叫 check_structure 斷言接線正確。
 
-Validates: Requirements 2.1, 2.2, 2.3, 2.4, 3.1, 3.2, 3.3
+Validates: Requirements 2.1, 2.2, 2.4, 3.1, 3.2, 9.5
 """
 
 from __future__ import annotations
@@ -23,8 +24,6 @@ import re
 import sys
 from pathlib import Path
 from types import ModuleType
-
-from keeplink_mcp import __version__
 
 # repo 根目錄：本檔位於 <repo>/test/，上溯一層即 repo 根（跨平台以 pathlib 解析）。
 _REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -145,29 +144,26 @@ class TestAppMetadataStructure:
         )
 
 
-class TestDerivationEqualsAuthoritative:
-    """推導驗證：Derived 來源推導值 == 權威值（Req 2.3, 3.3）。
+class TestStructureWiringIntact:
+    """接線驗證：check_structure 對真實 repo 回空 list（Req 9.5）。
 
-    依賴 check_version.py 擷取層（任務 2.3）。若擷取層尚未實作，
-    ``extract_*`` 會 raise NotImplementedError —— 屬預期，最終 checkpoint 通過。
+    本修正剃除了 Derived 來源的執行值擷取（移除 ``extract_pyproject_version`` /
+    ``extract_app_version``），改以純文字結構檢查層 ``check_structure`` 於 commit
+    當下驗證能力 A 接線未被改回寫死。對未被破壞的真實 repo，``check_structure``
+    應回傳空清單——這取代了原本的 derivation-equality 斷言，同為「能力 A 接線
+    正確」把關，但不執行 app、不解析 toml，符合最小環境定位。
     """
 
-    def test_pyproject_and_app_derive_to_authoritative(self) -> None:
-        """extract_pyproject_version() == extract_app_version() == __version__.
+    def test_check_structure_returns_empty_for_real_repo(self) -> None:
+        """check_structure(repo_root) 對真實 repo 回傳空 list（接線正確）。
 
-        Validates: Requirements 2.3, 3.3
+        Validates: Requirements 9.5
         """
         check_version = _load_check_version()
 
-        pyproject_version = check_version.extract_pyproject_version(_REPO_ROOT)
-        app_version = check_version.extract_app_version(_REPO_ROOT)
+        errors = check_version.check_structure(_REPO_ROOT)
 
-        assert pyproject_version == __version__, (
-            f"pyproject 推導版本 '{pyproject_version}' 不等於權威 '{__version__}'"
-        )
-        assert app_version == __version__, (
-            f"app metadata 推導版本 '{app_version}' 不等於權威 '{__version__}'"
-        )
-        assert pyproject_version == app_version, (
-            f"pyproject 推導 '{pyproject_version}' 與 app 推導 '{app_version}' 不一致"
+        assert errors == [], (
+            f"check_structure 對真實 repo 應回空 list（能力 A 接線正確），"
+            f"實際回傳違規：{errors}"
         )

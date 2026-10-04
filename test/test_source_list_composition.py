@@ -2,15 +2,17 @@
 
 # Feature: version-consistency-gate
 
-對應 spec version-consistency-gate 任務 10.2。以 import ``scripts.check_version``
-的函式為受測對象（Req 9.6，不重複實作），涵蓋四個面向：
+對應 spec version-consistency-gate 任務 10.2（修正後 version-gate-minimal-env-fix）。
+以 import ``scripts.check_version`` 的函式為受測對象（Req 9.6，不重複實作），
+涵蓋四個面向：
 
 1. **真實來源一致性（Req 9.2）**：``collect_sources(REPO_ROOT)`` 無擷取錯誤，
    且每個 VersionSource 的版本值皆等於權威 ``__version__``。
 2. **來源清單組成（Req 1.1, 1.3）**：檢視集中維護的 ``SOURCE_SPECS``——
-   權威來源為 ``src/keeplink_mcp/__init__.py``；Manual（``is_derived=False``）
-   中非權威者恰 2 個（``README.md`` 與 ``docs/handoverbook.md``）；其餘皆為
-   Derived（``is_derived=True``：``pyproject.toml`` 與 FastAPI app metadata）。
+   修正後恰 3 項 2-tuple，全為 Manual、零 Derived；首筆為權威來源
+   ``src/keeplink_mcp/__init__.py``，非權威者恰為
+   {``README.md``, ``docs/handoverbook.md``}。Derived 接線改由
+   ``check_structure`` 於 commit 當下驗證，不再納入來源擷取。
 3. **失敗訊息內容（Req 9.4）**：以合成的來源清單注入一處不一致，經
    ``check_consistency`` + ``render_report`` 後，報告含每個受檢來源名稱與其版本值。
 4. **handoverbook 當前標記 vs 歷史（Req 9.5）**：合成一份頂部含當前標記、
@@ -38,9 +40,7 @@ from scripts.check_version import (
 # 權威來源顯示名（SOURCE_SPECS 首筆），集中為常數避免各斷言 drift。
 _AUTHORITATIVE_NAME = "src/keeplink_mcp/__init__.py"
 # 能力 A 完成後，需人工維護（Manual）且非權威的來源恰為此二者。
-_EXPECTED_MANUAL_NON_AUTHORITATIVE = {"README.md", "docs/handoverbook.md"}
-# Derived 來源（建置/執行期由權威值推導）。
-_EXPECTED_DERIVED = {"pyproject.toml", "FastAPI app metadata"}
+_EXPECTED_NON_AUTHORITATIVE = {"README.md", "docs/handoverbook.md"}
 
 
 class TestRealSourceConsistency:
@@ -64,74 +64,55 @@ class TestRealSourceConsistency:
 
 
 class TestSourceListComposition:
-    """來源清單組成：權威、Manual、Derived 的分類與數量（Req 1.1, 1.3）。"""
+    """來源清單組成：恰 3 項 2-tuple，全為 Manual、首筆為權威（Req 1.1, 1.3）。"""
 
     def test_authoritative_source_is_init(self) -> None:
         """權威來源 SHALL 為 src/keeplink_mcp/__init__.py，且置於 SOURCE_SPECS 首位。
 
-        權威來源為 Manual（is_derived=False）且是版本真相的唯一權威來源。
+        修正後 SOURCE_SPECS 為 2-tuple (顯示名, 擷取函式)，首筆即權威來源。
 
         Validates: Requirement 1.1
         """
-        first_name, first_is_derived, _extractor = SOURCE_SPECS[0]
+        first_name, _extractor = SOURCE_SPECS[0]
         assert first_name == _AUTHORITATIVE_NAME, (
             f"SOURCE_SPECS 首筆為 '{first_name}'，應為權威來源 "
             f"'{_AUTHORITATIVE_NAME}'"
         )
-        assert first_is_derived is False, (
-            "權威來源應為 Manual（is_derived=False），實為 Derived"
-        )
 
     def test_two_manual_non_authoritative_sources(self) -> None:
-        """需人工維護的非權威 Manual 來源 SHALL 恰為 2 個（Req 1.3）。
+        """非權威來源 SHALL 恰為 {README.md, docs/handoverbook.md}（Req 1.3）。
 
-        Manual（is_derived=False）中排除權威來源後，應恰為
-        {README.md, docs/handoverbook.md}。
+        修正後所有來源皆為 Manual；排除權威來源後應恰為此二者。
 
         Validates: Requirement 1.3
         """
-        manual_non_authoritative = {
+        non_authoritative = {
             name
-            for name, is_derived, _extractor in SOURCE_SPECS
-            if not is_derived and name != _AUTHORITATIVE_NAME
+            for name, _extractor in SOURCE_SPECS
+            if name != _AUTHORITATIVE_NAME
         }
-        assert len(manual_non_authoritative) == 2, (
-            f"需人工維護的非權威 Manual 來源應為 2 個，實為 "
-            f"{len(manual_non_authoritative)}：{sorted(manual_non_authoritative)}"
+        assert len(non_authoritative) == 2, (
+            f"非權威來源應為 2 個，實為 "
+            f"{len(non_authoritative)}：{sorted(non_authoritative)}"
         )
-        assert manual_non_authoritative == _EXPECTED_MANUAL_NON_AUTHORITATIVE, (
-            f"Manual 非權威來源為 {sorted(manual_non_authoritative)}，"
-            f"應為 {sorted(_EXPECTED_MANUAL_NON_AUTHORITATIVE)}"
-        )
-
-    def test_remaining_sources_are_derived(self) -> None:
-        """除權威與 2 個 Manual 外，其餘納管來源 SHALL 皆為 Derived（Req 1.3）。
-
-        Derived（is_derived=True）應恰為 {pyproject.toml, FastAPI app metadata}。
-
-        Validates: Requirement 1.3
-        """
-        derived = {
-            name for name, is_derived, _extractor in SOURCE_SPECS if is_derived
-        }
-        assert derived == _EXPECTED_DERIVED, (
-            f"Derived 來源為 {sorted(derived)}，應為 {sorted(_EXPECTED_DERIVED)}"
+        assert non_authoritative == _EXPECTED_NON_AUTHORITATIVE, (
+            f"非權威來源為 {sorted(non_authoritative)}，"
+            f"應為 {sorted(_EXPECTED_NON_AUTHORITATIVE)}"
         )
 
     def test_source_specs_partition_is_exhaustive(self) -> None:
-        """權威 + Manual 非權威 + Derived SHALL 恰好覆蓋全部納管來源（互斥且窮盡）。
+        """權威 + 非權威 SHALL 恰好覆蓋全部納管來源（互斥且窮盡，共 3 項）。
 
         Validates: Requirements 1.1, 1.3
         """
-        all_names = {name for name, _is_derived, _extractor in SOURCE_SPECS}
-        partition = (
-            {_AUTHORITATIVE_NAME}
-            | _EXPECTED_MANUAL_NON_AUTHORITATIVE
-            | _EXPECTED_DERIVED
-        )
+        all_names = {name for name, _extractor in SOURCE_SPECS}
+        partition = {_AUTHORITATIVE_NAME} | _EXPECTED_NON_AUTHORITATIVE
         assert all_names == partition, (
             f"SOURCE_SPECS 來源集 {sorted(all_names)} 與預期分類 "
             f"{sorted(partition)} 不一致"
+        )
+        assert len(SOURCE_SPECS) == 3, (
+            f"SOURCE_SPECS 應恰 3 項，實為 {len(SOURCE_SPECS)}"
         )
 
 
@@ -148,22 +129,12 @@ class TestFailureMessageContent:
         authoritative = "1.2.0"
         # 合成受檢來源：一處刻意不一致（README 為 9.9.9），其餘等於權威值。
         sources = [
-            VersionSource(
-                name="src/keeplink_mcp/__init__.py",
-                version="1.2.0",
-                is_derived=False,
-            ),
-            VersionSource(name="pyproject.toml", version="1.2.0", is_derived=True),
-            VersionSource(
-                name="FastAPI app metadata", version="1.2.0", is_derived=True
-            ),
-            VersionSource(name="README.md", version="9.9.9", is_derived=False),
-            VersionSource(
-                name="docs/handoverbook.md", version="1.2.0", is_derived=False
-            ),
+            VersionSource(name="src/keeplink_mcp/__init__.py", version="1.2.0"),
+            VersionSource(name="README.md", version="9.9.9"),
+            VersionSource(name="docs/handoverbook.md", version="1.2.0"),
         ]
 
-        result = check_consistency(authoritative, sources)
+        result = check_consistency(authoritative, sources, [])
         assert not result.ok, "注入不一致後 check_consistency.ok 應為 False"
         assert result.mismatches == {"README.md": "9.9.9"}, (
             f"mismatches 應恰含不一致來源，實為 {result.mismatches}"
