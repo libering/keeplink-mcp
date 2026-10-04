@@ -26,6 +26,23 @@ ruff check src/ test/
 pytest test/ -v
 ```
 
+## 啟用版本一致性 pre-commit hook
+
+本專案以 `src/keeplink_mcp/__init__.py` 的 `__version__` 作為唯一權威版本來源，並提供受版控的 git pre-commit hook（`.githooks/pre-commit`），於 commit 當下呼叫 `python scripts/check_version.py` 檢查各處版本是否一致。版本不一致時會阻擋該次 commit。
+
+啟用方式（一行，於 repo 根目錄執行）：
+
+```bash
+git config core.hooksPath .githooks
+```
+
+說明：
+
+- **前置需求**：`python` 需在 PATH 上（若環境的 `python` 指向 Python 2，hook 會自動改用 `python3`）。
+- **跨平台**：hook 為 POSIX sh 薄殼，於 Windows 11（透過 git 隨附的 Git Bash）與 Linux（系統 sh）皆可執行；所有跨平台細節（路徑、編碼）由 `scripts/check_version.py` 負責。
+- **零外部依賴**：僅需 git 內建設定與本機 `python`，不依賴任何需連外網下載的第三方 pre-commit 框架。
+- **第二道防線**：即使未於本機啟用 hook，CI 也會執行同一支 `scripts/check_version.py`，於 push/PR 階段攔截版本不一致。
+
 ## Submitting changes
 
 1. Fork & branch from `main`

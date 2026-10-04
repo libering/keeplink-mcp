@@ -1,6 +1,6 @@
 [project]
 name = "keeplink-mcp"
-version = "1.1.1"
+dynamic = ["version"]
 description = "Async MCP middleware for archiving web pages to the Internet Archive without blocking AI reasoning loops."
 requires-python = ">=3.10"
 license = { text = "MIT" }
@@ -25,7 +25,7 @@ dependencies = [
     "mcp>=1.0.0",
     "fastapi>=0.110.0",
     "uvicorn>=0.29.0",
-    "sqlalchemy>=2.0.0",
+    "sqlalchemy[asyncio]>=2.0.0",
     "aiosqlite>=0.20.0",
     "waybackpy>=3.0.6",
     "httpx>=0.27.0",
@@ -66,6 +66,9 @@ target-version = "py310"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "N", "W", "UP"]
+
+[tool.hatch.version]
+path = "src/keeplink_mcp/__init__.py"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/keeplink_mcp"]

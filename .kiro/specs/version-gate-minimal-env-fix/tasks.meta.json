@@ -1,0 +1,295 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1. 清理舊 spec：移除誤加的「任務 15」整段": [
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791098896789
+      },
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791098912025
+      },
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791099536899
+      }
+    ],
+    "2.1 定稿資料結構、常數與全部函式簽章（骨架）": [
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791098896934
+      },
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791098913394
+      },
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791099539517
+      }
+    ],
+    "2.2 擷取層：移除 Derived 擷取、新增 `_read_source`、保留 3 個 Manual extractor": [
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791098897023
+      },
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791099551704
+      },
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791099815761
+      }
+    ],
+    "2.3 結構檢查層（新增）：`STRUCTURE_SPECS` 與 `check_structure`": [
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791098897098
+      },
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791099822067
+      },
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791100032390
+      }
+    ],
+    "2.4 蒐集層：`SOURCE_SPECS` 改 2-tuple、`collect_sources` 維持 true fail-fast": [
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791098897180
+      },
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791100037745
+      },
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791100143185
+      }
+    ],
+    "2.5 判定層：`check_consistency` 併入 `structure_errors`": [
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791098897235
+      },
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791100152083
+      },
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791100292430
+      }
+    ],
+    "2.6 報告層 + CLI：新增結構違規分節、`_evaluate` 併入結構檢查、對外契約不變": [
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791098897284
+      },
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791100302790
+      }
+    ],
+    "3. Checkpoint — 確認 check_version.py 可獨立運作": [
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791098897351
+      },
+      {
+        "executionId": "e93ab8af-2e68-48f0-9353-a803d911fef0",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791101724229
+      },
+      {
+        "executionId": "e93ab8af-2e68-48f0-9353-a803d911fef0",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791101972748
+      }
+    ],
+    "4.1 更新 test_version_consistency.py 與 test_source_list_composition.py": [
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791098897439
+      },
+      {
+        "executionId": "e93ab8af-2e68-48f0-9353-a803d911fef0",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791101983017
+      },
+      {
+        "executionId": "e93ab8af-2e68-48f0-9353-a803d911fef0",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791102284720
+      }
+    ],
+    "4.4 更新 test_capability_a_structure.py 與 test_cli_contract.py": [
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791098897488
+      },
+      {
+        "executionId": "e93ab8af-2e68-48f0-9353-a803d911fef0",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791101980999
+      },
+      {
+        "executionId": "e93ab8af-2e68-48f0-9353-a803d911fef0",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791102285742
+      }
+    ],
+    "5.1 新增結構檢查 example 測試（正例 + 反例）": [
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791098897537
+      },
+      {
+        "executionId": "e93ab8af-2e68-48f0-9353-a803d911fef0",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791101982405
+      },
+      {
+        "executionId": "e93ab8af-2e68-48f0-9353-a803d911fef0",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791102286807
+      }
+    ],
+    "6. 舊 spec 設計修正紀錄（不動既有 requirements 編號）": [
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791098897593
+      },
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791098914037
+      },
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791099538330
+      }
+    ],
+    "7. 驗證收尾（本機）": [
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791098897648
+      },
+      {
+        "executionId": "e93ab8af-2e68-48f0-9353-a803d911fef0",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791102562281
+      },
+      {
+        "executionId": "e93ab8af-2e68-48f0-9353-a803d911fef0",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791102867987
+      }
+    ],
+    "8. 最終驗收 — push 後盯 CI 四個 job 全綠": [
+      {
+        "executionId": "7f79eae0-57ef-4325-a128-20b055039575",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791098897724
+      },
+      {
+        "executionId": "e93ab8af-2e68-48f0-9353-a803d911fef0",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791102875519
+      }
+    ],
+    "4. 連帶更新受影響的既有測試（移除已刪符號依賴）": [
+      {
+        "executionId": "e93ab8af-2e68-48f0-9353-a803d911fef0",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791102285829
+      }
+    ],
+    "5. 新增結構檢查測試（正例 + 反例 + 新增 Property）": [
+      {
+        "executionId": "e93ab8af-2e68-48f0-9353-a803d911fef0",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791102286909
+      }
+    ],
+    "4.2 更新 test_property1_consistency.py（Property 1，不弱化）": [
+      {
+        "executionId": "e93ab8af-2e68-48f0-9353-a803d911fef0",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791102306075
+      },
+      {
+        "executionId": "e93ab8af-2e68-48f0-9353-a803d911fef0",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791102554004
+      }
+    ],
+    "4.3 更新 test_property3_fail_fast.py（Property 3，2-tuple spy/mock）": [
+      {
+        "executionId": "e93ab8af-2e68-48f0-9353-a803d911fef0",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791102307364
+      },
+      {
+        "executionId": "e93ab8af-2e68-48f0-9353-a803d911fef0",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791102551807
+      }
+    ],
+    "5.2 新增 Property 6 property test（結構檢查正確性）": [
+      {
+        "executionId": "e93ab8af-2e68-48f0-9353-a803d911fef0",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791102308878
+      },
+      {
+        "executionId": "e93ab8af-2e68-48f0-9353-a803d911fef0",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791102553122
+      }
+    ],
+    "5.3 新增 Property 7 property test（結構違規報告分節）": [
+      {
+        "executionId": "e93ab8af-2e68-48f0-9353-a803d911fef0",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791102309970
+      },
+      {
+        "executionId": "e93ab8af-2e68-48f0-9353-a803d911fef0",
+        "chatSessionId": "sess_644239f5-e3a8-4c47-91f0-89323a0e7d86",
+        "timestamp": 1791102555025
+      }
+    ]
+  }
+}

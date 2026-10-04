@@ -7,11 +7,15 @@ all dependencies injected. The app is designed for localhost-only access
 Corresponds to Requirement 10.6.
 """
 
+import logging
 from collections.abc import Callable
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
 from sqlalchemy.ext.asyncio import async_sessionmaker
 
+from keeplink_mcp import __version__
 from keeplink_mcp.api.batch_routes import router as batch_router
 from keeplink_mcp.api.health import (
     health_router,
@@ -19,6 +23,8 @@ from keeplink_mcp.api.health import (
     set_worker_running_flag,
 )
 from keeplink_mcp.api.routes import router, set_session_factory
+
+logger = logging.getLogger(__name__)
 
 
 def create_app(
@@ -42,7 +48,29 @@ def create_app(
     Returns:
         A fully configured FastAPI application ready to be served.
     """
-    app = FastAPI(title="KeepLink MCP", version="1.1.1")
+    # version is sourced from the authoritative __version__ (single source of
+    # truth) so API metadata never drifts from the package version (Req 3.1/3.2).
+    app = FastAPI(title="KeepLink MCP", version=__version__)
+
+    @app.exception_handler(RequestValidationError)
+    async def validation_exception_handler(
+        request: Request, exc: RequestValidationError
+    ) -> JSONResponse:
+        """Return 422 for request-body validation errors, logging bad formats.
+
+        Mirrors the fail-fast + `logger.warning` pattern used for invalid URLs
+        (routes.py / server.py): an out-of-enum `format` value is logged BEFORE
+        rejection so it is never silently coerced to the default. No Citation is
+        built because validation fails before any route handler runs (Req 3.11).
+        """
+        for error in exc.errors():
+            # loc is like ("body", "format"); flag the offending format value.
+            if error.get("loc", ())[-1:] == ("format",):
+                logger.warning(
+                    "cite request rejected: invalid format value %r",
+                    error.get("input"),
+                )
+        return JSONResponse(status_code=422, content={"detail": exc.errors()})
 
     # Inject DB session factory into the route module's dependency system
     set_session_factory(session_factory)
