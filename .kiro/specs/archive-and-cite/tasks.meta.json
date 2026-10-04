@@ -1,0 +1,341 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 建立 `src/keeplink_mcp/citation/__init__.py` 與 `builder.py` 的介面骨架": [
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688062234
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688078051
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688187321
+      }
+    ],
+    "1.2 實作 `normalize_title`": [
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688062632
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688195057
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688249147
+      }
+    ],
+    "1.3 實作 `_format_complete` 與 `_format_pending`": [
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688063156
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688256733
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688322464
+      }
+    ],
+    "1.4 實作 `build_citation`": [
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688063358
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688327192
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688391442
+      }
+    ],
+    "1.5 撰寫 `Citation_Builder` 純函式的 property-based tests（`test/test_citation_builder_properties.py`）": [
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688063659
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688397560
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688670207
+      }
+    ],
+    "1.6 撰寫 `Citation_Builder` 黃金範例 unit tests（`test/test_citation_builder_examples.py`）": [
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688063821
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688398851
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688671132
+      }
+    ],
+    "2.1 於 `src/keeplink_mcp/api/schemas.py` 新增 `CiteRequest` 與 `CitationResponse`": [
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688064007
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688079030
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688188383
+      }
+    ],
+    "3.1 於 `src/keeplink_mcp/api/routes.py` 新增 `create_citation`（POST /api/cite）": [
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688064168
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688399921
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688672297
+      }
+    ],
+    "3.2 撰寫 Cite_Endpoint property-based tests（`test/test_cite_endpoint_properties.py`）": [
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688064684
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688680308
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788689036594
+      }
+    ],
+    "3.3 撰寫 Cite_Endpoint unit tests（`test/test_cite_endpoint.py`）": [
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688064879
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688681896
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788689035359
+      }
+    ],
+    "4.1 於 `src/keeplink_mcp/mcp_server/server.py` 的 `list_tools()` 新增 `archive_and_cite` Tool": [
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688065046
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688682698
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788689033730
+      }
+    ],
+    "4.2 於 `call_tool()` 分派並實作 `_handle_archive_and_cite`": [
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688065209
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788689037301
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788689140632
+      }
+    ],
+    "4.3 撰寫工具層 property-based test（`test/test_archive_and_cite_tool_properties.py`）": [
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688065385
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788689146959
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788690631194
+      }
+    ],
+    "4.4 撰寫工具層 unit tests（`test/test_archive_and_cite_tool.py`）": [
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688065550
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788689147874
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788690631995
+      }
+    ],
+    "5. Checkpoint — 核心實作與測試完成": [
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688065717
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788690638907
+      }
+    ],
+    "6.1 更新 `docs/handoverbook.md`": [
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688066001
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788689149038
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788690630059
+      }
+    ],
+    "6.2 更新 `README.md`": [
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688066242
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788689149699
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788690628444
+      }
+    ],
+    "7. Final Checkpoint — 執行 lint 與測試": [
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688066454
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788690644622
+      },
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788690835021
+      }
+    ],
+    "2. 新增 CiteRequest / CitationResponse schemas": [
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688188638
+      }
+    ],
+    "1. 建立 citation package 純函式核心（interface first）": [
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788688671267
+      }
+    ],
+    "3. 新增 Cite_Endpoint（POST /api/cite）": [
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788689036732
+      }
+    ],
+    "6. 更新文件": [
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788690630187
+      }
+    ],
+    "4. 註冊 archive_and_cite MCP 工具與 handler": [
+      {
+        "executionId": "35af4ac9-5fec-4d76-b307-27d8a7327369",
+        "chatSessionId": "sess_b794f6e5-a36c-44c5-a3c6-5fa4d4320dc3",
+        "timestamp": 1788690632094
+      }
+    ]
+  }
+}

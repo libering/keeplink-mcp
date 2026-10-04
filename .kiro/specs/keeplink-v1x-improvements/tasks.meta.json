@@ -1,0 +1,436 @@
+{
+  "pbtResults": {
+    "5.5 撰寫 `Citation_Builder` 多格式 property-based tests（`test/test_citation_builder_properties.py`）": {
+      "status": "passed",
+      "lastRunTimestamp": 1789226250839
+    }
+  },
+  "executionHistory": {
+    "1.1 將 `src/keeplink_mcp/__init__.py` 的 `__version__` 設為權威值 `\"1.2.0\"`": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224900053
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224919494
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789225268729
+      }
+    ],
+    "1.2 對齊其餘版本來源字串為 `1.2.0`": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224900443
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789225278516
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789225556245
+      }
+    ],
+    "1.3 擴充 `test/test_version_consistency.py` 的來源擷取（interface first）": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224900716
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789225279401
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789225557390
+      }
+    ],
+    "1.4 擴充 `test/test_version_consistency.py` 的 Property 1 property-based test": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224900852
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789225569388
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789225749204
+      }
+    ],
+    "1.5 撰寫改進 A 的 example unit tests": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224901064
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789225755677
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789226012141
+      }
+    ],
+    "2. Checkpoint — 改進 A 完成": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224901202
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789226655702
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789226664037
+      }
+    ],
+    "3.1 定義改進 C 的介面骨架（sentinel / schema / MCP inputSchema）": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224901308
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224921058
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789225269953
+      }
+    ],
+    "3.2 實作 `TaskRepository.retry_task`（狀態轉換單一真實來源）": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224901418
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789225280596
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789225558773
+      }
+    ],
+    "3.3 實作 Retry_Endpoint（`POST /api/retry`，routes.py）": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224901541
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789225570343
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789225748643
+      }
+    ],
+    "3.4 實作 `retry_task` MCP 工具 handler（`_handle_retry_task`，server.py）": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224901711
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789226022571
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789226280672
+      }
+    ],
+    "3.5 撰寫 `retry_task` 狀態轉換 property-based tests（`test/test_retry_repository_properties.py`）": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224901900
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789226024193
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789226282003
+      }
+    ],
+    "3.6 撰寫改進 C 的 example unit tests（`test/test_retry_task.py`）": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224902124
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789226392297
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789226644298
+      }
+    ],
+    "3.7 撰寫改進 C 的 integration test（`test/test_retry_integration.py`）": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224902268
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789226393531
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789226645275
+      }
+    ],
+    "4. Checkpoint — 改進 C 完成": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224902416
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789226664966
+      }
+    ],
+    "5.1 定義改進 H 的介面骨架（列舉 / 分派結構 / schema / MCP inputSchema）": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224902545
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224921841
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789225271950
+      }
+    ],
+    "5.2 實作四個 formatter 與分派（含向後相容核心）": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224902659
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789225281569
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789225560083
+      }
+    ],
+    "5.3 端點傳遞 format 並實作非法值 fail-fast（routes.py + app.py）": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224902865
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789225754811
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789226013137
+      }
+    ],
+    "5.4 `archive_and_cite` MCP 工具傳遞 format（`_handle_archive_and_cite`，server.py）": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224903026
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789226295640
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789226385848
+      }
+    ],
+    "5.5 撰寫 `Citation_Builder` 多格式 property-based tests（`test/test_citation_builder_properties.py`）": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224903213
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789226024915
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789226283164
+      }
+    ],
+    "5.6 撰寫 Cite_Endpoint property-based tests（`test/test_cite_endpoint_properties.py`）": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224903337
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789226394392
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789226646722
+      }
+    ],
+    "5.7 撰寫改進 H 的 golden / example unit tests": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224903479
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789226395294
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789226647777
+      }
+    ],
+    "6. Checkpoint — 改進 H 完成": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224903626
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789226666194
+      }
+    ],
+    "7.1 擴充 CI matrix 為 os × python-version 兩維度": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224903801
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224922855
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789225272455
+      }
+    ],
+    "8. Final Checkpoint — 執行 lint 與測試": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789224903913
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789226667021
+      },
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789226860171
+      }
+    ],
+    "7. 改進 I — CI 加入 Windows matrix（`.github/workflows/ci.yml`）": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789225272578
+      }
+    ],
+    "1. 改進 A — 版本源統一（權威來源對齊 + 版本一致性測試擴充）": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789226012388
+      }
+    ],
+    "3. 改進 C — 失敗任務手動重試 `retry_task`（interface first）": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789226645513
+      }
+    ],
+    "5. 改進 H — `archive_and_cite` 多格式 citation（interface first）": [
+      {
+        "executionId": "e15f3a8b-5e65-4e27-8067-93173ff2677b",
+        "chatSessionId": "sess_5ef1fd59-6dda-4fa1-af56-04701e9ee9e0",
+        "timestamp": 1789226647898
+      }
+    ]
+  }
+}

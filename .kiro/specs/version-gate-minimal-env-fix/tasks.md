@@ -25,7 +25,7 @@
   - 編輯後**讀回該檔**核對：確認檔案以任務 14 作為最後一個任務、不再出現「任務 15 / 設計修正」字樣、`## Notes` 與 `## Task Dependency Graph` 段落完整保留，舊 spec 回到乾淨 30/30 完結
   - _Requirements: 10.1_
 
-- [ ] 2. 重寫 scripts/check_version.py — 介面骨架與各層實作（interface first）
+- [x] 2. 重寫 scripts/check_version.py — 介面骨架與各層實作（interface first）
   - [x] 2.1 定稿資料結構、常數與全部函式簽章（骨架）
     - `VersionSource` 改為 `{name, version}`（**移除 `is_derived`**）
     - 新增 `StructureCheck` frozen dataclass：`{name, file_path, required: list[re.Pattern], forbidden: list[re.Pattern]}`
@@ -122,7 +122,7 @@
   - Ensure all tests pass, ask the user if questions arise.
   - _Requirements: 11.1, 11.2, 11.3, 11.4_
 
-- [-] 8. 最終驗收 — push 後盯 CI 四個 job 全綠
+- [x] 8. 最終驗收 — push 後盯 CI 四個 job 全綠
   - 將本修正 push 至遠端分支
   - 盯 GitHub Actions CI_Pipeline，確認 CI_Matrix 四個 job（`ubuntu-latest` + `windows-latest` × Python `3.10` + `3.13`）全部標記為通過——此為本修正完成與否的**最終依據**（本機測試不算數）
   - _Requirements: 11.5_
