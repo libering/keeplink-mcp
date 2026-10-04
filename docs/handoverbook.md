@@ -1,6 +1,6 @@
 # KeepLink-MCP 項目交接手冊
 
-> 最後更新：2026-08-21 | 版本：v1.1.1
+> 最後更新：2026-08-21 | 版本：v1.2.0（含 archive_and_cite）
 
 ---
 
@@ -172,7 +172,7 @@ src/KeepLink_mcp/
 │
 └── mcp_server/              # 🔌 MCP 協議層
     ├── main.py              # MCP 進程入口 (stdio transport)
-    ├── server.py            # MCP tools 定義 (archive_url, get_archive_status)
+    ├── server.py            # MCP tools 定義 (archive_url, get_archive_status, archive_and_cite)
     └── url_validator.py     # URL 驗證 + 正規化
 ```
 
@@ -343,15 +343,43 @@ ruff check src/ test/ --fix  # 自動修復
 - ✅ Docker compose
 - ✅ 任務卡住自動恢復（Stuck Task Recovery）
 
-### v2.0+ 對接 Archive Team 規劃
+### v2.0+ 多來源存檔與驗證規劃（分兩階段）
 
-- [ ] 與 Archive Team 正式 API key 對接
-- [ ] 支援 SPN2 API 的 outlinks capture 參數
-- [ ] 支援 availability check 端點（檢查 URL 是否已存在快照）
-- [ ] 多後端引擎（Archive.today, ArchiveBox, Hoarder Web）
+> 定位延續 ADR-008：收斂在服務 `archive_and_cite` 的「引用防失效」核心場景，維持 LLM-free、本地優先，不擴張為通用存檔器（避免與 ArchiveBox 正面競爭）。目標是「多來源存檔（能力 A）+ 多來源可用性驗證（能力 B）」。
+
+**已完成的技術可行性查證結論（決定分兩階段的依據）：**
+
+| 來源 | 用途 | 可行性 | 認證 | 主要風險 |
+|------|------|--------|------|----------|
+| IA Wayback Availability API (`/wayback/available?url=`) | 能力 B 查詢 | ✅ 簡單，純 GET | 無 | 幾乎無 |
+| Common Crawl CDX Index (`index.commoncrawl.org`) | 能力 B 查詢 | ✅ 可行 | 無 | 覆蓋率不保證（爬到才有）、每月獨立索引需逐月查、延遲較高 |
+| Archive.today (`/submit/` → 輪詢 `wip/<id>`) | 能力 A 存檔 fallback | ⚠️ 可行但脆弱 | 無（非官方） | Cloudflare/反爬狀態反覆（2022 修→2023 壞→2024/08 恢復）、無官方 API 隨時可能改版、Python 無活躍套件需自寫 |
+| ~~Amber (amberlink.org)~~ | — | ❌ 剔除 | — | 去中心化 self-hosted 工具，快照散落各網站主機，無中心化端點可送存/可查詢，套不進 KeepLink 的「送 URL→拿 permanent URL」模型 |
+
+**第一階段（高 ROI、低風險，優先）— 能力 B：多來源可用性驗證**
+
+- [ ] 新增 availability 查詢抽象層（唯讀，不落 `ArchiveTask` 主表，保持 model 乾淨）
+- [ ] IA Availability API 查詢來源
+- [ ] Common Crawl CDX 查詢來源（覆蓋率不保證，僅作加分）
+- [ ] `CitationResponse` 擴充 `alternate_snapshots`（nullable list），cache-hit 時填入其他來源存底
+- 特性：無認證、不碰 Archive.today 的反爬坑、直接強化 `archive_and_cite` 引用防失效價值；與第二階段解耦，即使第二階段放棄也不受影響
+
+**第二階段（需接受外部脆弱性）— 能力 A：多後端存檔**
+
+- [ ] 抽出 `ArchiveBackend` Protocol（interface first），worker 只管排程/重試/rate limit，不管打哪個 API
+- [ ] 將現有 IA/waybackpy 邏輯搬進 `worker/backends/internet_archive.py`（僅搬家，不改寫）
+- [ ] 新增 `worker/backends/archive_today.py`（自寫 submit + 輪詢 wip；**best-effort，失敗不強 retry**）
+- [ ] `ArchiveTask` 新增 `backend` 欄位（`String(32)`，`default="internet_archive"`，有 default → 免寫 migration、舊資料相容）
+- 心理準備：Archive.today parser 會週期性壞掉、需維護；此後端可設為可選
+
+**其他長期候選（未排期）**
+
 - [ ] Webhook 通知（任務完成時回調）
 - [ ] Web UI 儀表板
-- [ ] WARC 爬取模式
+- [ ] SPN2 outlinks capture 參數
+- [ ] 與 Internet Archive 正式 API key 對接（提高現有 IA 後端 quota/穩定性；註：這是強化現有後端，非新增後端）
+
+> 已否決：WARC 整站爬取模式、通用存檔平台、內建 LLM 決策（詳見 ADR-008）。
 
 ---
 
@@ -430,3 +458,81 @@ GitHub Release (tag v1.x.x)
 | Outlinks Capture | 是否需要啟用 SPN2 的 `capture_outlinks` 參數（影響存檔範圍） |
 | Priority Queue | 是否需要任務優先級機制（部分 URL 需優先存檔） |
 | Availability Check | 是否在存檔前先查詢 IA 是否已有近期快照（避免重複存檔） |
+
+---
+
+## 12. `archive_and_cite` 工具（存檔 + 結構化引用）
+
+### 定位
+
+`archive_and_cite` 是 KeepLink 的新增 MCP 工具，實踐核心定位 X —「AI 研究時的網頁存檔中介軟體」。AI agent 在研究過程中引用網頁來源時，這些連結會發生 link rot（失效或內容變動）。此工具讓 AI 在**一次呼叫**中同時完成兩件事：把來源 URL 排入既有存檔佇列，並立即取回一個指向 permanent Wayback Machine URL 的結構化 Citation（含可直接貼上的 `formatted` 字串）。
+
+工具維持與 `archive_url` 一致的 non-blocking 行為（<50ms 回傳，不等待存檔完成），並保持 KeepLink 100% deterministic、LLM-free 的哲學：**產生 Citation 時不抓取頁面內容、不呼叫任何 LLM**。因此 `title` 一律由呼叫端提供（AI 已在閱讀頁面時讀到標題），KeepLink 不代為擷取。
+
+本工具完全複用既有存檔管線（URL validation/normalization、24h dedup、background Worker、Token Bucket rate limiter、exponential backoff retry），**無資料庫 schema 變更**。
+
+### 參數（inputSchema）
+
+| 參數 | 型別 | 必填 | 說明 |
+|------|------|------|------|
+| `url` | string | ✅ 必填 | 要存檔並引用的來源 URL（http 或 https），會先經 URL_Validator 驗證與正規化 |
+| `title` | string | 選填 | 呼叫端已讀到的頁面標題，作為引用的連結文字。**純空白字串（含 `\t`、全形空白）視同未提供**，`title` 欄位會設為 null |
+
+### Citation 回應欄位
+
+回應為結構化 Citation JSON，欄位如下：
+
+| 欄位 | 型別 | Nullable | 說明 |
+|------|------|----------|------|
+| `title` | string | ✅ 可為 null | 正規化後的標題；未提供或純空白時為 null |
+| `original_url` | string | ❌ 恆非空 | 正規化後的原始來源 URL |
+| `archived_url` | string | ✅ 可為 null | permanent Wayback Machine URL（即 ArchiveTask 的 `result_url`）；存檔尚未完成時為 null |
+| `archived_at` | timestamp | ✅ 可為 null | 存檔達成 success 的時間戳（success 任務的 `updated_at`）；尚未完成時為 null |
+| `task_id` | string | ❌ 恆非空 | 追蹤 ID；Pending 時供 `get_archive_status` 補完使用 |
+| `formatted` | string | ❌ 恆非空 | 可直接貼上的 markdown/純文字引用字串 |
+
+> **不變式**：`original_url`、`task_id`、`formatted` 恆為非空。`archived_url` 與 `archived_at` **同時**為 null（Pending）或**同時**非 null（Complete），不會只設其一。
+
+### 兩種回應形態
+
+工具依 24h dedup window 內的既有任務狀態，回傳兩種形態之一：
+
+- **Cache_Hit（COMPLETE）**：24h 內該 URL 已成功存檔（`status == success` 且具 `result_url`）。立即回傳完整 Citation：
+  - `archived_url` = 既有任務的 `result_url`
+  - `archived_at` = 既有任務的 `updated_at`
+  - `formatted`（含 title）：`[title](archived_url) (original: original_url, archived YYYY-MM-DD)`
+  - `formatted`（無 title）：以 `archived_url` 作為連結文字取代 title，仍含 original URL 與 `YYYY-MM-DD` 日期
+
+- **Pending_Citation**：24h 內無成功任務（新建任務，或既有任務仍在 pending/processing）。回傳進行中的 Citation：
+  - `archived_url` = null、`archived_at` = null
+  - `formatted` 說明存檔進行中，並包含 `original_url` 與 `task_id`
+  - 工具結果會附上引導文字，指示呼叫端稍後以 `task_id` 呼叫 `get_archive_status` 補完
+
+> 若既有任務為 `failed`，`find_recent_task` 回傳 None，工具會建立新任務重新進入管線（與 `archive_url` 行為對齊）。
+
+### Async citation-completion 流程
+
+存檔本身仍由背景 Worker 非同步完成，`archive_and_cite` 不阻塞等待。因此 Pending_Citation 需以「延後補完」方式取得 permanent URL：
+
+```
+1. AI 呼叫 archive_and_cite(url, title?)
+       └─ 24h 內無成功存檔 → 回傳 Pending_Citation
+          （archived_url = null、archived_at = null、附 task_id）
+
+2. 背景 Worker 非同步處理存檔
+       └─ SPN2 成功 → mark_success 寫入 result_url 與 updated_at
+
+3. AI 稍後以 task_id 呼叫 get_archive_status(task_id)
+       └─ status == success → 取得 permanent archived_url，補完 Citation
+```
+
+換言之：**Pending_Citation 是暫態**，`get_archive_status(task_id)` 是把它升級為完整引用的補完管道。AI 只需保留 `task_id`，待存檔完成後再查一次即可拿到永久連結。
+
+### 相關檔案
+
+| 檔案 | 用途 |
+|------|------|
+| `src/keeplink_mcp/mcp_server/server.py` | `archive_and_cite` Tool 註冊與 `_handle_archive_and_cite` handler |
+| `src/keeplink_mcp/api/routes.py` | `POST /api/cite`（`create_citation`）端點 |
+| `src/keeplink_mcp/api/schemas.py` | `CiteRequest` / `CitationResponse` Pydantic 模型 |
+| `src/keeplink_mcp/citation/builder.py` | `Citation` dataclass + `build_citation` 純函式（零 I/O、deterministic） |
