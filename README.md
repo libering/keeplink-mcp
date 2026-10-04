@@ -4,7 +4,7 @@ A local daemon that lets AI agents archive web pages to the Wayback Machine in t
 
 Works with any MCP-compatible client (Kiro, Cursor, Claude Desktop, etc).
 
-**Version: 1.1.0**
+**Version: 1.2.0**
 
 ## Why?
 
@@ -143,6 +143,24 @@ Query status of multiple tasks in a single request (v1.1.0+).
 Returns: `{ "results": [...], "total_requested": N, "total_found": M }`
 
 Each result contains the same fields as `get_archive_status`. Non-matching identifiers are silently omitted.
+
+### `archive_and_cite`
+
+Archive a cited web source **and** get back a paste-ready structured citation in one call. Non-blocking, same as `archive_url` — it returns immediately without waiting for archiving to finish.
+
+| Param | Type | Required | |
+|-------|------|----------|-|
+| url | string | yes | Must be http or https |
+| title | string | no | The page title you already read; used as the citation link text |
+
+Returns a Citation object: `{ "title": ..., "original_url": ..., "archived_url": ..., "archived_at": ..., "task_id": ..., "formatted": ... }`.
+
+The response comes in one of two shapes depending on archive state:
+
+- **Cache_Hit** — if the URL was already archived within the 24h dedup window, you get a **complete** citation immediately: `archived_url` points at the permanent Wayback Machine snapshot, `archived_at` is set, and `formatted` is a ready-to-paste markdown reference like `[title](archived_url) (original: original_url, archived YYYY-MM-DD)`. When you don't supply a `title`, the `archived_url` is used as the link text instead.
+- **Pending_Citation** — otherwise archiving is queued/in progress: `archived_url` and `archived_at` are `null`, and `formatted` states that archiving is in progress and includes the `original_url` and `task_id`. Call `get_archive_status(task_id)` later to obtain the permanent `archived_url` and complete the citation.
+
+KeepLink stays fully deterministic and LLM-free when producing a citation: it does **not** fetch the page content (supply the `title` yourself) and does **not** invoke any large language model.
 
 ## HTTP API Endpoints
 

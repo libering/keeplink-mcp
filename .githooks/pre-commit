@@ -1,0 +1,11 @@
+#!/bin/sh
+# KeepLink-MCP version consistency gate (thin hook + thick Python).
+# Enable locally with: git config core.hooksPath .githooks
+# Cross-platform: runs via Git Bash on Windows 11 and system sh on Linux.
+# Interpreter selection is runtime compatibility (python vs python3), NOT a
+# business-logic fallback — all consistency logic lives in scripts/check_version.py.
+if command -v python >/dev/null 2>&1; then PY=python; else PY=python3; fi
+"$PY" scripts/check_version.py || {
+  echo "版本一致性檢查未通過，已阻擋本次 commit。" >&2
+  exit 1
+}
