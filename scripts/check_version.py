@@ -31,6 +31,7 @@ Requirements: 1.3（納管來源皆為 Manual 比對 + 結構檢查驗 Derived �
 
 from __future__ import annotations
 
+import json
 import re
 import sys
 from collections.abc import Callable
@@ -470,22 +471,54 @@ def render_report(result: CheckResult) -> str:
     return _render_inconsistent(result)
 
 
+def render_json(result: CheckResult) -> str:
+    """將 CheckResult 序列化為對外穩定的 JSON_Contract 文字（純函式，無 I/O）。
+
+    手工組裝 payload dict 而非用 dataclasses.asdict：讓對外欄位名與順序即為穩定
+    契約，與 CheckResult / VersionSource 內部實作解耦，下游 skill 可安全依賴。
+    sources 以 list[VersionSource] 攤平為 {name, version} 物件、同序保留。
+
+    json.dumps 參數：
+        ensure_ascii=False —— 保留 CJK / emoji 等非 ASCII 字元（不轉義為 \\uXXXX）。
+        indent=2 —— 可讀縮排。
+    None 自然序列化為 null、空容器自然序列化為 {} / []。
+
+    Args:
+        result: 判定層或 collect 階段產出的 CheckResult。
+
+    Returns:
+        對外穩定的 JSON_Contract 文字。
+    """
+    payload = {
+        "ok": result.ok,
+        "authoritative": result.authoritative,
+        "sources": [{"name": s.name, "version": s.version} for s in result.sources],
+        "mismatches": dict(result.mismatches),
+        "invalid_format": dict(result.invalid_format),
+        "structure_errors": list(result.structure_errors),
+        "extraction_error": result.extraction_error,
+    }
+    return json.dumps(payload, ensure_ascii=False, indent=2)
+
+
 # ---------------------------------------------------------------------------
 # CLI 層（cli）—— 唯一與 stdout/stderr、sys.exit 互動的層；實作於任務 2.6
 # ---------------------------------------------------------------------------
 
 
-def _evaluate(repo_root: Path) -> tuple[int, str]:
-    """協調 collect -> check_structure -> check_consistency -> render。
+def _evaluate(repo_root: Path) -> tuple[int, CheckResult]:
+    """協調 collect -> check_structure -> check_consistency，回傳 (exit code, CheckResult)。
 
-    回傳 (exit code, Version_Report 文字)。擷取失敗時走 true fail-fast 單一來源報告；
-    擷取成功後呼叫 check_structure(repo_root)，將結果傳入 check_consistency。
+    擷取失敗時走 true fail-fast 單一來源結果；擷取成功後呼叫 check_structure(repo_root)，
+    將結果傳入 check_consistency。渲染決策上移至 main()——本層只產生 CheckResult 與
+    exit code，由呼叫端依輸出模式自行選擇 render_report（人讀）或 render_json（機器讀），
+    確保兩種輸出模式共用同一 exit code 語義。
 
     Args:
         repo_root: repo 根目錄。
 
     Returns:
-        (exit code, Version_Report 文字)。
+        (exit code, CheckResult)。
     """
     sources, extraction_error = collect_sources(repo_root)
     if extraction_error is not None:
@@ -500,15 +533,17 @@ def _evaluate(repo_root: Path) -> tuple[int, str]:
             structure_errors=[],
             extraction_error=extraction_error,
         )
-        return 1, render_report(result)
+        return 1, result
     authoritative = sources[0].version
     structure_errors = check_structure(repo_root)
     result = check_consistency(authoritative, sources, structure_errors)
-    return (0 if result.ok else 1), render_report(result)
+    return (0 if result.ok else 1), result
 
 
 def run_check(repo_root: Path | None = None) -> int:
-    """協調 collect -> check_structure -> check -> render，回傳 exit code。
+    """協調 collect -> check_structure -> check_consistency，回傳 exit code。
+
+    僅取 _evaluate 的 exit code（丟棄 CheckResult），語義與重構前一致。
 
     Args:
         repo_root: repo 根目錄；None 時預設使用 REPO_ROOT。
@@ -523,14 +558,25 @@ def run_check(repo_root: Path | None = None) -> int:
 def main() -> None:
     """CLI 進入點。
 
-    開頭將 stdout/stderr 重設為 UTF-8（Windows console 對策），no-args 走
-    SOURCE_SPECS 預設檢查，不一致/失敗寫 stderr 並 flush、一致寫 stdout，
-    最後 ``sys.exit(exit_code)``。
+    開頭將 stdout/stderr 重設為 UTF-8（Windows console 對策，兩模式共用）。
+    依 ``"--json" in sys.argv[1:]`` 選擇輸出模式：
+
+    - 有 ``--json``（Json_Flag）：以 render_json(result) 一律寫 stdout（不論 ok），
+      呼叫端用 exit code 判成敗、用 JSON 讀細節。
+    - 無 ``--json``（Default_Mode）：維持既有行為逐字不變——一致（exit 0）寫
+      stdout；其餘寫 stderr 並 flush。
+
+    兩模式最後皆 ``sys.exit(exit_code)``，共用同一 exit code 語義。
     """
     for stream in (sys.stdout, sys.stderr):
         if hasattr(stream, "reconfigure"):
             stream.reconfigure(encoding="utf-8")
-    exit_code, report = _evaluate(REPO_ROOT)
+    exit_code, result = _evaluate(REPO_ROOT)
+    if "--json" in sys.argv[1:]:
+        # 機器讀模式：單一輸出管道（stdout）較易擷取，不論 ok 皆走 stdout。
+        print(render_json(result))
+        sys.exit(exit_code)
+    report = render_report(result)
     if exit_code == 0:
         print(report)
     else:
