@@ -27,7 +27,7 @@ if TYPE_CHECKING:
 
 
 # Default user-agent for Wayback Machine SPN2 API requests.
-_USER_AGENT = "KeepLink-MCP/1.0 (https://github.com/keeplink/keeplink-mcp)"
+_USER_AGENT = "KeepLink-MCP/1.0 (https://github.com/libering/keeplink-mcp)"
 
 
 class BackgroundWorker:

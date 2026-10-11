@@ -56,7 +56,7 @@ Two processes: the MCP server talks stdio with your AI client, and forwards requ
 You need Python 3.10+.
 
 ```bash
-git clone https://github.com/keeplink/keeplink-mcp.git
+git clone https://github.com/libering/keeplink-mcp.git
 cd keeplink-mcp
 pip install -e ".[dev]"
 ```

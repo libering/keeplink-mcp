@@ -43,10 +43,10 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/keeplink/keeplink-mcp"
-Repository = "https://github.com/keeplink/keeplink-mcp"
-Issues = "https://github.com/keeplink/keeplink-mcp/issues"
-Documentation = "https://github.com/keeplink/keeplink-mcp#readme"
+Homepage = "https://github.com/libering/keeplink-mcp"
+Repository = "https://github.com/libering/keeplink-mcp"
+Issues = "https://github.com/libering/keeplink-mcp/issues"
+Documentation = "https://github.com/libering/keeplink-mcp#readme"
 
 [project.scripts]
 keeplink = "keeplink_mcp.main:main"
