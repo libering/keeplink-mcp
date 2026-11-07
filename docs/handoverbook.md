@@ -1,6 +1,6 @@
 # KeepLink-MCP 項目交接手冊
 
-> 最後更新：2026-08-21 | 版本：v1.2.0（含 archive_and_cite）
+> 最後更新：2026-08-21 | 版本：v1.2.1（含 archive_and_cite）
 
 ---
 
