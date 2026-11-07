@@ -34,7 +34,7 @@ def setup_logging(
     )
 
     # Console handler — always enabled
-    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler = logging.StreamHandler(sys.stderr)
     console_handler.setFormatter(formatter)
     logger.addHandler(console_handler)
 
