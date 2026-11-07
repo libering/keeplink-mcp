@@ -1,6 +1,6 @@
 # KeepLink-MCP 項目交接手冊
 
-> 最後更新：2026-08-21 | 版本：v1.2.1（含 archive_and_cite）
+> 最後更新：2026-11-07 | 版本：v1.2.1（含 archive_and_cite、retry_task、多格式引用）
 
 ---
 
@@ -146,11 +146,14 @@ AI 代理在深度研究過程中需要保全網頁證據，但 Internet Archive
 ## 4. 模組地圖
 
 ```
-src/KeepLink_mcp/
+src/keeplink_mcp/
 ├── __init__.py              # 版本號定義
 ├── config.py                # 組態管理：環境變數讀取 + 預設值
 ├── logging_setup.py         # 結構化日誌：stdout + file 雙輸出 + Log Rotation
 ├── main.py                  # 主入口：啟動 FastAPI + Worker (uvicorn)
+│
+├── citation/                # 📝 引用層（純函式，零 I/O）
+│   └── builder.py           # Citation dataclass + build_citation；markdown/bibtex/apa/plain
 │
 ├── db/                      # 🗄️ 持久層
 │   ├── models.py            # ArchiveTask ORM 定義 (SQLAlchemy 2.0)
@@ -159,7 +162,7 @@ src/KeepLink_mcp/
 │
 ├── api/                     # 🌐 HTTP 服務層 (FastAPI)
 │   ├── app.py               # App factory — 組裝 FastAPI 實例
-│   ├── routes.py            # 路由：POST /archive, GET /status
+│   ├── routes.py            # 路由：POST /archive、/cite、/retry，GET /status
 │   ├── schemas.py           # Pydantic request/response 模型
 │   ├── health.py            # Health check 端點 (GET /api/health)
 │   └── batch_routes.py      # 批量狀態查詢端點 (GET /api/status/batch)
@@ -172,7 +175,7 @@ src/KeepLink_mcp/
 │
 └── mcp_server/              # 🔌 MCP 協議層
     ├── main.py              # MCP 進程入口 (stdio transport)
-    ├── server.py            # MCP tools 定義 (archive_url, get_archive_status, archive_and_cite)
+    ├── server.py            # MCP tools 定義 (archive_url, get_archive_status, archive_and_cite, retry_task)
     └── url_validator.py     # URL 驗證 + 正規化
 ```
 
@@ -201,10 +204,10 @@ Startup Recovery:
 
 ```bash
 # 主服務（FastAPI + Worker）
-python -m KeepLink_mcp.main
+python -m keeplink_mcp.main
 
 # MCP Server（由 AI Client 自動管理，通常不需手動啟動）
-python -m KeepLink_mcp.mcp_server.main
+python -m keeplink_mcp.mcp_server.main
 
 # Docker Compose 一鍵啟動
 docker compose up -d
@@ -219,18 +222,18 @@ docker compose up -d
 
 | 變數 | 預設值 | 說明 |
 |------|--------|------|
-| KeepLink_API_HOST | 127.0.0.1 | 綁定地址 |
-| KeepLink_API_PORT | 19210 | 綁定端口 |
-| KeepLink_DB_PATH | ./data/task.db | SQLite 路徑 |
-| KeepLink_MAX_RETRIES | 5 | 最大重試次數 |
-| KeepLink_BASE_BACKOFF | 300.0 | 基礎退避秒數 |
-| KeepLink_WORKER_CONCURRENCY | 1 | 每輪處理任務數 |
-| KeepLink_POLL_INTERVAL | 5.0 | 輪詢間隔秒數 |
-| KeepLink_IA_ACCESS_KEY | — | IA S3 Access Key |
-| KeepLink_IA_SECRET_KEY | — | IA S3 Secret Key |
-| KeepLink_LOG_LEVEL | INFO | 日誌等級 |
-| KeepLink_LOG_FILE | ./data/archiver.log | 日誌文件路徑 |
-| KEEPLINK_RATE_LIMIT_TOKENS | 15 | Token Bucket 容量（每週期可發送請求數） |
+| KEEPLINK_API_HOST | 127.0.0.1 | 綁定地址 |
+| KEEPLINK_API_PORT | 19210 | 綁定端口 |
+| KEEPLINK_DB_PATH | ./data/task.db | SQLite 路徑 |
+| KEEPLINK_MAX_RETRIES | 5 | 最大重試次數 |
+| KEEPLINK_BASE_BACKOFF | 300.0 | 基礎退避秒數 |
+| KEEPLINK_WORKER_CONCURRENCY | 1 | 每輪處理任務數 |
+| KEEPLINK_POLL_INTERVAL | 5.0 | 輪詢間隔秒數 |
+| KEEPLINK_IA_ACCESS_KEY | — | IA S3 Access Key |
+| KEEPLINK_IA_SECRET_KEY | — | IA S3 Secret Key |
+| KEEPLINK_LOG_LEVEL | INFO | 日誌等級 |
+| KEEPLINK_LOG_FILE | ./data/archiver.log | 日誌文件路徑 |
+| KEEPLINK_RATE_LIMIT_TOKENS | 7 | Token Bucket 容量（每週期可發送請求數） |
 | KEEPLINK_RATE_LIMIT_INTERVAL_SEC | 60.0 | Token Bucket 補充週期（秒） |
 | KEEPLINK_RATE_LIMIT_TIMEOUT | 30.0 | 等待 token 的最大超時秒數 |
 | KEEPLINK_LOG_MAX_BYTES | 10485760 | 單一日誌檔案最大大小（10MB） |
@@ -293,7 +296,7 @@ pip install -e ".[dev]"
 ### 跑測試
 
 ```bash
-# 全部測試（80+ 個）
+# 全部測試（約 280 個；請在乾淨的 .venv 內執行，見第 14 節）
 pytest test/ -v
 
 # 只跑特定模組
@@ -343,6 +346,15 @@ ruff check src/ test/ --fix  # 自動修復
 - ✅ Docker compose
 - ✅ 任務卡住自動恢復（Stuck Task Recovery）
 
+### v1.2.x 已完成
+
+- ✅ `archive_and_cite`：存檔 + 結構化引用（第 12 節）
+- ✅ `retry_task`：把 failed 任務重新排入佇列（第 13 節）
+- ✅ 多格式引用輸出：markdown / bibtex / apa / plain
+- ✅ 版本一致性閘門 `scripts/check_version.py`（第 15 節）
+- ✅ push 到 main 且版本號變動時自動發佈 PyPI（第 8 節）
+- ✅ 修正 created_at 相同時「最新任務」查詢結果不確定的問題（第 14 節）
+
 ### v2.0+ 多來源存檔與驗證規劃（分兩階段）
 
 > 定位延續 ADR-008：收斂在服務 `archive_and_cite` 的「引用防失效」核心場景，維持 LLM-free、本地優先，不擴張為通用存檔器（避免與 ArchiveBox 正面競爭）。目標是「多來源存檔（能力 A）+ 多來源可用性驗證（能力 B）」。
@@ -387,15 +399,20 @@ ruff check src/ test/ --fix  # 自動修復
 
 ```
 Push/PR to main
-    → GitHub Actions (ci.yml)
-    → Ruff lint → Pytest (80+ tests) → pip-audit
+    → GitHub Actions (ci.yml)，矩陣：ubuntu/windows × Python 3.10/3.13
+    → Ruff lint → Pytest → pip-audit（僅 Python 3.13 執行）
     → ✅ 合併
 
-GitHub Release (tag v1.x.x)
+Push to main 且 src/keeplink_mcp/__init__.py 有變動（或 release published / 手動觸發）
     → GitHub Actions (publish.yml)
-    → python -m build → PyPI publish (Trusted Publisher)
+    → check：讀 __version__，查 PyPI 是否已有該版本（已有則略過）
+    → publish：版本閘門 → pytest → python -m build → PyPI (Trusted Publisher, environment: pypi)
+    → 建立 tag v<version> 與 GitHub release
 ```
 
+- pip-audit 只在 3.13 執行：其工具依賴 filelock 的修正版需要 Python >=3.11，3.10 無法通過。
+- 發佈步驟不可撤銷（只能 yank）。要發佈新版本，請在 PR 內同步更新版本號，合併即觸發發佈。
+- 不要手動搬移已推送的 tag；若 tag 與建置 commit 不一致，改發新的 patch 版本。
 ### Dependabot
 
 - 每週掃描 pip 依賴 + GitHub Actions 版本
@@ -446,7 +463,7 @@ GitHub Release (tag v1.x.x)
 
 ### 對接要點
 
-- Rate Limiter 已預設 15 req/min（符合 IA 公開 API 限制），可依實際取得的 quota 透過 `KEEPLINK_RATE_LIMIT_TOKENS` 及 `KEEPLINK_RATE_LIMIT_INTERVAL_SEC` 調整
+- Rate Limiter 目前預設 7 次/60 秒（`config.py`；IA 公開限制約 15 次/分鐘，見 ADR-006），可依實際取得的 quota 透過 `KEEPLINK_RATE_LIMIT_TOKENS` 及 `KEEPLINK_RATE_LIMIT_INTERVAL_SEC` 調整
 - 指數退避策略已處理 429 回應，對接後無需額外邏輯
 - 錯誤分類器已區分 retryable / non-retryable，401/403 直接失敗不重試
 
@@ -477,6 +494,7 @@ GitHub Release (tag v1.x.x)
 |------|------|------|------|
 | `url` | string | ✅ 必填 | 要存檔並引用的來源 URL（http 或 https），會先經 URL_Validator 驗證與正規化 |
 | `title` | string | 選填 | 呼叫端已讀到的頁面標題，作為引用的連結文字。**純空白字串（含 `\t`、全形空白）視同未提供**，`title` 欄位會設為 null |
+| `format` | string | 選填 | 引用輸出格式：`markdown`（預設）、`bibtex`、`apa`、`plain`。只影響 `formatted`，結構化欄位不變 |
 
 ### Citation 回應欄位
 
@@ -489,7 +507,7 @@ GitHub Release (tag v1.x.x)
 | `archived_url` | string | ✅ 可為 null | permanent Wayback Machine URL（即 ArchiveTask 的 `result_url`）；存檔尚未完成時為 null |
 | `archived_at` | timestamp | ✅ 可為 null | 存檔達成 success 的時間戳（success 任務的 `updated_at`）；尚未完成時為 null |
 | `task_id` | string | ❌ 恆非空 | 追蹤 ID；Pending 時供 `get_archive_status` 補完使用 |
-| `formatted` | string | ❌ 恆非空 | 可直接貼上的 markdown/純文字引用字串 |
+| `formatted` | string | ❌ 恆非空 | 可直接貼上的引用字串；格式由 `format` 參數決定（預設 markdown） |
 
 > **不變式**：`original_url`、`task_id`、`formatted` 恆為非空。`archived_url` 與 `archived_at` **同時**為 null（Pending）或**同時**非 null（Complete），不會只設其一。
 
@@ -536,3 +554,33 @@ GitHub Release (tag v1.x.x)
 | `src/keeplink_mcp/api/routes.py` | `POST /api/cite`（`create_citation`）端點 |
 | `src/keeplink_mcp/api/schemas.py` | `CiteRequest` / `CitationResponse` Pydantic 模型 |
 | `src/keeplink_mcp/citation/builder.py` | `Citation` dataclass + `build_citation` 純函式（零 I/O、deterministic） |
+
+---
+
+## 13. `retry_task` 工具
+
+- 用途：把狀態為 `failed` 的任務重設為 `pending`，並刷新重試額度，讓背景 Worker 再處理一次（例如暫時性 403/429 之後）。
+- 參數：`task_id`（必填）。
+- 回應：成功回傳 `task_id` 與新狀態 `pending`；任務不是 failed 則被拒絕（HTTP 409，訊息含目前狀態）；task_id 不存在回 404。
+- 路徑：MCP `retry_task` → `POST /api/retry` → `TaskRepository.retry_task`。
+
+---
+
+## 14. 已知陷阱 (Gotchas)
+
+| 現象 | 原因 | 解法 |
+|------|------|------|
+| `test_cite_endpoint.py::test_no_llm_client_module_exists` 在本機失敗 | 該測試用 `find_spec("openai")` 檢查整個直譯器；全域 site-packages 若裝了 `openai` 就會失敗，屬環境污染而非程式缺陷 | 在乾淨的 `.venv` 內跑 pytest（CI 使用隔離環境，不受影響） |
+| commit 作者變成非預期的身分 | repo-local 的 `git config --local user.name` 會蓋過 `--global` | 逐次用 `git -c user.name=... -c user.email=...` 覆寫，不要改 repo-local 設定 |
+| `git rev-list -n1 vX.Y.Z` 指向舊 commit | 本機 tag 早於修正 commit；annotated tag 會指向它建立時的 commit | 不要搬動已推送的 tag；改發新的 patch 版本 |
+| Windows + Python <3.13 偶發取得兩筆「最新任務」 | 時鐘精度粗，連續建立的任務可能有相同 `created_at` | 已修正：以 `task_id` 作為第二排序；回歸測試 `test/test_latest_task_tie_break.py` |
+
+---
+
+## 15. 版本一致性閘門
+
+- 指令：`python scripts/check_version.py [--json]`。退出碼 0 表示一致；`--json` 一律輸出到 stdout。
+- 權威來源：`src/keeplink_mcp/__init__.py` 的 `__version__`；另檢查 `README.md` 與本檔頂部標頭（前 10 行內的版本標記）。
+- 因此更新版本時，本檔頂部的日期與版本標記必須同步修改，否則閘門與 CI 會失敗。
+- 啟用 pre-commit：`git config core.hooksPath .githooks`。
+- 契約文件：`docs/version-gate-cli-contract.md`。
