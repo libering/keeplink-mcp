@@ -1,28 +1,107 @@
 name: Publish to PyPI
 
+# Publishes keeplink-mcp to PyPI when the version in
+# src/keeplink_mcp/__init__.py is bumped on main, when a GitHub release is
+# published by hand, or when run manually. Idempotent: if the version is
+# already on PyPI, nothing is uploaded.
+#
+# PyPI trusted publishing (OIDC) is bound to this file name and to the "pypi"
+# environment. Do not rename either without updating the trusted publisher
+# settings on PyPI.
 on:
+  push:
+    branches: [main]
+    paths:
+      - "src/keeplink_mcp/__init__.py"
   release:
     types: [published]
+  workflow_dispatch:
 
 permissions:
-  id-token: write
+  contents: read
+
+concurrency:
+  group: publish-pypi
+  cancel-in-progress: false
 
 jobs:
-  publish:
+  check:
+    name: Decide whether to publish
     runs-on: ubuntu-latest
-    environment: pypi
+    outputs:
+      version: ${{ steps.v.outputs.version }}
+      publish: ${{ steps.v.outputs.publish }}
     steps:
       - uses: actions/checkout@v7
+      - name: Read version and ask PyPI
+        id: v
+        shell: bash
+        env:
+          EVENT: ${{ github.event_name }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          set -euo pipefail
+          version=$(sed -n 's/^__version__ = "\([0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\)"$/\1/p' src/keeplink_mcp/__init__.py)
+          if [ -z "$version" ]; then
+            echo "::error::Could not read __version__ from src/keeplink_mcp/__init__.py"
+            exit 1
+          fi
+          if [ "$EVENT" = "release" ] && [ "$TAG" != "v$version" ]; then
+            echo "::error::Release tag $TAG does not match __version__ v$version"
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          code=$(curl -s -o /dev/null -w '%{http_code}' "https://pypi.org/pypi/keeplink-mcp/${version}/json")
+          case "$code" in
+            200)
+              echo "keeplink-mcp ${version} is already on PyPI; nothing to publish."
+              echo "publish=false" >> "$GITHUB_OUTPUT" ;;
+            404)
+              echo "keeplink-mcp ${version} is not on PyPI yet; will publish."
+              echo "publish=true" >> "$GITHUB_OUTPUT" ;;
+            *)
+              echo "::error::Unexpected PyPI response ${code}"
+              exit 1 ;;
+          esac
 
+  publish:
+    name: Build and upload
+    needs: check
+    if: needs.check.outputs.publish == 'true'
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write # PyPI trusted publishing
+      contents: write # create the tag and release after a successful upload
+    env:
+      VERSION: ${{ needs.check.outputs.version }}
+    steps:
+      - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
         with:
           python-version: "3.13"
-
-      - name: Install build tools
-        run: pip install build
-
-      - name: Build package
+      - name: Install
+        run: pip install -e ".[dev]" build
+      - name: Version gate
+        run: python scripts/check_version.py
+      - name: Tests
+        run: pytest test/ -q
+      - name: Build
         run: python -m build
-
+      - name: Check built artifacts match the version
+        run: |
+          test -f "dist/keeplink_mcp-${VERSION}-py3-none-any.whl"
+          test -f "dist/keeplink_mcp-${VERSION}.tar.gz"
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
+      - name: Tag and publish the GitHub release
+        if: github.event_name != 'release'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          if gh release view "v${VERSION}" >/dev/null 2>&1; then
+            gh release edit "v${VERSION}" --draft=false
+          else
+            gh release create "v${VERSION}" --target "$GITHUB_SHA" --title "v${VERSION}" --generate-notes
+          fi
