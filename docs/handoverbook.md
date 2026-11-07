@@ -426,9 +426,10 @@ Push to main 且 src/keeplink_mcp/__init__.py 有變動（或 release published 
 | 面向 | 措施 |
 |------|------|
 | Secrets | 環境變數，從不硬編碼 |
-| 網路暴露 | 預設綁定 127.0.0.1 |
+| 網路暴露 | 預設綁定 127.0.0.1;Docker Compose 的主機端口亦綁定 127.0.0.1(docker-compose.yml 已修正);想遠端存取需自行修改並自負認證責任 |
 | SQL Injection | SQLAlchemy ORM，無原生 SQL 拼接 |
-| Input Validation | URL scheme + hostname 驗證 |
+| Input Validation | URL scheme + hostname 驗證;拒絕 userinfo、localhost / 內網 / 迴路 IP 字面值、長度 > 2048 |
+| Input Validation 已知限制 | 不做 DNS 解析(不防 DNS rebinding);非標準 IPv4 寫法(如 `127.1`)與 CGNAT 不在防護範圍 |
 | 錯誤暴露 | 不返回 stack trace |
 | 遙測 | 無外部 telemetry |
 | 依賴安全 | pip-audit CI + Dependabot |
