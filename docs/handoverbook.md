@@ -153,7 +153,8 @@ src/keeplink_mcp/
 ├── main.py                  # 主入口：啟動 FastAPI + Worker (uvicorn)
 │
 ├── citation/                # 📝 引用層（純函式，零 I/O）
-│   └── builder.py           # Citation dataclass + build_citation；markdown/bibtex/apa/plain
+│   ├── builder.py           # Citation dataclass + build_citation；markdown/bibtex/apa/plain/wikitext
+│   └── wikitext.py          # Wikipedia {{cite web}} 格式化與跳脫（純函式，builder 單向匯入）
 │
 ├── db/                      # 🗄️ 持久層
 │   ├── models.py            # ArchiveTask ORM 定義 (SQLAlchemy 2.0)
@@ -350,7 +351,7 @@ ruff check src/ test/ --fix  # 自動修復
 
 - ✅ `archive_and_cite`：存檔 + 結構化引用（第 12 節）
 - ✅ `retry_task`：把 failed 任務重新排入佇列（第 13 節）
-- ✅ 多格式引用輸出：markdown / bibtex / apa / plain
+- ✅ 多格式引用輸出：markdown / bibtex / apa / plain / wikitext
 - ✅ 版本一致性閘門 `scripts/check_version.py`（第 15 節）
 - ✅ push 到 main 且版本號變動時自動發佈 PyPI（第 8 節）
 - ✅ 修正 created_at 相同時「最新任務」查詢結果不確定的問題（第 14 節）
@@ -494,7 +495,7 @@ Push to main 且 src/keeplink_mcp/__init__.py 有變動（或 release published 
 |------|------|------|------|
 | `url` | string | ✅ 必填 | 要存檔並引用的來源 URL（http 或 https），會先經 URL_Validator 驗證與正規化 |
 | `title` | string | 選填 | 呼叫端已讀到的頁面標題，作為引用的連結文字。**純空白字串（含 `\t`、全形空白）視同未提供**，`title` 欄位會設為 null |
-| `format` | string | 選填 | 引用輸出格式：`markdown`（預設）、`bibtex`、`apa`、`plain`。只影響 `formatted`，結構化欄位不變 |
+| `format` | string | 選填 | 引用輸出格式：`markdown`（預設）、`bibtex`、`apa`、`plain`、`wikitext`。只影響 `formatted`，結構化欄位不變 |
 
 ### Citation 回應欄位
 
@@ -528,6 +529,18 @@ Push to main 且 src/keeplink_mcp/__init__.py 有變動（或 release published 
 
 > 若既有任務為 `failed`，`find_recent_task` 回傳 None，工具會建立新任務重新進入管線（與 `archive_url` 行為對齊）。
 
+### wikitext 格式說明
+
+`format=wikitext` 輸出單行 Wikipedia `{{cite web}}` 範本（實作於 `citation/wikitext.py`）：
+
+- **Complete 態欄位與順序**（固定五個）：`title`、`url`、`url-status`、`archive-url`、`archive-date`。不輸出 `access-date`、作者、出版者、網站名稱。
+- **`url-status=live`**：固定值。依 Wikipedia 文件，`live` 表示原網址已被預先封存；`archive_and_cite` 正是在引用當下預先封存，而 KeepLink 不探測原網址是否仍存活。原網站日後失效時，由編輯者改為 `dead`。
+- **title 缺失**：輸出空的 `|title=`，不以 URL 或其他值填補（不捏造）。貼進 Wikipedia 後會看到 CS1 的 title 缺失錯誤，提示補填。
+- **title 跳脫**：`|`→`&#124;`、`[`→`&#91;`、`]`→`&#93;`、`{`→`&#123;`、`}`→`&#125;`、`<`→`&#60;`，換行以單一空白取代；`=`、`&`、`>` 不跳脫。
+- **URL 跳脫**（`url` 與 `archive-url`）：空白與 `"` `'` `<` `>` `[` `]` `{` `|` `}` 以 UTF-8 百分比編碼；`%` 不重複編碼。
+- **Pending 態**：`{{cite web |url=... <!-- Archiving in progress; task_id: ... -->}}`，只含 `url`，無 `archive-url`。
+- **已知限制**：`archive-date` 沿用 `archived_at`，Cache_Hit 時來源是任務的 `updated_at`（最後變更時間），並非 Wayback 快照時間，因此為近似值（與其他格式相同）。
+
 ### Async citation-completion 流程
 
 存檔本身仍由背景 Worker 非同步完成，`archive_and_cite` 不阻塞等待。因此 Pending_Citation 需以「延後補完」方式取得 permanent URL：
@@ -554,6 +567,7 @@ Push to main 且 src/keeplink_mcp/__init__.py 有變動（或 release published 
 | `src/keeplink_mcp/api/routes.py` | `POST /api/cite`（`create_citation`）端點 |
 | `src/keeplink_mcp/api/schemas.py` | `CiteRequest` / `CitationResponse` Pydantic 模型 |
 | `src/keeplink_mcp/citation/builder.py` | `Citation` dataclass + `build_citation` 純函式（零 I/O、deterministic） |
+| `src/keeplink_mcp/citation/wikitext.py` | wikitext（Wikipedia `{{cite web}}`）格式化與 title / URL 跳脫 |
 
 ---
 

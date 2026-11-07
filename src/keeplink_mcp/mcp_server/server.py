@@ -129,10 +129,12 @@ def create_mcp_server(config: Config) -> Server:
                         },
                         "format": {
                             "type": "string",
-                            "enum": ["markdown", "bibtex", "apa", "plain"],
+                            "enum": ["markdown", "bibtex", "apa", "plain", "wikitext"],
                             "description": (
                                 "Citation output format for the `formatted` field. One of "
-                                "markdown (default), bibtex, apa, plain. Only affects "
+                                "markdown (default), bibtex, apa, plain, wikitext "
+                                "(Wikipedia {{cite web}} with archive-url, archive-date "
+                                "and url-status). Only affects "
                                 "`formatted`; structured fields are unchanged."
                             ),
                         },

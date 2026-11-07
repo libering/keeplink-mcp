@@ -359,7 +359,7 @@ class TestCitationBuilderProperties:
 # (design.md maps Properties 5,6,7,8,9,10,13 to this file).
 # ===========================================================================
 
-# All four supported output formats; used to sweep the format dimension.
+# All supported output formats (incl. wikitext); used to sweep the format dimension.
 FORMAT_STRATEGY = st.sampled_from(list(CitationFormat))
 
 # Markdown link syntax marker: the `](` bridge in a `[text](url)` link. Plain
@@ -438,7 +438,7 @@ class TestMultiFormatCitationBuilderProperties:
         assert first == second
         assert first.formatted == second.formatted
 
-    # Feature: keeplink-v1x-improvements, Property 7: 兩態 × 四格式完整性 — 任一
+    # Feature: keeplink-v1x-improvements, Property 7: 兩態 × 全格式完整性 — 任一
     # archive state（pending 或 complete）× 任一 format 皆產生非空 formatted，
     # 無未涵蓋組合、無例外。
     @settings(max_examples=100)
@@ -450,10 +450,10 @@ class TestMultiFormatCitationBuilderProperties:
         archived_at=ARCHIVED_AT_STRATEGY,
         fmt=FORMAT_STRATEGY,
     )
-    def test_property_7_two_state_four_format_completeness(
+    def test_property_7_two_state_all_format_completeness(
         self, title, original_url, task_id, archived_url, archived_at, fmt
     ) -> None:
-        """Property 7: 兩態 × 四格式完整性.
+        """Property 7: 兩態 × 全格式完整性.
 
         **Validates: Requirements 3.1**
         """

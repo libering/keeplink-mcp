@@ -1,0 +1,365 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 建立 `test/test_wikitext_regression.py` 並寫入八個凍結字面字串": [
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064065611
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064073568
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064219500
+      }
+    ],
+    "2.1 建立 `src/keeplink_mcp/citation/wikitext.py`:常數與跳脫 helper": [
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064065759
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064073665
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064219704
+      }
+    ],
+    "2.2 在 `wikitext.py` 實作 `complete_wikitext` 與 `pending_wikitext`": [
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064065935
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064225348
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064281247
+      }
+    ],
+    "2.3 建立 `test/test_wikitext_properties.py`:complete 態的屬性測試": [
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064066049
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064288371
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064387047
+      }
+    ],
+    "2.4 在 `test/test_wikitext_properties.py` 加入 pending 態屬性測試": [
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064066114
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064395831
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064488556
+      }
+    ],
+    "2.5 建立 `test/test_wikitext_examples.py`:golden 字面字串測試": [
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064066187
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064288494
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064387147
+      }
+    ],
+    "3.1 修改 `src/keeplink_mcp/citation/builder.py`:新增列舉值並登記": [
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064066253
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064288884
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064488735
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064493340
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064590075
+      }
+    ],
+    "3.2 建立 `test/test_wikitext_builder_properties.py`:builder 層屬性測試": [
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064066321
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064594692
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064737568
+      }
+    ],
+    "3.3 在 `test/test_wikitext_regression.py` 加入 Property 8 屬性測試": [
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064066389
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064595454
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064737387
+      }
+    ],
+    "4.1 修改 `src/keeplink_mcp/mcp_server/server.py`:`archive_and_cite` 的 `format` enum 與描述": [
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064066471
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064225423
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064281749
+      }
+    ],
+    "4.2 更新 `test/test_citation_builder_examples.py` 的 enum 測試": [
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064066530
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064596336
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064737898
+      }
+    ],
+    "5.1 在 `test/test_cite_endpoint.py` 加入 `format=wikitext` 的端對端案例": [
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064066593
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064597125
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064738636
+      }
+    ],
+    "6.1 執行並檢查會以 `list(CitationFormat)` 掃描的既有測試": [
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064066649
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064744800
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794065117556
+      }
+    ],
+    "7.1 更新 `docs/` 下列出支援引用格式的專案文件": [
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064066707
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064597630
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064739250
+      }
+    ],
+    "7.2 更新 `README.md`": [
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064066770
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064598210
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064739864
+      }
+    ],
+    "8. Checkpoint - 確認 wikitext 功能與回歸基準": [
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064066830
+      },
+      {
+        "executionId": "463f29a9-7f37-4b3e-9bb0-a40c0eb18b3c",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794065843580
+      },
+      {
+        "executionId": "463f29a9-7f37-4b3e-9bb0-a40c0eb18b3c",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794065848890
+      }
+    ],
+    "9.1 執行 lint、測試與版本檢查,並取得實體產物證據": [
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064066891
+      },
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794065128685
+      },
+      {
+        "executionId": "463f29a9-7f37-4b3e-9bb0-a40c0eb18b3c",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794065671513
+      },
+      {
+        "executionId": "463f29a9-7f37-4b3e-9bb0-a40c0eb18b3c",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794065827150
+      }
+    ],
+    "1. 凍結既有格式的回歸基準(必須在修改 `builder.py` 之前完成)": [
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064219616
+      }
+    ],
+    "2. 建立 `citation/wikitext.py` 並以測試驗證": [
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064488636
+      }
+    ],
+    "3. 在 `builder.py` 登記 wikitext": [
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064737790
+      }
+    ],
+    "4. 同步 MCP 工具定義": [
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064737990
+      }
+    ],
+    "5. 端對端測試(不改 `api/` 程式碼)": [
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064738708
+      }
+    ],
+    "7. 文件更新": [
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794064739937
+      }
+    ],
+    "6. 確認既有掃描式測試涵蓋 wikitext": [
+      {
+        "executionId": "f627a013-c334-44d2-9bb2-26435bec3708",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794065117690
+      }
+    ],
+    "9. 最終驗證": [
+      {
+        "executionId": "463f29a9-7f37-4b3e-9bb0-a40c0eb18b3c",
+        "chatSessionId": "sess_49c29777-6dc9-4f40-b5fa-54a2e67d4197",
+        "timestamp": 1794065827241
+      }
+    ]
+  }
+}
