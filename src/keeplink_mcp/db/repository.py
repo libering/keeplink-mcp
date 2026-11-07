@@ -90,7 +90,7 @@ class TaskRepository:
                 ArchiveTask.created_at >= cutoff,
                 ArchiveTask.status.in_(dedup_statuses),
             )
-            .order_by(ArchiveTask.created_at.desc())
+            .order_by(ArchiveTask.created_at.desc(), ArchiveTask.task_id.desc())
             .limit(1)
         )
         result = await self._session.execute(stmt)
@@ -111,7 +111,7 @@ class TaskRepository:
         stmt = (
             select(ArchiveTask)
             .where(ArchiveTask.url == url)
-            .order_by(ArchiveTask.created_at.desc())
+            .order_by(ArchiveTask.created_at.desc(), ArchiveTask.task_id.desc())
             .limit(1)
         )
         result = await self._session.execute(stmt)
@@ -355,7 +355,15 @@ class TaskRepository:
         )
 
         result = await self._session.execute(stmt)
-        return list(result.scalars().all())
+        # created_at can tie (coarse clocks on Windows + Python<3.13), which makes
+        # the join return several rows per URL. Keep exactly one, picking the
+        # highest task_id so the choice is deterministic.
+        latest: dict[str, ArchiveTask] = {}
+        for task in result.scalars().all():
+            current = latest.get(task.url)
+            if current is None or task.task_id > current.task_id:
+                latest[task.url] = task
+        return list(latest.values())
 
     async def get_queue_stats(self, window_hours: int = 24) -> dict[str, int]:
         """Return queue statistics for health check.
