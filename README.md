@@ -307,7 +307,7 @@ Everything's controlled via env vars (prefix `KEEPLINK_`):
 
 ## How it works under the hood
 
-1. Agent calls `archive_url` → MCP server validates the URL → POSTs to FastAPI
+1. Agent calls `archive_url` → MCP server validates the URL → POSTs to FastAPI. Validation rejects URLs that contain credentials (userinfo), point to localhost or private/internal network addresses, or exceed 2048 characters.
 2. FastAPI checks if this URL was already submitted in the last 24h (dedup) → writes to SQLite → returns task ID
 3. Worker picks up pending tasks every 5s → calls Internet Archive via waybackpy
 4. Success? Stores the archive URL. Got 429/5xx? Backs off and retries. Got 403? Gives up.

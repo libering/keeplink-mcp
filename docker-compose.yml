@@ -5,7 +5,7 @@ services:
   keeplink:
     build: .
     ports:
-      - "${KEEPLINK_API_PORT:-19210}:19210"
+      - "127.0.0.1:${KEEPLINK_API_PORT:-19210}:19210"
     volumes:
       - keeplink-data:/app/data
     environment:
