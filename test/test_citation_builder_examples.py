@@ -138,7 +138,8 @@ class TestCitationInconsistentState:
 # Improvement H — multi-format citation golden / example unit tests
 # ===========================================================================
 #
-# Golden strings for the four Citation_Format values across the complete and
+# Golden strings for the original four Citation_Format values (wikitext lives
+# in test_wikitext_examples.py) across the complete and
 # pending states, plus schema-default, tool-schema, and invalid-format-logging
 # checks. Derived from the concrete formatter implementations in
 # ``keeplink_mcp.citation.builder`` using the fixed inputs above so each golden
@@ -285,7 +286,7 @@ class TestCiteRequestFormatDefault:
 
 
 class TestArchiveAndCiteFormatSchema:
-    """archive_and_cite inputSchema exposes an optional 4-value `format` enum.
+    """archive_and_cite inputSchema exposes an optional 5-value `format` enum.
 
     **Validates: Requirements 3.7**
     """
@@ -302,10 +303,14 @@ class TestArchiveAndCiteFormatSchema:
         assert tool is not None
         return tool
 
-    async def test_format_enum_is_the_four_values(self) -> None:
+    async def test_format_enum_lists_all_five_values(self) -> None:
+        expected = ["markdown", "bibtex", "apa", "plain", "wikitext"]
         tool = await self._archive_and_cite_tool()
         fmt = tool.inputSchema["properties"]["format"]
-        assert fmt["enum"] == ["markdown", "bibtex", "apa", "plain"]
+        assert fmt["enum"] == expected
+        assert "wikitext" in fmt["description"]
+        # Enum members must stay in sync with the MCP schema, order included.
+        assert [f.value for f in CitationFormat] == expected
 
     async def test_format_is_optional(self) -> None:
         tool = await self._archive_and_cite_tool()

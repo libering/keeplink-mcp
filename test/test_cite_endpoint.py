@@ -18,6 +18,7 @@ endpoint touches* rather than input-varying invariants:
    there is no LLM client module at all.
 """
 
+import re
 from unittest.mock import patch
 
 import pytest
@@ -222,3 +223,74 @@ class TestCiteNoFetchNoLLM:
             assert importlib.util.find_spec(llm_module) is None, (
                 f"unexpected LLM client dependency present: {llm_module}"
             )
+
+
+# ---------------------------------------------------------------------------
+# wikitext-citation-format — end-to-end through POST /api/cite
+# ---------------------------------------------------------------------------
+
+
+class TestCiteWikitextFormat:
+    """``format=wikitext`` over the real endpoint; asserts actual body strings."""
+
+    async def test_complete_cache_hit_returns_cite_web_template(
+        self, client: AsyncClient, session_factory
+    ):
+        """**Validates: Requirements 1.2, 1.4, 2.1, 2.5**
+
+        A SUCCESS task with a result URL yields a complete {{cite web}} string
+        carrying url-status, archive-url and an ISO archive-date.
+        """
+        url = "https://example.com/wikitext-complete"
+        archived_url = f"https://web.archive.org/web/20240101000000/{url}"
+        async with session_factory() as session:
+            repo = TaskRepository(session)
+            task = await repo.create_task(url)
+            await repo.mark_success(task.task_id, archived_url)
+
+        resp = await client.post("/api/cite", json={"url": url, "format": "wikitext"})
+
+        assert resp.status_code == 200
+        body = resp.json()
+        formatted = body["formatted"]
+        assert body["archived_url"] == archived_url
+        assert formatted.startswith("{{cite web ")
+        assert formatted.endswith("}}")
+        assert "|url-status=live" in formatted
+        assert f"|archive-url={archived_url}" in formatted
+        match = re.search(r"\|archive-date=(\d{4}-\d{2}-\d{2})\}\}$", formatted)
+        assert match is not None
+        assert match.group(1) == body["archived_at"][:10]
+
+    async def test_pending_returns_progress_note_without_archive_fields(
+        self, client: AsyncClient
+    ):
+        """**Validates: Requirements 5.1, 5.2**
+
+        A freshly queued URL yields a pending template with the task_id in a
+        comment and no archive-url.
+        """
+        resp = await client.post(
+            "/api/cite",
+            json={"url": "https://example.com/wikitext-pending", "format": "wikitext"},
+        )
+
+        assert resp.status_code == 200
+        body = resp.json()
+        formatted = body["formatted"]
+        assert formatted.startswith("{{cite web ")
+        assert body["task_id"] in formatted
+        assert "Archiving in progress" in formatted
+        assert "archive-url" not in formatted
+
+    async def test_invalid_format_case_returns_422(self, client: AsyncClient):
+        """**Validates: Requirements 1.4**
+
+        The enum is case-sensitive: ``Wikitext`` is rejected with 422.
+        """
+        resp = await client.post(
+            "/api/cite",
+            json={"url": "https://example.com/wikitext-bad", "format": "Wikitext"},
+        )
+
+        assert resp.status_code == 422

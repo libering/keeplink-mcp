@@ -12,6 +12,8 @@ from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
 
+from keeplink_mcp.citation.wikitext import complete_wikitext, pending_wikitext
+
 
 class CitationFormat(str, Enum):
     """Supported citation output formats for the `formatted` field.
@@ -24,6 +26,7 @@ class CitationFormat(str, Enum):
     BIBTEX = "bibtex"
     APA = "apa"
     PLAIN = "plain"
+    WIKITEXT = "wikitext"
 
 
 # Formatter signatures: complete needs the five fields; pending only needs
@@ -287,10 +290,12 @@ _COMPLETE_FORMATTERS: dict[CitationFormat, CompleteFormatter] = {
     CitationFormat.BIBTEX: _complete_bibtex,
     CitationFormat.APA: _complete_apa,
     CitationFormat.PLAIN: _complete_plain,
+    CitationFormat.WIKITEXT: complete_wikitext,
 }
 _PENDING_FORMATTERS: dict[CitationFormat, PendingFormatter] = {
     CitationFormat.MARKDOWN: _pending_markdown,
     CitationFormat.BIBTEX: _pending_bibtex,
     CitationFormat.APA: _pending_apa,
     CitationFormat.PLAIN: _pending_plain,
+    CitationFormat.WIKITEXT: pending_wikitext,
 }

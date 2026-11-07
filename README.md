@@ -160,6 +160,8 @@ The response comes in one of two shapes depending on archive state:
 - **Cache_Hit** — if the URL was already archived within the 24h dedup window, you get a **complete** citation immediately: `archived_url` points at the permanent Wayback Machine snapshot, `archived_at` is set, and `formatted` is a ready-to-paste markdown reference like `[title](archived_url) (original: original_url, archived YYYY-MM-DD)`. When you don't supply a `title`, the `archived_url` is used as the link text instead.
 - **Pending_Citation** — otherwise archiving is queued/in progress: `archived_url` and `archived_at` are `null`, and `formatted` states that archiving is in progress and includes the `original_url` and `task_id`. Call `get_archive_status(task_id)` later to obtain the permanent `archived_url` and complete the citation.
 
+The optional `format` parameter selects the style of `formatted` and accepts `markdown` (default), `bibtex`, `apa`, `plain`, or `wikitext`; `wikitext` produces a Wikipedia `{{cite web}}` template with `archive-url` and `archive-date`.
+
 KeepLink stays fully deterministic and LLM-free when producing a citation: it does **not** fetch the page content (supply the `title` yourself) and does **not** invoke any large language model.
 
 ## HTTP API Endpoints

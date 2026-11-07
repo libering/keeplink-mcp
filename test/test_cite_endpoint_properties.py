@@ -224,7 +224,7 @@ async def test_property_dedup_reuse(url: str, status: TaskStatus, title, session
 # dedup lookups unambiguous.
 # ===========================================================================
 
-# All four valid formats (full enum coverage per design.md Strategies).
+# All valid formats (full enum coverage per design.md Strategies).
 _VALID_FORMAT_STRATEGY = st.sampled_from(list(CitationFormat))
 
 # Task states that the cite endpoint distinguishes:
@@ -236,7 +236,7 @@ _ENDPOINT_STATE_STRATEGY = st.sampled_from(
 )
 
 # Invalid format strings: any value NOT equal to one of the enum values.
-# We exclude the four valid values so every drawn string must fail validation.
+# We exclude every valid enum value so every drawn string must fail validation.
 _VALID_FORMAT_VALUES = frozenset(f.value for f in CitationFormat)
 _INVALID_FORMAT_STRATEGY = st.one_of(
     st.just(""),
