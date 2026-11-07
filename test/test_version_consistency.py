@@ -76,16 +76,16 @@ class TestVersionConsistency:
 
 
 # Target_Version carried over from keeplink-v1x-improvements (versions aligned to
-# 1.2.0). Authoritative source is keeplink_mcp.__version__; these example/golden
-# tests pin the concrete literal so a drift away from 1.2.0 fails loudly.
-_TARGET_VERSION = "1.2.0"
+# 1.2.1). Authoritative source is keeplink_mcp.__version__; these example/golden
+# tests pin the concrete literal so a drift away from 1.2.1 fails loudly.
+_TARGET_VERSION = "1.2.1"
 
 
 class TestVersionExamples:
-    """Example (golden) tests pinning the concrete Target_Version '1.2.0'."""
+    """Example (golden) tests pinning the concrete Target_Version '1.2.1'."""
 
     def test_init_version_is_target(self) -> None:
-        """__version__ SHALL be the concrete Target_Version '1.2.0'.
+        """__version__ SHALL be the concrete Target_Version '1.2.1'.
 
         Validates: Requirement 1.1
         """
@@ -98,7 +98,7 @@ class TestVersionExamples:
         """handoverbook Handoverbook_Current_Marker SHALL carry the Target_Version.
 
         Uses the script's ``extract_handoverbook_version`` (only the top current
-        marker `版本：v1.2.0`, never a Historical_Version_Reference) so a stale
+        marker `版本：v1.2.1`, never a Historical_Version_Reference) so a stale
         handoverbook version fails loudly (fail-fast).
 
         Validates: Requirements 5.1, 5.2, 9.5

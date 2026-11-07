@@ -4,7 +4,7 @@ A local daemon that lets AI agents archive web pages to the Wayback Machine in t
 
 Works with any MCP-compatible client (Kiro, Cursor, Claude Desktop, etc).
 
-**Version: 1.2.0**
+**Version: 1.2.1**
 
 ## Why?
 

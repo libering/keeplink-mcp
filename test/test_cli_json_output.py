@@ -99,8 +99,8 @@ def test_json_mode_consistent_repo() -> None:
     assert set(payload.keys()) == _CONTRACT_KEYS, f"鍵集合不符契約：{payload.keys()}"
 
     assert payload["ok"] is True, f"當前 repo 應一致，ok 應為 true：{payload}"
-    assert payload["authoritative"] == "1.2.0", (
-        f"權威版本應為 1.2.0：{payload['authoritative']}"
+    assert payload["authoritative"] == "1.2.1", (
+        f"權威版本應為 1.2.1：{payload['authoritative']}"
     )
 
     # Req 2.4：sources 為同序物件陣列，含三個 Manual 來源。
@@ -112,7 +112,7 @@ def test_json_mode_consistent_repo() -> None:
     ], f"sources 名稱/順序不符：{source_names}"
     for src in payload["sources"]:
         assert set(src.keys()) == {"name", "version"}, f"source 元素鍵不符：{src}"
-        assert src["version"] == "1.2.0", f"來源 {src['name']} 版本應為 1.2.0"
+        assert src["version"] == "1.2.1", f"來源 {src['name']} 版本應為 1.2.1"
 
     # 一致情境下三個明細欄位皆空、extraction_error 為 null。
     assert payload["mismatches"] == {}, f"mismatches 應為空：{payload['mismatches']}"
@@ -138,9 +138,9 @@ def test_render_json_inconsistent_unit() -> None:
     Validates: Requirements 1.3, 2.2, 2.5, 2.6
     """
     result = CheckResult(
-        authoritative="1.2.0",
+        authoritative="1.2.1",
         sources=[
-            VersionSource(name="src/keeplink_mcp/__init__.py", version="1.2.0"),
+            VersionSource(name="src/keeplink_mcp/__init__.py", version="1.2.1"),
             VersionSource(name="README.md", version="9.9.9"),
         ],
         ok=False,
@@ -154,9 +154,9 @@ def test_render_json_inconsistent_unit() -> None:
 
     assert set(payload.keys()) == _CONTRACT_KEYS
     assert payload["ok"] is False, "含 mismatch/structure_error 時 ok 應為 false"
-    assert payload["authoritative"] == "1.2.0"
+    assert payload["authoritative"] == "1.2.1"
     assert payload["sources"] == [
-        {"name": "src/keeplink_mcp/__init__.py", "version": "1.2.0"},
+        {"name": "src/keeplink_mcp/__init__.py", "version": "1.2.1"},
         {"name": "README.md", "version": "9.9.9"},
     ]
     # Req 2.5：mismatches 為 string→string 物件。
@@ -187,7 +187,7 @@ def test_default_mode_regression() -> None:
     )
     # 人讀報告的穩定一致標記（render_report 的 ✅ 分支），且非 JSON（不以 '{' 開頭）。
     assert "✅" in result.stdout, f"Default_Mode 應輸出人讀一致標記：\n{result.stdout}"
-    assert "1.2.0" in result.stdout, f"報告應含權威版本值：\n{result.stdout}"
+    assert "1.2.1" in result.stdout, f"報告應含權威版本值：\n{result.stdout}"
     assert not result.stdout.lstrip().startswith("{"), (
         f"Default_Mode 不應輸出 JSON：\n{result.stdout}"
     )
