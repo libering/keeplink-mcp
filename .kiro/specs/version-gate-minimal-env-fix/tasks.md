@@ -72,13 +72,13 @@
     - `test_source_list_composition.py`：改斷言 `SOURCE_SPECS` 為恰 3 項 2-tuple、首筆為權威來源；移除 Derived/`is_derived` 斷言
     - _Requirements: 9.1, 9.2_
 
-  - [x]* 4.2 更新 test_property1_consistency.py（Property 1，不弱化）
+  - [x] 4.2 更新 test_property1_consistency.py（Property 1，不弱化）
     - **Property 1（更新）：一致性判定納入結構檢查**
     - **Validates: Requirements 6.3, 6.4**
     - `check_consistency` 呼叫處補傳 `structure_errors` 參數；生成一致集傳 `[]` 應 `ok=True`、注入非空 `structure_errors` 或不一致/格式違規應 `ok=False` 且報告列出每個來源與其版本值
     - 註解標記 `Feature: version-consistency-gate, Property 1: ...`；hypothesis ≥100 迭代，不弱化既有斷言
 
-  - [x]* 4.3 更新 test_property3_fail_fast.py（Property 3，2-tuple spy/mock）
+  - [x] 4.3 更新 test_property3_fail_fast.py（Property 3，2-tuple spy/mock）
     - **Property 3（沿用，實作微調）：True fail-fast 於首個擷取失敗即停止**
     - **Validates: Requirements 8.5**
     - 依 2-tuple `SOURCE_SPECS` 調整 spy/mock；斷言於首個失敗索引 k 停止、已成功來源恰 0..k-1、錯誤只提及索引 k、索引 k 之後 extractor 從未被呼叫
@@ -97,13 +97,13 @@
     - 反例：以合成內容建立「`pyproject.toml` 含行首靜態 `version = "x"`」「`app.py` 含 `version="字面量"`」「目標檔缺失」情境，斷言回非空且含對應違規說明；並斷言 `requires-python`/`target-version` 不被誤判
     - _Requirements: 2.4, 3.4, 4.3, 9.5_
 
-  - [x]* 5.2 新增 Property 6 property test（結構檢查正確性）
+  - [x] 5.2 新增 Property 6 property test（結構檢查正確性）
     - **Property 6（新增）：結構檢查正確性**
     - **Validates: Requirements 2.1, 2.2, 2.4, 3.1, 3.2, 3.4, 4.2, 4.3**
     - 生成策略：對各目標檔生成「全 required 命中且全 forbidden 不命中」「至少一 required 缺失」「至少一 forbidden 命中」「目標檔缺失」等內容組合，寫入臨時 repo 結構；斷言 `check_structure` 回空 **當且僅當** 全部通過，否則回非空、為每條違規各收一條說明、且不因任一違規提早中止其餘規則處理
     - 註解標記 `Feature: version-consistency-gate, Property 6: ...`；hypothesis ≥100 迭代
 
-  - [x]* 5.3 新增 Property 7 property test（結構違規報告分節）
+  - [x] 5.3 新增 Property 7 property test（結構違規報告分節）
     - **Property 7（新增）：結構違規報告分節**
     - **Validates: Requirements 7.1, 7.2**
     - 生成策略：生成帶空/非空 `structure_errors` 的 `CheckResult`，斷言 `render_report` 於非空時含「能力 A 接線結構違規」分節並出現每條違規文字、於空時不含該分節
@@ -129,7 +129,7 @@
 
 ## Notes
 
-- 標記 `*` 的子任務為測試相關（property）可選；清理（任務 1）、核心實作（任務 2）、更新既有/結構 example 測試（4.1/4.4/5.1）、驗證收尾（任務 7）與最終驗收（任務 8）為核心任務，**不得**略過。
+- 本計畫所有任務（含 property test 4.2/4.3/5.2/5.3）皆為必做，不含選填（`*`）任務，**不得**略過。
 - 每個任務標註對應的 requirements 子條款以利追溯。
 - Property 編號延續既有 `version-consistency-gate`：Property 1 更新、Property 3 沿用、Property 6/7 新增；Property 2/4/5 不受本修正影響，無對應任務。
 - 任務 1（清理舊 spec）與任務 6（舊 spec 設計紀錄）皆只動 `version-consistency-gate/` 下的 md，與程式修改互不衝突。
